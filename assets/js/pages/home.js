@@ -76,7 +76,9 @@
           try {
             scene = SibHero3D.create(canvas, {
               count: c.desktop ? 2400 : 1100,
-              offsetX: c.desktop ? 2.6 : 0
+              offsetX: c.desktop ? 2.4 : 0,
+              bloom: c.desktop,
+              maxPixelRatio: c.desktop ? 2 : 1.5
             });
           } catch (e) {
             hero.classList.add("no-3d");
@@ -88,7 +90,7 @@
           if (c.reduce) {
             // Sin movimiento: un único fotograma con la shortlist ya formada
             scene.setIntro(1);
-            scene.setProgress(0.6);
+            scene.setProgress(0);
             scene.render(0);
             return;
           }
@@ -108,24 +110,24 @@
                 scrollTrigger: {
                   trigger: hero,
                   start: "top top",
-                  end: "+=150%",
+                  end: "+=220%",
                   pin: true,
                   scrub: 1,
                   onUpdate: function (self) {
                     var p = self.progress;
-                    var idx = p < 0.3 ? 0 : p < 0.66 ? 1 : 2;
+                    var idx = p < 0.55 ? 0 : p < 0.8 ? 1 : 2;
                     phases.forEach(function (li, i) { li.classList.toggle("on", i === idx && p > 0.04); });
                   }
                 }
               })
                 .to(state, { progress: 1, ease: "none", duration: 1 }, 0)
-                .to(".hero-in", { autoAlpha: 0, y: -40, ease: "power1.in", duration: 0.25 }, 0.3)
+                .to(".hero-in", { autoAlpha: 0, y: -40, ease: "power1.in", duration: 0.14 }, 0.1)
                 .to(".scroll-cue", { autoAlpha: 0, duration: 0.1 }, 0);
             } else {
               // Móvil: el hero ya ocupa más que la pantalla; sin fijarlo,
               // la escena avanza mientras se sale de ella
               gsap.to(state, {
-                progress: 0.62, ease: "none",
+                progress: 0.3, ease: "none",
                 scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 1 }
               });
             }
