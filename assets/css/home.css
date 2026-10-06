@@ -62,7 +62,9 @@ main{position:relative}
   .stage::after{background:rgba(13,19,56,.6)}
   .lema{padding-top:40px}
   .lema-steps{grid-template-columns:1fr;gap:0}
-  .lema-step{min-height:55svh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:28px}
+  .lema-step{display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:28px;margin-bottom:28px}
+  /* Espacio para ver la escena 3D entre pasos, solo si se está mostrando */
+  .lema.is-live .lema-step{min-height:55svh;margin-bottom:0}
 }
 body.home footer.site{position:relative;z-index:1}
 .perfiles-sec{position:relative;z-index:1;background:var(--paper)}
