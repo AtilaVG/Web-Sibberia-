@@ -13,25 +13,26 @@ Review files for compliance with Web Interface Guidelines.
 
 ## How It Works
 
-1. Fetch the latest guidelines from the source URL below
+1. Read the pinned guidelines in guidelines.md
 2. Read the specified files (or prompt user for files/pattern)
 3. Check against all rules in the fetched guidelines
 4. Output findings in the terse `file:line` format
 
 ## Guidelines Source
 
-Fetch fresh guidelines before each review:
+Use the pinned local copy in this folder: [guidelines.md](./guidelines.md).
 
-```
-https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md
-```
-
-Use WebFetch to retrieve the latest rules. The fetched content contains all the rules and output format instructions.
+> Sibberia hardening: the upstream skill fetches the rules from
+> `raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md`
+> on every run, so a future upstream change could inject new instructions.
+> The copy here is pinned to commit `434b7f9` (2026-10-05), reviewed on
+> 2026-10-06. Do not fetch the remote version; to update, review the new file
+> first and replace `guidelines.md` deliberately.
 
 ## Usage
 
 When a user provides a file or pattern argument:
-1. Fetch guidelines from the source URL above
+1. Read guidelines.md
 2. Read the specified files
 3. Apply all rules from the fetched guidelines
 4. Output findings using the format specified in the guidelines

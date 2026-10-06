@@ -43,7 +43,7 @@ jobs:
         run: |
           mkdir _site
           rsync -a ./ _site/ --exclude _site --exclude .git --exclude .github --exclude .claude \
-            --exclude node_modules --exclude site --exclude scripts --exclude docs \
+            --exclude node_modules --exclude site --exclude scripts --exclude docs --exclude CLAUDE.md \
             --exclude 'assets/js/src' --exclude 'package*.json'
 
       - name: Setup Pages
