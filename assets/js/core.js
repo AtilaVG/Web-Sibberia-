@@ -1,42 +1,56 @@
 /* SIBBERIA — core.js
-   Nav, burger, overlay, scroll progress, reveal, contadores, marquee, año */
+   Nav, menú móvil accesible, progreso de scroll, reveal, contadores, marquee, año */
 (function () {
   "use strict";
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---- Header scrolled ---- */
+  /* ---- Header scrolled + barra de progreso (una lectura por frame) ---- */
   var header = document.querySelector("header.site");
-  function onScroll() {
-    if (header) header.classList.toggle("scrolled", window.scrollY > 24);
-    var p = document.getElementById("sprogress");
-    if (p) {
-      var h = document.documentElement;
-      var max = h.scrollHeight - h.clientHeight;
-      p.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
-    }
+  var progress = document.getElementById("sprogress");
+  var ticking = false;
+  function paint() {
+    ticking = false;
+    var y = window.scrollY;
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    if (header) header.classList.toggle("scrolled", y > 24);
+    if (progress) progress.style.transform = "scaleX(" + (max > 0 ? y / max : 0) + ")";
   }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(paint); }
+  }, { passive: true });
+  paint();
 
-  /* ---- Burger / mobile menu ---- */
+  /* ---- Burger / menú móvil ---- */
   var burger = document.querySelector(".burger");
   var menu = document.querySelector(".mobile-menu");
   var overlay = document.getElementById("overlay");
-  function closeMenu() {
-    if (burger) burger.classList.remove("open");
-    if (menu) menu.classList.remove("open");
-    if (overlay) overlay.classList.remove("show");
+  function setMenu(open) {
+    if (!burger || !menu) return;
+    menu.classList.toggle("open", open);
+    burger.classList.toggle("open", open);
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    burger.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    if (overlay) overlay.classList.toggle("show", open);
+    if (open) {
+      var first = menu.querySelector("a");
+      if (first) setTimeout(function () { first.focus(); }, 50);
+    }
   }
   if (burger && menu) {
     burger.addEventListener("click", function () {
-      var open = menu.classList.toggle("open");
-      burger.classList.toggle("open", open);
-      if (overlay) overlay.classList.toggle("show", open);
+      setMenu(!menu.classList.contains("open"));
     });
-    if (overlay) overlay.addEventListener("click", closeMenu);
+    if (overlay) overlay.addEventListener("click", function () { setMenu(false); });
     menu.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", closeMenu);
+      a.addEventListener("click", function () { setMenu(false); });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && menu.classList.contains("open")) {
+        setMenu(false);
+        burger.focus();
+      }
     });
   }
 

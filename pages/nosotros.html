@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#152238">
   <title>Sobre Nosotros — Compartir, Crear, Crecer | Sibberia</title>
   <meta name="description" content="Más de 15 años en el sector de los RRHH. Conoce el equipo, los valores (humildad, integridad, excelencia) y la forma de trabajar de Sibberia.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700;800&family=Barlow+Semi+Condensed:wght@600&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/base.css?v=1">
-  <link rel="stylesheet" href="../assets/css/subpage.css?v=1">
+  <link rel="stylesheet" href="../assets/css/base.css?v=2">
+  <link rel="stylesheet" href="../assets/css/subpage.css?v=2">
 </head>
 <body>
 
@@ -29,16 +30,16 @@
     </ul>
     <div class="nav-r">
       <a class="btn btn-primary" href="contacto.html">Hablemos
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <button class="burger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
 </header>
-<div class="mobile-menu" aria-label="Menú móvil">
+<nav class="mobile-menu" id="mobile-menu" aria-label="Menú móvil">
   <a href="../index.html">Inicio</a><a href="seleccion.html">Selección</a><a href="formacion.html">Formación</a><a href="consultoria.html">Consultoría</a><a href="nosotros.html" class="active">Nosotros</a><a href="blog.html">Blog</a>
   <a class="btn btn-primary" href="contacto.html">Hablemos</a>
-</div>
+</nav>
 <div id="overlay"></div>
 
 <main id="main">
@@ -56,7 +57,7 @@
 <section class="sec">
   <div class="wrap tcol">
     <div>
-      <span class="tag"><span class="num">01</span> Nuestra historia</span>
+      <span class="tag">Nuestra historia</span>
       <h2 style="margin:14px 0 24px">Nacimos de una convicción</h2>
       <p class="lead">Las empresas que cuidan a su gente, crecen. Las que no, pagan el precio en rotación, desmotivación y oportunidades perdidas. Con esa idea nació Sibberia.</p>
       <p class="lead">Somos un equipo con más de <strong>15 años de experiencia</strong> en el sector, especializado en ayudar a las compañías a mejorar sus procesos relacionados con las personas. Lo que hacemos repercute en las demás áreas del negocio y en los resultados financieros: aportamos <strong>agilidad, flexibilidad, calidad y reducción de costes</strong>.</p>
@@ -71,10 +72,10 @@
     <aside>
       <h3>Sibberia en corto</h3>
       <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Consultora boutique de RRHH en Madrid</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Selección, formación y consultoría</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Trabajo a éxito con garantía</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Trato directo: hablas con quien ejecuta</li>
+        <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Consultora boutique de RRHH en Madrid</li>
+        <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Selección, formación y consultoría</li>
+        <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Trabajo a éxito con garantía</li>
+        <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Trato directo: hablas con quien ejecuta</li>
       </ul>
       <a class="btn btn-primary" href="contacto.html">Conócenos</a>
     </aside>
@@ -84,7 +85,7 @@
 <section class="sec" id="valores" style="background:var(--navy)">
   <div class="wrap">
     <div class="shead center">
-      <span class="tag"><span class="num">02</span> Valores</span>
+      <span class="tag">Valores</span>
       <h2 style="color:#fff">Nuestra base fundamental</h2>
       <p style="color:rgba(255,255,255,.55)">Humildad, integridad y excelencia. Todo lo demás se construye encima.</p>
     </div>
@@ -111,22 +112,22 @@
 <section class="sec soft-bg">
   <div class="wrap">
     <div class="shead center">
-      <span class="tag"><span class="num">03</span> Compromiso</span>
+      <span class="tag">Compromiso</span>
       <h2>Lo que puedes esperar de nosotros</h2>
     </div>
     <div class="feat-grid">
       <article class="featc reveal">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="ic"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <h3>Respuesta en 24h</h3>
         <p>Cualquier consulta tiene respuesta en un día laborable. Sin excepciones, sin buzones de voz infinitos.</p>
       </article>
       <article class="featc reveal d1">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <div class="ic"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
         <h3>Compromisos por escrito</h3>
         <p>Plazos, alcance y garantías pactados y firmados antes de empezar. Lo que decimos es lo que hacemos.</p>
       </article>
       <article class="featc reveal d2">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="ic"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <h3>Equipo senior siempre</h3>
         <p>Quien firma el proyecto es quien lo ejecuta. Sin delegar tu cuenta en perfiles junior que aprenden a tu costa.</p>
       </article>
@@ -140,7 +141,7 @@
     <p>Agenda una llamada y comprueba en 20 minutos si encajamos contigo.</p>
     <div class="acts">
       <a class="btn btn-primary" href="contacto.html">Agendar llamada
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
   </div>
@@ -154,7 +155,7 @@
       <div>
         <a class="logo" href="../index.html"><span class="mark">S</span><span class="word">SIBBER<em>IA</em></span></a>
         <p class="foot-desc">Consultoría de Recursos Humanos en Madrid. Selección, formación y estrategia para que las personas impulsen tu negocio.</p>
-        <p class="foot-motto">Compartir · Crear · Crecer</p>
+        <p class="foot-motto" translate="no">Compartir, crear, crecer</p>
       </div>
       <div class="foot-col">
         <h4>Servicios</h4>
@@ -190,6 +191,6 @@
   </div>
 </footer>
 
-<script src="../assets/js/core.js?v=1"></script>
+<script src="../assets/js/core.js?v=2"></script>
 </body>
 </html>

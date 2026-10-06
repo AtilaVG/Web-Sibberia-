@@ -28,10 +28,7 @@
 .phero .crumb a:hover{color:var(--amber)}
 .phero .crumb i{font-style:normal;color:rgba(255,255,255,.3)}
 .phero h1{color:#fff;max-width:760px;margin-bottom:20px}
-.phero h1 .gword{
-  background:var(--grad);-webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+.phero h1 .gword{color:inherit}
 .phero .sub{font-size:1.12rem;color:rgba(255,255,255,.66);max-width:620px}
 .phero .acts{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
 
@@ -147,8 +144,8 @@
 }
 .cinfo .ic svg{width:22px;height:22px;stroke:var(--orange)}
 .cinfo .lbl{
-  font-family:'Barlow Semi Condensed','Barlow',sans-serif;font-size:.74rem;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;
+  font-family:'Barlow Semi Condensed','Barlow',sans-serif;font-size:.88rem;
+  letter-spacing:.01em;color:var(--muted);margin-bottom:3px;
 }
 .cinfo .val{font-family:'Barlow',sans-serif;font-weight:700;color:var(--navy);font-size:1.02rem;line-height:1.45}
 .cinfo .val a:hover{color:var(--orange)}
@@ -166,8 +163,8 @@
 .ffield{display:flex;flex-direction:column;gap:7px}
 .ffield.full{grid-column:1/-1}
 .ffield label{
-  font-family:'Barlow Semi Condensed','Barlow',sans-serif;font-size:.74rem;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--navy);font-weight:600;
+  font-family:'Barlow Semi Condensed','Barlow',sans-serif;font-size:.9rem;
+  letter-spacing:.01em;color:var(--navy);font-weight:600;
 }
 .ffield input,.ffield select,.ffield textarea{
   font-family:'Mulish',sans-serif;font-size:.96rem;color:var(--ink);
@@ -189,7 +186,7 @@
   font-family:'Barlow',sans-serif;font-weight:700;font-size:.88rem;
   padding:9px 20px;border-radius:999px;border:1.5px solid var(--line);
   background:#fff;color:var(--muted);cursor:pointer;
-  transition:all .25s;
+  transition:background-color .25s,border-color .25s,color .25s;
 }
 .bfilter button:hover,.bfilter button.on{
   background:var(--navy);border-color:var(--navy);color:#fff;
@@ -201,3 +198,5 @@
 .legal h2:first-child{margin-top:0}
 .legal p,.legal li{font-size:.97rem;margin-bottom:12px}
 .legal ul{list-style:disc;padding-left:22px}
+.bcard-in{display:flex;flex-direction:column;flex:1}
+.bcard .more.soon{color:var(--muted);font-weight:600}
