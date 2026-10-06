@@ -1,0 +1,22 @@
+{
+  "_nota": "siteUrl se puede sobrescribir con la variable de entorno SITE_URL (p. ej. https://sibberia.com en producción).",
+  "siteUrl": "https://atilavg.github.io/Web-Sibberia-",
+  "nombre": "Sibberia",
+  "email": "hola@sibberia.com",
+  "telefonos": [
+    { "texto": "91 931 97 38", "tel": "+34919319738" },
+    { "texto": "655 18 81 31", "tel": "+34655188131" }
+  ],
+  "lema": "Compartir, crear, crecer",
+  "pendienteDeValidar": {
+    "_nota": "No se publican hasta que el cliente los confirme.",
+    "razonSocial": null,
+    "cif": null,
+    "direccion": null
+  },
+  "formularios": {
+    "_nota": "URL que recibe los formularios por POST (FormData). Vacío = el formulario explica que aún no está conectado.",
+    "contacto": "",
+    "newsletter": ""
+  }
+}
