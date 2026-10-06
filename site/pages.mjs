@@ -149,7 +149,7 @@ export function buildPages(cfg, data) {
     description: "Selección de perfiles técnicos e industriales: mantenimiento y SAT, producción, calidad, logística, ingeniería, automatización y programación.",
     css: ["home.css"],
     bodyClass: "home",
-    scripts: ["assets/vendor/gsap.min.js", "assets/vendor/ScrollTrigger.min.js", "assets/js/ofertas.js?v=2", "assets/js/pages/home.js?v=5"],
+    scripts: ["assets/vendor/gsap.min.js", "assets/vendor/ScrollTrigger.min.js", "assets/js/ofertas.js?v=2", "assets/js/pages/home.js?v=6"],
     jsonld: [org, { "@type": "WebSite", "@id": `${url}/#web`, url: `${url}/`, name: "Sibberia", inLanguage: "es", publisher: { "@id": `${url}/#organizacion` } }],
     body: (root) => `
 <div class="stage" aria-hidden="true">

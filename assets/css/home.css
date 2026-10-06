@@ -20,6 +20,8 @@ body.home{background:var(--indigo-night)}
 
 main{position:relative}
 .chapter{position:relative;z-index:1;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:140px 0 100px;color:#fff}
+/* el contenedor ocupa todo el ancho (si no, en flex se encoge y se centra) */
+.chapter>.wrap{width:100%}
 .chapter h1,.chapter h2{color:#fff}
 .chapter .sub,.chapter .lead{color:var(--white-70)}
 
@@ -59,12 +61,16 @@ main{position:relative}
 .valores-sec{background:var(--soft)}
 
 @media (max-width:880px){
-  .stage::after{background:rgba(13,19,56,.6)}
+  .stage::after{background:rgba(13,19,56,.5)}
   .lema{padding-top:40px}
   .lema-steps{grid-template-columns:1fr;gap:0}
   .lema-step{display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:28px;margin-bottom:28px}
   /* Espacio para ver la escena 3D entre pasos, solo si se está mostrando */
   .lema.is-live .lema-step{min-height:55svh;margin-bottom:0}
+  /* con escena: el velo oscuro solo detrás del texto de cada paso, para ver los cubos encima */
+  .stage.is-3d ~ main .lema,.lema.is-live{background:none}
+  .lema.is-live .lema-step{position:relative}
+  .lema.is-live .lema-step::before{content:"";position:absolute;top:0;bottom:0;left:-24px;right:-24px;z-index:-1;background:linear-gradient(to top,rgba(13,19,56,.82) 0%,rgba(13,19,56,.7) 40%,transparent 70%)}
 }
 body.home footer.site{position:relative;z-index:1}
 .perfiles-sec{position:relative;z-index:1;background:var(--paper)}

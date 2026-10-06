@@ -80,13 +80,14 @@
   });
 
   var s = document.createElement("script");
-  s.src = "assets/js/hero3d.js?v=4";
+  s.src = "assets/js/hero3d.js?v=5";
   s.async = true;
   s.onload = function () {
     try {
       scene = SibHero3D.create(canvas, {
         count: desktop ? 27 : 18,
-        offsetX: desktop ? 2.4 : 0,
+        // en pantallas panorámicas, los cubos más a la derecha para no quedar tras el texto
+        offsetX: desktop ? Math.min(2.4 + Math.max(innerWidth / innerHeight - 1.6, 0) * 1.6, 3.6) : 0,
         maxPixelRatio: desktop ? 1.75 : 1.25
       });
     } catch (e) { return; }
@@ -116,28 +117,36 @@
     lema.classList.add("is-live");
     setActive(1);
 
+    // El progreso de la escena es la SUMA del avance de cada tramo de scroll.
+    // (Antes había varios tweens fromTo sobre state.progress: al cargar,
+    // ScrollTrigger dejaba aplicado el valor inicial del último —el anillo de
+    // «Crear»— hasta que se hacía scroll.) quickTo suaviza como el scrub.
+    var tramos = [];
+    var toProgress = gsap.quickTo(state, "progress", { duration: 1.2, ease: "power3" });
+    function target() {
+      return tramos.reduce(function (sum, t) { return sum + t.st.progress * t.weight; }, 0);
+    }
+    function follow() { toProgress(target()); }
+    function snap() { var p = target(); toProgress(p, p); }
+    function tramo(vars, weight, extra) {
+      vars.onUpdate = extra ? function (self) { follow(); extra(self); } : follow;
+      vars.onRefresh = snap;
+      var st = ScrollTrigger.create(vars);
+      tramos.push({ st: st, weight: weight });
+      return st;
+    }
+
     if (desktop) {
       // Del hero al bloque del lema: paso 0 → 1
-      gsap.fromTo(state, { progress: 0 }, {
-        progress: 1, ease: "none", immediateRender: false,
-        scrollTrigger: { trigger: lema, start: "top bottom", end: "top top", scrub: 1.2 }
-      });
-      // Bloque fijado: el scroll recorre Compartir → Crear → Crecer
-      gsap.fromTo(state, { progress: 1 }, {
-        progress: 3, ease: "none", immediateRender: false,
-        scrollTrigger: {
-          trigger: lema, start: "top top", end: "+=200%", pin: true, scrub: 1.2,
-          onUpdate: function (self) { setActive(1 + self.progress * 2); }
-        }
-      });
+      tramo({ trigger: lema, start: "top bottom", end: "top top" }, 1);
+      // Bloque fijado: el scroll recorre Compartir → Crear → Crecer (1 → 3)
+      tramo({ trigger: lema, start: "top top", end: "+=200%", pin: true }, 2,
+        function (self) { setActive(1 + self.progress * 2); });
     } else {
       // Móvil: sin fijar; cada paso lleva la escena al suyo al llegar al centro
       steps.forEach(function (st) {
         var step = +st.getAttribute("data-step");
-        gsap.fromTo(state, { progress: step - 1 }, {
-          progress: step, ease: "none", immediateRender: false,
-          scrollTrigger: { trigger: st, start: "top bottom", end: "center center", scrub: 1.2 }
-        });
+        tramo({ trigger: st, start: "top bottom", end: "center center" }, 1);
         ScrollTrigger.create({
           trigger: st, start: "top center", end: "bottom center",
           onToggle: function (self) { if (self.isActive) setActive(step); }

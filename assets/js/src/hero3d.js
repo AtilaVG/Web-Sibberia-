@@ -165,6 +165,9 @@ export function create(canvas, opts = {}) {
   const shift = [offsetX * 1.45, 0, 0, 0];
 
   let progress = 0, intro = 0;
+  // En pantallas verticales (móvil) el campo horizontal es estrecho:
+  // la cámara se aleja para que cada formación entre completa.
+  let fit = 1;
   const pointer = { x: 0, y: 0 };
   const pos = new Vector3(), camP = new Vector3(), camT = new Vector3(), qq = new Quaternion();
 
@@ -173,6 +176,10 @@ export function create(canvas, opts = {}) {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+    fit = camera.aspect < 1.2 ? Math.min(1.2 / camera.aspect, 2.1) * 0.85 : 1;
+    // la niebla se aleja con la cámara (si no, la escena queda oscura)
+    scene.fog.near = 10 * fit;
+    scene.fog.far = 26 * fit;
   }
 
   function render(t) {
@@ -201,6 +208,7 @@ export function create(canvas, opts = {}) {
     const cu = smooth(0, 1, u);
     camP.lerpVectors(cams[k].p, cams[k + 1].p, cu);
     camT.lerpVectors(cams[k].t, cams[k + 1].t, cu);
+    if (fit !== 1) camP.sub(camT).multiplyScalar(fit).add(camT);
     group.position.x = shift[k] + (shift[k + 1] - shift[k]) * cu;
     camera.position.set(camP.x + pointer.x * 0.5, camP.y + pointer.y * 0.3, camP.z);
     camera.lookAt(camT);
