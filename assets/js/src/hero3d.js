@@ -1,6 +1,6 @@
 /* SIBBERIA — hero3d.js (fuente)
    Cubos de hielo con una persona grabada: los perfiles que encajan.
-   La escena acompaña el lema a lo largo de la home:
+   La escena acompaña el lema en la home (hero y bloque Compartir/Crear/Crecer):
      0 hero       cubos dispersos sobre el hielo; uno se eleva (el elegido)
      1 Compartir  se acercan y forman un círculo alrededor del elegido
      2 Crear      encajan en un bloque compacto: el equipo
@@ -145,22 +145,24 @@ export function create(canvas, opts = {}) {
   // 3 · Crecer: torre en espiral que sube; el elegido en la cima
   others.forEach((c, i) => {
     const a = i * 0.62;
-    c.f[3] = new Vector3(Math.cos(a) * 1.25, FLOOR_Y + i * 0.3, Math.sin(a) * 1.25);
+    c.f[3] = new Vector3(Math.cos(a) * 1.5, FLOOR_Y + i * 0.2, Math.sin(a) * 1.5);
     c.q[3] = q(0, -a, 0);
   });
-  chosen.f[3] = new Vector3(0, FLOOR_Y + others.length * 0.3 + 0.6, 0);
+  chosen.f[3] = new Vector3(0, FLOOR_Y + others.length * 0.2 + 0.6, 0);
   chosen.q[3] = q(0, 0.3, 0);
 
   // Cámara: posición y punto de mira por paso
+  // pasos 1-3: el texto va abajo, así que la cámara mira más abajo y la
+  // formación queda en la mitad superior de la pantalla
   const cams = [
     { p: new Vector3(0, 1.4, 10.5), t: new Vector3(0, -0.4, 0) },
-    { p: new Vector3(0, 4.6, 9.2), t: new Vector3(0, -0.9, 0) },
-    { p: new Vector3(1.2, 1.6, 8.6), t: new Vector3(0, -0.3, 0) },
-    { p: new Vector3(0, 3.2, 12.5), t: new Vector3(0, 2.4, 0) }
+    { p: new Vector3(0, 4.6, 9.6), t: new Vector3(0, -2.4, 0) },
+    { p: new Vector3(1.2, 1.6, 9.4), t: new Vector3(0, -1.8, 0) },
+    { p: new Vector3(0, 3.4, 15), t: new Vector3(0, 0.7, 0) }
   ];
   // desplazamiento lateral del grupo: deja sitio al texto (a la derecha en "Crear")
   const offsetX = opts.offsetX || 0;
-  const shift = [offsetX * 1.45, offsetX * 1.15, -offsetX * 1.5, offsetX * 1.1];
+  const shift = [offsetX * 1.45, 0, 0, 0];
 
   let progress = 0, intro = 0;
   const pointer = { x: 0, y: 0 };

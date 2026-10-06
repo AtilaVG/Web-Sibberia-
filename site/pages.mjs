@@ -46,25 +46,41 @@ const VALORES = [
 const cifrasHTML = (cls = "") => `<dl class="cifras ${cls}">${CIFRAS.map((c) =>
   `<div><dt>${c.texto}</dt><dd>${c.valor}</dd></div>`).join("")}</dl>`;
 
-function ofertaCard(root, o) {
-  return `<li class="oferta">
+/* Iconos de línea por familia de perfiles (24×24, trazo) */
+const AREA_ICON = {
+  "mantenimiento-y-sat": '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+  "produccion": '<path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1M12 18h1M7 18h1"/>',
+  "calidad-prl-medioambiente": '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+  "almacen-logistica-planificacion-compras": '<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>',
+  "ingenieria-y-proyectos": '<path d="M12 2v4"/><circle cx="12" cy="8" r="2"/><path d="m10.5 9.8-6 11.2M13.5 9.8l6 11.2M6 17h12"/>',
+  "automatizacion-y-robotica": '<rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16h.01M16 16h.01"/>',
+  "programadores": '<path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/>'
+};
+const areaIcon = (slug) => `<svg class="area-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${AREA_ICON[slug] || AREA_ICON.produccion}</svg>`;
+
+let AREA_NAMES = {};
+
+function ofertaCard(root, o, h = "h3") {
+  const area = AREA_NAMES[o.area];
+  return `<li class="oferta" data-area="${esc(o.area || "")}" data-zona="${esc(o.ubicacion)}">
   <a href="${root}ofertas-de-trabajo/${o.slug}/">
-    <h3>${esc(o.titulo)}</h3>
+    <div class="oferta-main"><${h}>${esc(o.titulo)}</${h}>${area ? `<span class="tag">${esc(area)}</span>` : ""}</div>
     <p class="oferta-loc">${icon.pin}<span>${esc(o.ubicacion)}</span></p>
     <span class="oferta-cta">Ver oferta ${icon.arrow}</span>
   </a>
 </li>`;
 }
 
-function ofertasList(root, ofertas, attrs = "") {
-  return `<ul class="ofertas" ${attrs}>${ofertas.map((o) => ofertaCard(root, o)).join("")}</ul>`;
+function ofertasList(root, ofertas, attrs = "", h = "h3") {
+  return `<ul class="ofertas" ${attrs}>${ofertas.map((o) => ofertaCard(root, o, h)).join("")}</ul>`;
 }
 
 function areasGrid(root, areas, current) {
   return `<ul class="areas">${areas.filter((a) => a.slug !== current).map((a) => `<li class="area">
   <a href="${root}seleccion-personas/${a.slug}/">
+    ${areaIcon(a.slug)}
     <h3>${esc(a.nombre)}</h3>
-    <p>${a.perfiles.map(esc).join(" · ")}</p>
+    <p>${a.perfiles.map(esc).join(", ")}</p>
     <span class="more">Ver perfiles ${icon.arrow}</span>
   </a>
 </li>`).join("")}</ul>`;
@@ -84,6 +100,9 @@ function phero(root, { kicker, title, sub, foto, crumbs, actions = "" }) {
   </div>
 </section>`;
 }
+
+/* Título para Google: el primer candidato de ≤60 caracteres */
+const fit = (...candidates) => candidates.find((t) => t.length <= 60) || candidates[candidates.length - 1];
 
 const crumb = (...items) => [{ name: "Inicio", path: "" }, ...items];
 
@@ -107,6 +126,7 @@ export function buildPages(cfg, data) {
   const url = cfg.siteUrl;
   const areas = data.areas || [];
   const areaBySlug = Object.fromEntries(areas.map((a) => [a.slug, a]));
+  AREA_NAMES = Object.fromEntries(areas.map((a) => [a.slug, a.nombre]));
   const org = organization(cfg, url);
   const ofertas = data.ofertas.filter((o) => o.estado === "abierta");
   const articulos = data.articulos.filter((a) => a.titulo && a.cuerpo);
@@ -117,10 +137,10 @@ export function buildPages(cfg, data) {
     path: "",
     nav: "",
     title: "Sibberia · Selección de perfiles técnicos e industriales",
-    description: "Sibberia: selección de perfiles técnicos e industriales (mantenimiento y SAT, producción, calidad y PRL, logística, ingeniería, automatización y programación), estrategia y formación. Más de 15 años de experiencia.",
+    description: "Selección de perfiles técnicos e industriales: mantenimiento y SAT, producción, calidad, logística, ingeniería, automatización y programación.",
     css: ["home.css"],
     bodyClass: "home",
-    scripts: ["assets/vendor/gsap.min.js", "assets/vendor/ScrollTrigger.min.js", "assets/js/ofertas.js?v=1", "assets/js/pages/home.js?v=4"],
+    scripts: ["assets/vendor/gsap.min.js", "assets/vendor/ScrollTrigger.min.js", "assets/js/ofertas.js?v=2", "assets/js/pages/home.js?v=5"],
     jsonld: [org, { "@type": "WebSite", "@id": `${url}/#web`, url: `${url}/`, name: "Sibberia", inLanguage: "es", publisher: { "@id": `${url}/#organizacion` } }],
     body: (root) => `
 <div class="stage" aria-hidden="true">
@@ -149,33 +169,26 @@ export function buildPages(cfg, data) {
   </div>
 </section>
 
-<section class="chapter" id="compartir" data-step="1" aria-labelledby="t-compartir">
+<section class="chapter lema" id="lema" aria-labelledby="t-lema">
   <div class="wrap">
-    <h2 class="giant word" id="t-compartir">Compartir</h2>
-    <div class="chapter-body">
-      <p class="lead">Empezamos escuchando. Compartimos contigo el día a día de tu empresa para entender a quién necesitas de verdad.</p>
-      <p class="stat"><b>+15</b> años de experiencia</p>
-    </div>
-  </div>
-</section>
-
-<section class="chapter" id="crear" data-step="2" aria-labelledby="t-crear">
-  <div class="wrap">
-    <h2 class="giant word" id="t-crear">Crear</h2>
-    <div class="chapter-body">
-      <p class="lead">Diseñamos cada proyecto desde cero, a la medida de tu empresa, para que cada persona encaje en su puesto y en su equipo.</p>
-      <p class="stat"><b>100%</b> proyectos a medida</p>
-    </div>
-  </div>
-</section>
-
-<section class="chapter" id="crecer" data-step="3" aria-labelledby="t-crecer">
-  <div class="wrap">
-    <h2 class="giant word" id="t-crecer">Crecer</h2>
-    <div class="chapter-body">
-      <p class="lead">Un equipo de consultores especializados acompaña a las personas y a la empresa para que crezcan juntas.</p>
-      <p class="stat"><b>+20</b> consultores especializados</p>
-    </div>
+    <h2 class="sr-only" id="t-lema">Cómo trabajamos: compartir, crear, crecer</h2>
+    <ol class="lema-steps">
+      <li class="lema-step" id="compartir" data-step="1">
+        <h3 class="word">Compartir</h3>
+        <p class="lead">Empezamos escuchando. Compartimos contigo el día a día de tu empresa para entender a quién necesitas de verdad.</p>
+        <p class="stat"><b>+15</b> años de experiencia</p>
+      </li>
+      <li class="lema-step" id="crear" data-step="2">
+        <h3 class="word">Crear</h3>
+        <p class="lead">Diseñamos cada proyecto desde cero, a la medida de tu empresa, para que cada persona encaje en su puesto y en su equipo.</p>
+        <p class="stat"><b>100%</b> proyectos a medida</p>
+      </li>
+      <li class="lema-step" id="crecer" data-step="3">
+        <h3 class="word">Crecer</h3>
+        <p class="lead">Un equipo de consultores especializados acompaña a las personas y a la empresa para que crezcan juntas.</p>
+        <p class="stat"><b>+20</b> consultores especializados</p>
+      </li>
+    </ol>
   </div>
 </section>
 
@@ -249,8 +262,8 @@ ${contactoCTA(root, cfg)}`
     pages.push({
       path: s.path,
       nav: s.path,
-      title: hub ? "Selección de perfiles técnicos e industriales · Sibberia" : `${s.nombre} · Sibberia`,
-      description: `${s.resumen} Sibberia: más de 15 años de experiencia y proyectos a medida.`,
+      title: hub ? "Selección de perfiles técnicos e industriales | Sibberia" : fit(`${s.nombre} | Sibberia`, s.nombre),
+      description: hub ? "Especialistas en selección de perfiles técnicos e industriales: mantenimiento, producción, calidad, logística, ingeniería y automatización." : `${s.resumen} Más de 15 años de experiencia y proyectos a medida.`,
       css: ["subpage.css"],
       crumbs: crumb({ name: s.nombre, path: s.path }),
       jsonld: [{
@@ -318,8 +331,8 @@ ${contactoCTA(root, cfg)}`
     pages.push({
       path: p,
       nav: "seleccion-personas/",
-      title: `${a.titulo} · Sibberia`,
-      description: `${a.titulo}: ${a.perfiles.join(", ")}. Especialistas en perfiles técnicos e industriales. Trabajamos a éxito y a medida.`,
+      title: a.seoTitulo || fit(`${a.titulo} | Sibberia`, a.titulo),
+      description: a.seoDescripcion || intro,
       css: ["subpage.css"],
       crumbs,
       jsonld: [{
@@ -382,7 +395,7 @@ ${contactoCTA(root, cfg, "¿Buscas este perfil?")}`
   pages.push({
     path: "nosotros/",
     nav: "nosotros/",
-    title: "Nosotros · Sibberia",
+    title: "Nosotros | Sibberia",
     description: "Sibberia: compartir, crear, crecer. Más de 15 años de experiencia, más de 20 consultores especializados y valores de humildad, integridad y excelencia.",
     css: ["subpage.css"],
     crumbs: crumb({ name: "Nosotros", path: "nosotros/" }),
@@ -414,10 +427,10 @@ ${contactoCTA(root, cfg)}`
   pages.push({
     path: "ofertas-de-trabajo/",
     nav: "ofertas-de-trabajo/",
-    title: "Ofertas de trabajo · Sibberia",
-    description: `Ofertas de trabajo abiertas en Sibberia: ${ofertas.map((o) => o.titulo + " (" + o.ubicacion + ")").join(", ")}.`,
+    title: "Ofertas de trabajo técnicas e industriales | Sibberia",
+    description: "Ofertas de trabajo para perfiles técnicos e industriales: mantenimiento, ingeniería, producción y más. Consulta las posiciones abiertas.",
     css: ["subpage.css"],
-    scripts: ["assets/js/ofertas.js?v=1"],
+    scripts: ["assets/js/ofertas.js?v=2"],
     crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }),
     jsonld: [{
       "@type": "ItemList",
@@ -432,8 +445,21 @@ ${phero(root, {
 })}
 <section class="sec">
   <div class="wrap">
-    <p class="count" data-ofertas-count>${ofertas.length} ofertas abiertas</p>
-    ${ofertasList(root, ofertas, `data-ofertas data-root="${root}"`)}
+    <div class="filtros" data-filtros hidden>
+      <div class="filtro" role="group" aria-label="Filtrar por familia">
+        <span class="filtro-l">Familia</span>
+        <button type="button" data-f="area" data-v="" aria-pressed="true">Todas</button>
+        ${[...new Set(ofertas.map((o) => o.area).filter(Boolean))].map((a) => `<button type="button" data-f="area" data-v="${a}" aria-pressed="false">${esc(areaBySlug[a].nombre)}</button>`).join("")}
+      </div>
+      <div class="filtro" role="group" aria-label="Filtrar por zona">
+        <span class="filtro-l">Zona</span>
+        <button type="button" data-f="zona" data-v="" aria-pressed="true">Todas</button>
+        ${[...new Set(ofertas.map((o) => o.ubicacion))].map((z) => `<button type="button" data-f="zona" data-v="${esc(z)}" aria-pressed="false">${esc(z)}</button>`).join("")}
+      </div>
+    </div>
+    <p class="count" data-ofertas-count aria-live="polite">${ofertas.length} ofertas abiertas</p>
+    ${ofertasList(root, ofertas, `data-ofertas data-root="${root}" data-h="h2"`, "h2")}
+    <p class="empty" data-ofertas-empty hidden>No hay ofertas abiertas con estos filtros. <button type="button" class="linkish" data-reset>Ver todas</button></p>
     <p class="note">¿No encuentras la tuya? Escríbenos a <a href="mailto:${cfg.email}">${cfg.email}</a>.</p>
   </div>
 </section>`
@@ -468,8 +494,8 @@ ${phero(root, {
     pages.push({
       path: p,
       nav: "ofertas-de-trabajo/",
-      title: `${o.titulo} en ${o.ubicacion} · Ofertas de trabajo · Sibberia`,
-      description: `Oferta de trabajo: ${o.titulo} en ${o.ubicacion}. Presenta tu candidatura a través de Sibberia.`,
+      title: fit(`${o.titulo} en ${o.ubicacion} | Sibberia`, `${o.titulo} en ${o.ubicacion}`, `${o.titulo} | Sibberia`, o.titulo),
+      description: `Oferta de empleo de ${o.titulo} en ${o.ubicacion}. Envía tu candidatura a Sibberia.`,
       css: ["subpage.css"],
       crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }, { name: o.titulo, path: p }),
       jsonld: [job],
@@ -493,7 +519,7 @@ ${phero(root, {
       ${o.jornada ? `<div><dt>Jornada</dt><dd>${esc(o.jornada)}</dd></div>` : ""}
       ${o.contrato ? `<div><dt>Contrato</dt><dd>${esc(o.contrato)}</dd></div>` : ""}
     </dl>
-    ${o.descripcion ? `<div class="prose">${esc(o.descripcion)}</div>` : `<p class="lead-dark">Estamos preparando la descripción completa de esta oferta. Si te interesa, escríbenos y te contamos los detalles.</p>`}
+    ${o.descripcion ? `<div class="prose">${esc(o.descripcion)}</div>` : ""}
     ${o.requisitos && o.requisitos.length ? `<h2>Requisitos</h2><ul class="prose">${o.requisitos.map((r) => `<li>${esc(r)}</li>`).join("")}</ul>` : ""}
     <div class="apply">
       <h2>Cómo inscribirte</h2>
@@ -506,22 +532,20 @@ ${phero(root, {
     });
   });
 
-  /* BLOG: listado y artículos */
-  pages.push({
+  /* BLOG: listado y artículos (solo si hay artículos publicables) */
+  if (articulos.length) pages.push({
     path: "blog/",
     nav: "blog/",
     title: "Blog · Sibberia",
     description: "Artículos de Sibberia sobre selección, gestión y desarrollo de personas.",
     css: ["subpage.css"],
     crumbs: crumb({ name: "Blog", path: "blog/" }),
-    jsonld: articulos.length ? [{ "@type": "Blog", name: "Blog de Sibberia", url: `${url}/blog/`, publisher: { "@id": `${url}/#organizacion` } }] : [],
-    warnings: articulos.length ? [] : ["Blog sin artículos: añade los títulos y textos reales en data/blog.json."],
+    jsonld: [{ "@type": "Blog", name: "Blog de Sibberia", url: `${url}/blog/`, publisher: { "@id": `${url}/#organizacion` } }],
     body: (root) => `
 ${phero(root, { kicker: "Blog", title: "Blog", sub: "Ideas sobre selección, gestión y desarrollo de personas.", crumbs: crumb({ name: "Blog", path: "blog/" }) })}
 <section class="sec">
   <div class="wrap">
-    ${articulos.length ? `<ul class="posts">${articulos.map((a) => `<li><a href="${root}blog/${a.slug}/"><h2>${esc(a.titulo)}</h2>${a.resumen ? `<p>${esc(a.resumen)}</p>` : ""}<span class="more">Leer artículo ${icon.arrow}</span></a></li>`).join("")}</ul>`
-      : `<p class="lead-dark">Muy pronto publicaremos aquí nuestros artículos.</p>`}
+    <ul class="posts">${articulos.map((a) => `<li><a href="${root}blog/${a.slug}/"><h2>${esc(a.titulo)}</h2>${a.resumen ? `<p>${esc(a.resumen)}</p>` : ""}<span class="more">Leer artículo ${icon.arrow}</span></a></li>`).join("")}</ul>
   </div>
 </section>`
   });
@@ -559,7 +583,7 @@ ${phero(root, { kicker: "Blog", title: esc(a.titulo), crumbs: crumb({ name: "Blo
   pages.push({
     path: "contacto/",
     nav: "contacto/",
-    title: "Contacto · Sibberia",
+    title: "Contacto | Sibberia",
     description: `Contacta con Sibberia: ${cfg.email}, ${cfg.telefonos.map((t) => t.texto).join(" y ")}.`,
     css: ["subpage.css"],
     crumbs: crumb({ name: "Contacto", path: "contacto/" }),
@@ -601,15 +625,16 @@ ${phero(root, { kicker: "Contacto", title: "Hablemos", sub: "Cuéntanos qué nec
   });
 
   /* LEGAL */
-  const pend = (k, label) => cfg.pendienteDeValidar[k] ? esc(cfg.pendienteDeValidar[k]) : `<mark class="pending">${label}: pendiente de validar</mark>`;
+  const dato = (k, label) => cfg.pendienteDeValidar[k] ? `<li>${label}: ${esc(cfg.pendienteDeValidar[k])}</li>` : "";
   pages.push({
     path: "legal/",
     nav: "",
-    title: "Aviso legal, privacidad y cookies · Sibberia",
+    title: "Aviso legal, privacidad y cookies | Sibberia",
     description: "Aviso legal, política de privacidad y política de cookies de Sibberia.",
     css: ["subpage.css"],
     crumbs: crumb({ name: "Aviso legal", path: "legal/" }),
     noindex: !cfg.pendienteDeValidar.cif,
+    warnings: cfg.pendienteDeValidar.cif ? [] : ["Aviso legal sin razón social, CIF ni domicilio (site/config.json → pendienteDeValidar)."],
     body: (root) => `
 ${phero(root, { kicker: "Legal", title: "Aviso legal y privacidad", crumbs: crumb({ name: "Aviso legal", path: "legal/" }) })}
 <section class="sec">
@@ -617,9 +642,9 @@ ${phero(root, { kicker: "Legal", title: "Aviso legal y privacidad", crumbs: crum
     <h2>Aviso legal</h2>
     <p>En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de los datos del titular de este sitio web:</p>
     <ul>
-      <li>Titular: ${pend("razonSocial", "Razón social")}</li>
-      <li>CIF: ${pend("cif", "CIF")}</li>
-      <li>Domicilio: ${pend("direccion", "Dirección postal")}</li>
+      ${dato("razonSocial", "Titular")}
+      ${dato("cif", "CIF")}
+      ${dato("direccion", "Domicilio")}
       <li>Email: <a href="mailto:${cfg.email}">${cfg.email}</a> · Teléfonos: ${cfg.telefonos.map((t) => `<a href="tel:${t.tel}">${t.texto}</a>`).join(" y ")}</li>
     </ul>
     <p>El acceso y uso de este sitio web atribuye la condición de usuario e implica la aceptación de las presentes condiciones. Los contenidos de esta web (textos, imágenes, diseño) son propiedad de Sibberia o de sus legítimos titulares y no podrán ser reproducidos sin autorización expresa.</p>

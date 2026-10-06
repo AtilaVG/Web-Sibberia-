@@ -54,11 +54,11 @@
 .cinfo ul{margin-bottom:28px}
 .cinfo li{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-family:var(--display);font-weight:700;font-size:1.2rem;color:var(--indigo)}
 .cinfo svg{width:22px;height:22px;flex-shrink:0}
-.cinfo a{text-decoration:none}
+.cinfo a{text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 .cform{display:flex;flex-direction:column;gap:18px}
 .who{border:0;display:flex;gap:20px;flex-wrap:wrap;align-items:center}
 .who legend{font-family:var(--display);font-weight:700;color:var(--indigo);margin-bottom:8px;width:100%}
-.who label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.who label{display:flex;gap:8px;align-items:center;cursor:pointer;min-height:44px}
 .who input{accent-color:var(--indigo);width:18px;height:18px}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .ffield{display:flex;flex-direction:column;gap:6px}

@@ -100,7 +100,16 @@
 
       var endpoint = form.getAttribute("data-endpoint");
       if (!endpoint) {
-        setStatus(form, "El envío online aún no está activo. Escríbenos a " + EMAIL + " y te responderemos.", "err");
+        // Sin servidor configurado: preparamos el email con los datos del formulario
+        var data = new FormData(form), lines = [];
+        [["perfil", "Escribo como"], ["nombre", "Nombre"], ["empresa", "Empresa"], ["email", "Email"], ["telefono", "Teléfono"]].forEach(function (f) {
+          var v = data.get(f[0]);
+          if (v) lines.push(f[1] + ": " + v);
+        });
+        lines.push("", data.get("mensaje") || "");
+        var subject = "Contacto web" + (data.get("empresa") ? " — " + data.get("empresa") : "");
+        window.location.href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.join("\n"));
+        setStatus(form, "Hemos preparado el mensaje en tu programa de correo; solo tienes que enviarlo. Si no se ha abierto, escríbenos a " + EMAIL + ".", "ok");
         return;
       }
       button.disabled = true;
@@ -119,6 +128,11 @@
         .then(function () { button.disabled = false; });
     });
   });
+
+  /* ---- Pie: en móvil, listas largas plegadas (siguen siendo enlaces normales) ---- */
+  if (window.matchMedia("(max-width: 640px)").matches) {
+    document.querySelectorAll("footer details[data-collapse]").forEach(function (d) { d.open = false; });
+  }
 
   /* ---- Año en el pie ---- */
   document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });

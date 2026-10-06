@@ -46,6 +46,7 @@ de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se edita
 - Compartir: «Empezamos escuchando. Compartimos contigo el día a día de tu empresa para entender a quién necesitas de verdad.»
 - Crear: «Diseñamos cada proyecto desde cero, a la medida de tu empresa, para que cada persona encaje en su puesto y en su equipo.»
 - Crecer: «Un equipo de consultores especializados acompaña a las personas y a la empresa para que crezcan juntas.»
+- Compartir, Crear y Crecer se muestran ahora en un único bloque de tres columnas, con las cifras reales (+15 años de experiencia, 100% proyectos a medida, +20 consultores especializados). Título oculto para lectores de pantalla: «Cómo trabajamos: compartir, crear, crecer».
 - Bloque «Qué hacemos» (resúmenes de servicio, abajo).
 - Valores: «Escuchamos antes de proponer y aprendemos de cada empresa y de cada persona.» / «Decimos lo que hacemos y hacemos lo que decimos, con transparencia en cada proceso.» / «Cuidamos cada detalle del proceso para que el resultado sea el que necesitas.»
 - «Trabajamos a éxito. Así nuestro objetivo es el mismo que el tuyo.»
@@ -69,21 +70,35 @@ de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se edita
 ## Ofertas de trabajo
 
 - Listado: «Estas son las posiciones que tenemos abiertas ahora mismo.» / «¿No encuentras la tuya? Escríbenos a hola@sibberia.com.»
-- Ficha (mientras falte la descripción): «Estamos preparando la descripción completa de esta oferta. Si te interesa, escríbenos y te contamos los detalles.»
+- Ficha: el texto provisional «Estamos preparando la descripción…» se ha quitado; la ficha muestra la descripción solo cuando el cliente la facilite.
+- Filtros del listado: «Familia», «Zona», «Todas», contador «N ofertas abiertas» y, si no hay resultados, «No hay ofertas abiertas con estos filtros.» con el botón «Ver todas». Cada oferta lleva la etiqueta de su familia profesional.
 - Descripción provisional en el JSON-LD: «Sibberia selecciona {puesto} en {ubicación}.»
 - «Cómo inscribirte: envía tu CV a hola@sibberia.com indicando en el asunto el nombre de la oferta.» (confirmar que es el canal correcto de candidaturas).
 
 ## Blog
 
-- «Ideas sobre selección, gestión y desarrollo de personas.» / Sin artículos: «Muy pronto publicaremos aquí nuestros artículos.»
+- «Ideas sobre selección, gestión y desarrollo de personas.» El blog está oculto (menú, pie, mapa del sitio) hasta que haya artículos reales; se ha quitado «Muy pronto publicaremos aquí nuestros artículos.»
 
 ## Contacto y formularios
 
 - «Hablemos. Cuéntanos qué necesitas. Si buscas empleo, revisa antes nuestras ofertas abiertas.»
-- Mensajes: «Gracias, hemos recibido tu mensaje. Te responderemos lo antes posible.» / «Listo: te has suscrito a la newsletter.» / «El envío online aún no está activo. Escríbenos a hola@sibberia.com y te responderemos.» / «No hemos podido enviar el formulario. Inténtalo de nuevo o escríbenos a hola@sibberia.com.» y los avisos de cada campo.
-- Aviso legal y privacidad: reutiliza el texto anterior; he añadido la finalidad «gestionar tu candidatura o enviarte la newsletter si te suscribes» y la frase sobre tipografías servidas desde el propio sitio. Revisar con el asesor legal.
+- Mensajes: «Gracias, hemos recibido tu mensaje. Te responderemos lo antes posible.» / «Listo: te has suscrito a la newsletter.» / «Hemos preparado el mensaje en tu programa de correo; solo tienes que enviarlo. Si no se ha abierto, escríbenos a hola@sibberia.com.» (mientras no haya destino configurado, el formulario abre el correo con los datos rellenados) / «No hemos podido enviar el formulario. Inténtalo de nuevo o escríbenos a hola@sibberia.com.» y los avisos de cada campo.
+- La newsletter del pie está oculta hasta que se configure su destino.
+- Aviso legal y privacidad: las líneas de razón social, CIF y domicilio no se muestran hasta que el cliente las confirme (la página queda en noindex).  reutiliza el texto anterior; he añadido la finalidad «gestionar tu candidatura o enviarte la newsletter si te suscribes» y la frase sobre tipografías servidas desde el propio sitio. Revisar con el asesor legal.
 
 ## Metadatos (SEO)
 
-- Títulos y descripciones de cada página (etiquetas `title` y `meta description`), definidos en `site/pages.mjs`.
+- Títulos y descripciones de cada página (etiquetas `title` y `meta description`), definidos en `site/pages.mjs`. Todos los títulos tienen 60 caracteres o menos y las descripciones 155 o menos.
+- Inicio: «Selección de perfiles técnicos e industriales: mantenimiento y SAT, producción, calidad, logística, ingeniería, automatización y programación.»
+- Selección (hub): «Selección de perfiles técnicos e industriales | Sibberia» / «Especialistas en selección de perfiles técnicos e industriales: mantenimiento, producción, calidad, logística, ingeniería y automatización.»
+- Ofertas: «Ofertas de trabajo técnicas e industriales | Sibberia» / «Ofertas de trabajo para perfiles técnicos e industriales: mantenimiento, ingeniería, producción y más. Consulta las posiciones abiertas.»
+- Cada oferta: «Oferta de empleo de {puesto} en {ubicación}. Envía tu candidatura a Sibberia.»
+- Familias profesionales (`data/areas.json` → seoTitulo / seoDescripcion):
+  - Mantenimiento y SAT: «Selección de técnicos de mantenimiento y SAT | Sibberia» / «Seleccionamos técnicos de mantenimiento eléctrico, mecánico y electromecánico y técnicos de SAT. Procesos a medida y a éxito.»
+  - Producción: «Selección de personal de producción | Sibberia» / «Seleccionamos operarios especialistas y jefes de turno para plantas industriales. Procesos a medida y a éxito.»
+  - Calidad, PRL y Medioambiente: «Selección de técnicos de calidad, PRL y medioambiente» / «Seleccionamos técnicos de calidad, de prevención de riesgos laborales (PRL) y de medioambiente. Procesos a medida y a éxito.»
+  - Almacén, Logística, Planificación y Compras: «Selección de personal de logística y almacén | Sibberia» / «Seleccionamos personal de almacén, logística, planificación y compras para la industria. Procesos a medida y a éxito.»
+  - Ingeniería y Proyectos: «Selección de ingenieros y técnicos de proyectos | Sibberia» / «Seleccionamos proyectistas, técnicos de site y técnicos de proyectos. Procesos a medida y a éxito.»
+  - Automatización y Robótica: «Selección de técnicos de automatización y robótica» / «Seleccionamos ingenieros y técnicos de automatización y robótica industrial. Procesos a medida y a éxito.»
+  - Programadores/as: «Selección de programadores | Sibberia» / «Seleccionamos programadores para empresas industriales y técnicas. Procesos a medida y a éxito.»
 - Textos alternativos de las fotos y de la imagen para redes sociales.

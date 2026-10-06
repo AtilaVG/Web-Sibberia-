@@ -41,14 +41,17 @@ main{position:relative}
 .path:hover svg{transform:translate(4px,-50%)}
 @media (max-width:640px){.paths{grid-template-columns:1fr}}
 
-/* Capítulos del lema */
-.chapter .word{font-size:clamp(3.2rem,10.5vw,9.5rem);margin-bottom:28px;white-space:nowrap;will-change:transform}
-.chapter-body{max-width:560px}
-.chapter .lead{font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.5;margin-bottom:28px}
-.chapter .stat{display:flex;align-items:baseline;gap:14px;color:var(--white-70);font-size:1.1rem;border-top:3px solid var(--yellow);padding-top:16px;max-width:420px}
-.chapter .stat b{font-family:var(--display);font-weight:700;font-size:clamp(3rem,6vw,4.6rem);color:#fff;line-height:.9}
-#crear .wrap{display:flex;flex-direction:column;align-items:flex-end;text-align:right}
-#crear .stat{margin-left:auto;flex-direction:row-reverse}
+/* Lema: Compartir → Crear → Crecer en un solo bloque. Todo visible;
+   con la escena activa, la columna del paso actual se resalta. */
+.lema{align-items:flex-end;padding-bottom:9vh;background:linear-gradient(to top,rgba(13,19,56,.92) 0%,rgba(13,19,56,.55) 40%,transparent 70%)}
+.lema-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px)}
+.lema-step{border-top:3px solid var(--yellow);padding-top:20px;transition:opacity .5s var(--ease)}
+.lema.is-live .lema-step{opacity:.45}
+.lema.is-live .lema-step.is-active{opacity:1}
+.lema-step .word{font-size:clamp(2.2rem,4.2vw,4rem);color:#fff;margin-bottom:14px;line-height:1}
+.lema-step .lead{font-size:1.05rem;line-height:1.55;color:var(--white-70);margin-bottom:18px}
+.lema-step .stat{display:flex;align-items:baseline;gap:10px;color:var(--white-70);font-size:.98rem}
+.lema-step .stat b{font-family:var(--display);font-weight:700;font-size:clamp(2rem,3.4vw,3rem);color:#fff;line-height:1}
 
 /* Secciones sólidas después de los capítulos */
 .servicios,.valores-sec,.ofertas-sec,.blog-sec,.cta{position:relative;z-index:1}
@@ -57,8 +60,9 @@ main{position:relative}
 
 @media (max-width:880px){
   .stage::after{background:rgba(13,19,56,.6)}
-  #crear .wrap{align-items:flex-start;text-align:left}
-  #crear .stat{margin-left:0;flex-direction:row}
+  .lema{padding-top:40px}
+  .lema-steps{grid-template-columns:1fr;gap:0}
+  .lema-step{min-height:55svh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:28px}
 }
 body.home footer.site{position:relative;z-index:1}
 .perfiles-sec{position:relative;z-index:1;background:var(--paper)}
