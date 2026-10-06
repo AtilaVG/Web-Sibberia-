@@ -10,8 +10,8 @@ const SERVICIOS = [
     nombre: "Selección de personas",
     corto: "Selección",
     foto: { name: "bloques-personas", widths: [960, 1600], alt: "Una mano elige un bloque de madera con la figura de una persona entre varios bloques iguales." },
-    resumen: "Buscamos y evaluamos a las personas que encajan en tu empresa, en su puesto y en su equipo.",
-    intro: "Nos encargamos del proceso de selección para que incorpores a la persona que tu empresa necesita. Trabajamos a éxito y diseñamos cada proceso a medida."
+    resumen: "Especialistas en perfiles técnicos e industriales: buscamos y evaluamos a las personas que encajan en tu empresa, en su puesto y en su equipo.",
+    intro: "Especialistas en selección de perfiles técnicos e industriales: mantenimiento, producción, calidad, logística, ingeniería, automatización y programación. Trabajamos a éxito y diseñamos cada proceso a medida."
   },
   {
     path: "estrategia-y-gestion-del-capital-humano/",
@@ -60,6 +60,16 @@ function ofertasList(root, ofertas, attrs = "") {
   return `<ul class="ofertas" ${attrs}>${ofertas.map((o) => ofertaCard(root, o)).join("")}</ul>`;
 }
 
+function areasGrid(root, areas, current) {
+  return `<ul class="areas">${areas.filter((a) => a.slug !== current).map((a) => `<li class="area">
+  <a href="${root}seleccion-personas/${a.slug}/">
+    <h3>${esc(a.nombre)}</h3>
+    <p>${a.perfiles.map(esc).join(" · ")}</p>
+    <span class="more">Ver perfiles ${icon.arrow}</span>
+  </a>
+</li>`).join("")}</ul>`;
+}
+
 function phero(root, { kicker, title, sub, foto, crumbs, actions = "" }) {
   const bc = crumbs ? `<nav class="crumb" aria-label="Ruta"><ol>${crumbs.map((c, i) =>
     i === crumbs.length - 1 ? `<li aria-current="page">${esc(c.name)}</li>` : `<li><a href="${root}${c.path}">${esc(c.name)}</a></li>`).join("")}</ol></nav>` : "";
@@ -95,6 +105,8 @@ function contactoCTA(root, cfg, titulo = "¿Hablamos?") {
 
 export function buildPages(cfg, data) {
   const url = cfg.siteUrl;
+  const areas = data.areas || [];
+  const areaBySlug = Object.fromEntries(areas.map((a) => [a.slug, a]));
   const org = organization(cfg, url);
   const ofertas = data.ofertas.filter((o) => o.estado === "abierta");
   const articulos = data.articulos.filter((a) => a.titulo && a.cuerpo);
@@ -104,8 +116,8 @@ export function buildPages(cfg, data) {
   pages.push({
     path: "",
     nav: "",
-    title: "Sibberia · Selección de personas, estrategia y formación",
-    description: "Sibberia: selección de personas, estrategia y gestión del capital humano, y formación y desarrollo de personas. Más de 15 años de experiencia y proyectos a medida.",
+    title: "Sibberia · Selección de perfiles técnicos e industriales",
+    description: "Sibberia: selección de perfiles técnicos e industriales (mantenimiento y SAT, producción, calidad y PRL, logística, ingeniería, automatización y programación), estrategia y formación. Más de 15 años de experiencia.",
     css: ["home.css"],
     bodyClass: "home",
     scripts: ["assets/vendor/gsap.min.js", "assets/vendor/ScrollTrigger.min.js", "assets/js/ofertas.js?v=1", "assets/js/pages/home.js?v=4"],
@@ -118,14 +130,13 @@ export function buildPages(cfg, data) {
 
 <section class="hero chapter" id="hero" data-step="0">
   <div class="wrap">
-    <p class="kicker" translate="no">${cfg.lema}</p>
-    <h1 class="giant">Personas<br>que encajan</h1>
-    <p class="sub">Selección de personas, estrategia y gestión del capital humano, y formación. Trabajamos a éxito y a la medida de cada empresa.</p>
+    <h1><span class="kicker">Selección de perfiles técnicos e industriales</span> <span class="giant">Personas<br>que encajan</span></h1>
+    <p class="sub">Mantenimiento y SAT, producción, calidad y PRL, logística, ingeniería, automatización y programación. Encontramos a quien encaja en tu planta, en tu proyecto y en tu equipo.</p>
     <div class="paths">
       <a class="path" href="${root}seleccion-personas/">
         <span class="path-kicker">Para empresas</span>
         <strong>Busco talento</strong>
-        <span class="path-text">Necesito incorporar o desarrollar personas en mi empresa.</span>
+        <span class="path-text">Necesito incorporar perfiles técnicos o industriales en mi empresa.</span>
         ${icon.arrow}
       </a>
       <a class="path" href="${root}ofertas-de-trabajo/">
@@ -165,6 +176,19 @@ export function buildPages(cfg, data) {
       <p class="lead">Un equipo de consultores especializados acompaña a las personas y a la empresa para que crezcan juntas.</p>
       <p class="stat"><b>+20</b> consultores especializados</p>
     </div>
+  </div>
+</section>
+
+<section class="sec perfiles-sec" id="perfiles" aria-labelledby="t-perfiles">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2 class="giant-sm" id="t-perfiles">Perfiles técnicos e industriales</h2>
+        <p class="sec-lead">Somos especialistas en seleccionar los perfiles que hacen funcionar una empresa industrial.</p>
+      </div>
+      <a class="btn btn-ghost" href="${root}seleccion-personas/">Selección de perfiles técnicos ${icon.arrow}</a>
+    </div>
+    ${areasGrid(root, areas)}
   </div>
 </section>
 
@@ -214,7 +238,9 @@ ${contactoCTA(root, cfg)}`
 
   /* SERVICIOS */
   SERVICIOS.forEach((s, i) => {
-    const faq = i === 0 ? [
+    const hub = i === 0;
+    const faq = hub ? [
+      { q: "¿Qué perfiles técnicos e industriales seleccionáis?", a: "Seleccionamos perfiles de " + areas.map((a) => a.nombre).join(", ").replace(/, ([^,]*)$/, " y $1") + "." },
       { q: "¿Cómo trabajáis los procesos de selección?", a: "Trabajamos a éxito y diseñamos cada proceso a la medida de tu empresa. Te lo explicamos con detalle antes de empezar." },
       { q: "¿Los proyectos son a medida?", a: "Sí. Todos nuestros proyectos se diseñan a medida de cada empresa." },
       { q: "Busco empleo, ¿cómo me presento?", a: "Consulta nuestras ofertas de trabajo abiertas y sigue las instrucciones de cada oferta, o escríbenos a " + cfg.email + "." }
@@ -223,7 +249,7 @@ ${contactoCTA(root, cfg)}`
     pages.push({
       path: s.path,
       nav: s.path,
-      title: `${s.nombre} · Sibberia`,
+      title: hub ? "Selección de perfiles técnicos e industriales · Sibberia" : `${s.nombre} · Sibberia`,
       description: `${s.resumen} Sibberia: más de 15 años de experiencia y proyectos a medida.`,
       css: ["subpage.css"],
       crumbs: crumb({ name: s.nombre, path: s.path }),
@@ -241,14 +267,20 @@ ${contactoCTA(root, cfg)}`
       }] : []),
       body: (root) => `
 ${phero(root, {
-  kicker: "Servicio",
-  title: s.nombre,
+  kicker: hub ? s.nombre : "Servicio",
+  title: hub ? "Selección de perfiles técnicos e industriales" : s.nombre,
   sub: s.intro,
   foto: s.foto,
   crumbs: crumb({ name: s.nombre, path: s.path }),
   actions: `<div class="acts"><a class="btn btn-primary" href="${root}contacto/">Cuéntanos tu caso ${icon.arrow}</a></div>`
 })}
-<section class="sec">
+${hub ? `<section class="sec" aria-labelledby="t-areas">
+  <div class="wrap">
+    <h2 class="giant-sm" id="t-areas">Perfiles que seleccionamos</h2>
+    ${areasGrid(root, areas)}
+  </div>
+</section>` : ""}
+<section class="sec${hub ? " soft" : ""}">
   <div class="wrap">
     <h2 class="giant-sm">Cómo trabajamos</h2>
     <ol class="steps">
@@ -274,6 +306,75 @@ ${faq ? `<section class="sec soft" aria-labelledby="t-faq">
   </div>
 </section>
 ${contactoCTA(root, cfg)}`
+    });
+  });
+
+  /* SELECCIÓN POR FAMILIA DE PERFILES (páginas de aterrizaje SEO) */
+  areas.forEach((a) => {
+    const p = `seleccion-personas/${a.slug}/`;
+    const intro = `En Sibberia seleccionamos ${a.descripcion} para empresas industriales y técnicas. Diseñamos cada proceso a la medida del puesto y del equipo, y trabajamos a éxito.`;
+    const suyas = ofertas.filter((o) => o.area === a.slug);
+    const crumbs = crumb({ name: "Selección de perfiles técnicos", path: "seleccion-personas/" }, { name: a.nombre, path: p });
+    pages.push({
+      path: p,
+      nav: "seleccion-personas/",
+      title: `${a.titulo} · Sibberia`,
+      description: `${a.titulo}: ${a.perfiles.join(", ")}. Especialistas en perfiles técnicos e industriales. Trabajamos a éxito y a medida.`,
+      css: ["subpage.css"],
+      crumbs,
+      jsonld: [{
+        "@type": "Service",
+        name: a.titulo,
+        serviceType: "Selección de personal",
+        category: a.nombre,
+        description: intro,
+        url: `${url}/${p}`,
+        provider: org,
+        areaServed: { "@type": "Country", name: "España" },
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: `Perfiles de ${a.nombre}`,
+          itemListElement: a.perfiles.map((perfil) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: `Selección de ${perfil}` } }))
+        }
+      }],
+      body: (root) => `
+${phero(root, {
+  kicker: "Selección de perfiles técnicos",
+  title: esc(a.titulo),
+  sub: intro,
+  crumbs,
+  actions: `<div class="acts"><a class="btn btn-primary" href="${root}contacto/">Busco este perfil ${icon.arrow}</a><a class="btn btn-out" href="${root}ofertas-de-trabajo/">Busco empleo</a></div>`
+})}
+<section class="sec" aria-labelledby="t-perf">
+  <div class="wrap">
+    <h2 class="giant-sm" id="t-perf">Perfiles que seleccionamos</h2>
+    <ul class="perfiles">${a.perfiles.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+  </div>
+</section>
+<section class="sec soft">
+  <div class="wrap">
+    <h2 class="giant-sm">Cómo trabajamos</h2>
+    <ol class="steps">
+      <li><h3>Compartir</h3><p>Escuchamos tu necesidad y conocemos tu empresa, tu equipo y su cultura.</p></li>
+      <li><h3>Crear</h3><p>Diseñamos un proceso a medida, con objetivos y plazos acordados contigo.</p></li>
+      <li><h3>Crecer</h3><p>Te acompañamos hasta que la incorporación se consolida.</p></li>
+    </ol>
+    ${cifrasHTML("light")}
+  </div>
+</section>
+${suyas.length ? `<section class="sec" aria-labelledby="t-of">
+  <div class="wrap">
+    <div class="sec-head"><h2 class="giant-sm" id="t-of">Ofertas abiertas</h2><a class="btn btn-ghost" href="${root}ofertas-de-trabajo/">Todas las ofertas ${icon.arrow}</a></div>
+    ${ofertasList(root, suyas)}
+  </div>
+</section>` : ""}
+<section class="sec${suyas.length ? " soft" : ""}" aria-labelledby="t-otros">
+  <div class="wrap">
+    <h2 class="giant-sm" id="t-otros">Otros perfiles técnicos</h2>
+    ${areasGrid(root, areas, a.slug)}
+  </div>
+</section>
+${contactoCTA(root, cfg, "¿Buscas este perfil?")}`
     });
   });
 
@@ -363,6 +464,7 @@ ${phero(root, {
     if (o.validaHasta) job.validThrough = o.validaHasta;
     if (o.contrato) job.employmentType = o.contrato;
     if (o.remoto) job.jobLocationType = "TELECOMMUTE";
+    if (areaBySlug[o.area]) job.occupationalCategory = areaBySlug[o.area].nombre;
     pages.push({
       path: p,
       nav: "ofertas-de-trabajo/",
@@ -387,6 +489,7 @@ ${phero(root, {
     <dl class="ficha">
       <div><dt>Puesto</dt><dd>${esc(o.titulo)}</dd></div>
       <div><dt>Ubicación</dt><dd>${esc(o.ubicacion)}</dd></div>
+      ${areaBySlug[o.area] ? `<div><dt>Área</dt><dd><a href="${root}seleccion-personas/${o.area}/">${esc(areaBySlug[o.area].nombre)}</a></dd></div>` : ""}
       ${o.jornada ? `<div><dt>Jornada</dt><dd>${esc(o.jornada)}</dd></div>` : ""}
       ${o.contrato ? `<div><dt>Contrato</dt><dd>${esc(o.contrato)}</dd></div>` : ""}
     </dl>

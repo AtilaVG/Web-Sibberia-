@@ -1,0 +1,119 @@
+{
+  "_nota": "Familias de perfiles técnicos e industriales (feedback del cliente, 6-oct-2026). Cada una genera una página en /seleccion-personas/<slug>/. 'busquedas' son las consultas que debe posicionar esa página; 'perfiles' se muestran tal cual. 'descripcion' completa la frase «En Sibberia seleccionamos …».",
+  "areas": [
+    {
+      "slug": "mantenimiento-y-sat",
+      "nombre": "Mantenimiento y SAT",
+      "titulo": "Selección de técnicos de mantenimiento y SAT",
+      "perfiles": [
+        "Técnico/a de mantenimiento eléctrico",
+        "Técnico/a de mantenimiento mecánico",
+        "Técnico/a de mantenimiento electromecánico",
+        "Técnico/a de SAT (servicio de asistencia técnica)"
+      ],
+      "busquedas": [
+        "selección técnicos de mantenimiento",
+        "empresa selección personal mantenimiento industrial",
+        "técnico de mantenimiento electromecánico",
+        "técnico SAT"
+      ],
+      "descripcion": "técnicos/as de mantenimiento eléctrico, mecánico y electromecánico, y técnicos/as de SAT"
+    },
+    {
+      "slug": "produccion",
+      "nombre": "Producción",
+      "titulo": "Selección de personal de producción",
+      "perfiles": [
+        "Operario/a especialista",
+        "Jefe/a de turno"
+      ],
+      "busquedas": [
+        "selección personal de producción",
+        "operario especialista",
+        "jefe de turno producción"
+      ],
+      "descripcion": "operarios/as especialistas y jefes/as de turno"
+    },
+    {
+      "slug": "calidad-prl-medioambiente",
+      "nombre": "Calidad, PRL y Medioambiente",
+      "titulo": "Selección de técnicos de calidad, PRL y medioambiente",
+      "perfiles": [
+        "Técnico/a de calidad",
+        "Técnico/a de prevención de riesgos laborales (PRL)",
+        "Técnico/a de medioambiente"
+      ],
+      "busquedas": [
+        "selección técnico de calidad",
+        "técnico PRL",
+        "técnico de medioambiente industria"
+      ],
+      "descripcion": "técnicos/as de calidad, de prevención de riesgos laborales (PRL) y de medioambiente"
+    },
+    {
+      "slug": "almacen-logistica-planificacion-compras",
+      "nombre": "Almacén, Logística, Planificación y Compras",
+      "titulo": "Selección de personal de almacén, logística, planificación y compras",
+      "perfiles": [
+        "Personal de almacén",
+        "Técnico/a de logística",
+        "Planificador/a",
+        "Técnico/a de compras"
+      ],
+      "busquedas": [
+        "selección personal logística",
+        "selección personal almacén",
+        "planificador de producción",
+        "técnico de compras"
+      ],
+      "descripcion": "personal de almacén, logística, planificación y compras"
+    },
+    {
+      "slug": "ingenieria-y-proyectos",
+      "nombre": "Ingeniería y Proyectos",
+      "titulo": "Selección de ingenieros/as y técnicos/as de proyectos",
+      "perfiles": [
+        "Proyectista",
+        "Técnico/a de site",
+        "Técnico/a de proyectos"
+      ],
+      "busquedas": [
+        "selección ingenieros",
+        "selección proyectistas",
+        "técnico de proyectos",
+        "técnico de site"
+      ],
+      "descripcion": "proyectistas, técnicos/as de site y técnicos/as de proyectos"
+    },
+    {
+      "slug": "automatizacion-y-robotica",
+      "nombre": "Automatización y Robótica",
+      "titulo": "Selección de ingenieros/as y técnicos/as de automatización y robótica",
+      "perfiles": [
+        "Ingeniero/a de automatización",
+        "Técnico/a de automatización",
+        "Ingeniero/a de robótica",
+        "Técnico/a de robótica"
+      ],
+      "busquedas": [
+        "selección ingenieros automatización",
+        "técnico de automatización",
+        "técnico de robótica industrial"
+      ],
+      "descripcion": "ingenieros/as y técnicos/as de automatización y robótica"
+    },
+    {
+      "slug": "programadores",
+      "nombre": "Programadores/as",
+      "titulo": "Selección de programadores/as",
+      "perfiles": [
+        "Programador/a"
+      ],
+      "busquedas": [
+        "selección programadores",
+        "empresa selección programadores"
+      ],
+      "descripcion": "programadores/as"
+    }
+  ]
+}

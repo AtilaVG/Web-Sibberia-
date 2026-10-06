@@ -179,7 +179,7 @@ header.site nav{display:flex;align-items:center;justify-content:space-between;ga
 
 /* Pie: logo blanco sobre azul */
 footer.site{background:var(--indigo-night);color:var(--white-70);padding:72px 0 0}
-.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:48px;padding-bottom:56px;border-bottom:1px solid rgba(255,255,255,.12)}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;padding-bottom:56px;border-bottom:1px solid rgba(255,255,255,.12)}
 .foot-motto{color:var(--yellow);font-family:var(--display);font-weight:700;margin:16px 0 28px}
 .foot-h{font-family:var(--display);font-size:1.05rem;color:#fff;margin-bottom:16px}
 footer.site li{margin-bottom:10px}
@@ -199,3 +199,15 @@ footer.site a:hover{color:#fff;text-decoration:underline}
 @media (max-width:520px){.foot-grid{grid-template-columns:1fr}}
 
 mark.pending{background:#fff3cd;color:#6b4d00;padding:0 4px;border-radius:3px}
+
+/* Familias de perfiles técnicos */
+.areas{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.area a{display:flex;flex-direction:column;gap:10px;height:100%;padding:26px;border-radius:var(--r);border:1px solid var(--line);border-top:4px solid var(--yellow);background:var(--paper);text-decoration:none;transition:background-color .25s,border-color .25s,color .25s}
+.area h3{font-size:1.45rem;font-weight:900}
+.area p{font-size:.95rem}
+.area a:hover{background:var(--indigo);border-color:var(--indigo)}
+.area a:hover h3,.area a:hover .more{color:#fff}
+.area a:hover p{color:var(--white-70)}
+.sec-lead{font-size:1.15rem;margin-top:-18px;max-width:560px}
+.perfiles{display:flex;flex-wrap:wrap;gap:12px}
+.perfiles li{font-family:var(--display);font-weight:700;font-size:clamp(1.1rem,2vw,1.45rem);color:var(--indigo);border:2px solid var(--indigo);border-radius:999px;padding:10px 22px}
