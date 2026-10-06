@@ -22,6 +22,25 @@
   background:radial-gradient(circle,rgba(240,116,30,.2),transparent 65%);
 }
 .phero .wrap{position:relative;z-index:2}
+
+/* Pieza de cristal 3D (sub3d.js): sustituye al degradado y a la retícula */
+.phero[data-scene]{min-height:min(640px,88vh);display:flex;align-items:center}
+.phero-3d{
+  position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;
+  opacity:0;transition:opacity 1.2s var(--ease);
+}
+.phero.has-3d .phero-3d{opacity:1}
+.phero.has-3d .grid-lines,.phero.has-3d::after{display:none}
+.phero.has-3d::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(11,19,34,.85) 0%,rgba(11,19,34,.55) 40%,transparent 66%);
+}
+.phero[data-scene] .wrap{width:100%}
+@media (max-width:880px){
+  .phero[data-scene]{min-height:0}
+  .phero.has-3d .phero-3d{opacity:.45}
+  .phero.has-3d::before{background:linear-gradient(180deg,rgba(11,19,34,.5),rgba(11,19,34,.8))}
+}
 .phero .crumb{
   display:flex;gap:9px;font-size:.84rem;color:rgba(255,255,255,.5);margin-bottom:22px;
 }

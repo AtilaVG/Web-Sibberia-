@@ -1,9 +1,11 @@
 {
   "name": "web-sibberia",
   "private": true,
-  "description": "Web de Sibberia. Sitio estático; solo la escena 3D del hero necesita compilarse.",
+  "description": "Web de Sibberia. Sitio estático; solo las escenas 3D (assets/js/src) necesitan compilarse.",
   "scripts": {
-    "build": "esbuild assets/js/src/hero3d.js --bundle --minify --format=iife --global-name=SibHero3D --target=es2018 --legal-comments=eof --outfile=assets/js/hero3d.js"
+    "build": "npm run build:hero && npm run build:accent",
+    "build:hero": "esbuild assets/js/src/hero3d.js --bundle --minify --format=iife --target=es2018 --legal-comments=eof --global-name=SibHero3D --outfile=assets/js/hero3d.js",
+    "build:accent": "esbuild assets/js/src/accent3d.js --bundle --minify --format=iife --target=es2018 --legal-comments=eof --global-name=SibAccent3D --outfile=assets/js/accent3d.js"
   },
   "devDependencies": {
     "esbuild": "^0.25.0",
