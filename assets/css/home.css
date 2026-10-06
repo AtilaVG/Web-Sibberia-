@@ -35,18 +35,18 @@ main{position:relative}
 }
 .path:hover{border-color:var(--yellow);background:rgba(13,19,56,.7)}
 .path-kicker{font-size:.85rem;color:var(--yellow);font-weight:700}
-.path strong{font-family:var(--display);font-weight:900;font-size:1.9rem;line-height:1}
+.path strong{font-family:var(--display);font-weight:700;font-size:1.9rem;line-height:1}
 .path-text{font-size:.95rem;color:var(--white-70)}
 .path svg{position:absolute;right:22px;top:50%;width:24px;height:24px;transform:translateY(-50%);color:var(--yellow);transition:transform .3s var(--ease)}
 .path:hover svg{transform:translate(4px,-50%)}
 @media (max-width:640px){.paths{grid-template-columns:1fr}}
 
 /* Capítulos del lema */
-.chapter .word{font-size:clamp(4.2rem,17vw,16rem);margin-bottom:28px;white-space:nowrap;will-change:transform}
+.chapter .word{font-size:clamp(3.2rem,10.5vw,9.5rem);margin-bottom:28px;white-space:nowrap;will-change:transform}
 .chapter-body{max-width:560px}
 .chapter .lead{font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.5;margin-bottom:28px}
 .chapter .stat{display:flex;align-items:baseline;gap:14px;color:var(--white-70);font-size:1.1rem;border-top:3px solid var(--yellow);padding-top:16px;max-width:420px}
-.chapter .stat b{font-family:var(--display);font-weight:900;font-size:clamp(3rem,6vw,4.6rem);color:#fff;line-height:.9}
+.chapter .stat b{font-family:var(--display);font-weight:700;font-size:clamp(3rem,6vw,4.6rem);color:#fff;line-height:.9}
 #crear .wrap{display:flex;flex-direction:column;align-items:flex-end;text-align:right}
 #crear .stat{margin-left:auto;flex-direction:row-reverse}
 
@@ -64,4 +64,4 @@ body.home footer.site{position:relative;z-index:1}
 .perfiles-sec{position:relative;z-index:1;background:var(--paper)}
 .hero h1{color:#fff}
 .hero h1 .kicker{display:block;font-size:clamp(1.05rem,1.6vw,1.3rem)}
-.hero h1 .giant{display:block;margin-bottom:28px;font-size:clamp(3rem,8vw,7.6rem)}
+.hero h1 .giant{display:block;margin-bottom:24px;font-size:clamp(2.5rem,5.6vw,5.2rem);line-height:1}
