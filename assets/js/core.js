@@ -1,28 +1,22 @@
 /* SIBBERIA — core.js
-   Nav, menú móvil accesible, progreso de scroll, reveal, contadores, marquee, año */
+   Cabecera, menú móvil accesible, formularios (contacto y newsletter)
+   y año del pie. Sin dependencias. */
 (function () {
   "use strict";
 
-  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* ---- Header scrolled + barra de progreso (una lectura por frame) ---- */
+  /* ---- Cabecera: fondo azul al hacer scroll (una lectura por frame) ---- */
   var header = document.querySelector("header.site");
-  var progress = document.getElementById("sprogress");
   var ticking = false;
   function paint() {
     ticking = false;
-    var y = window.scrollY;
-    var h = document.documentElement;
-    var max = h.scrollHeight - h.clientHeight;
-    if (header) header.classList.toggle("scrolled", y > 24);
-    if (progress) progress.style.transform = "scaleX(" + (max > 0 ? y / max : 0) + ")";
+    if (header) header.classList.toggle("scrolled", window.scrollY > 24);
   }
   window.addEventListener("scroll", function () {
     if (!ticking) { ticking = true; requestAnimationFrame(paint); }
   }, { passive: true });
   paint();
 
-  /* ---- Burger / menú móvil ---- */
+  /* ---- Menú móvil ---- */
   var burger = document.querySelector(".burger");
   var menu = document.querySelector(".mobile-menu");
   var overlay = document.getElementById("overlay");
@@ -39,83 +33,93 @@
     }
   }
   if (burger && menu) {
-    burger.addEventListener("click", function () {
-      setMenu(!menu.classList.contains("open"));
-    });
+    burger.addEventListener("click", function () { setMenu(!menu.classList.contains("open")); });
     if (overlay) overlay.addEventListener("click", function () { setMenu(false); });
-    menu.querySelectorAll("a").forEach(function (a) {
-      a.addEventListener("click", function () { setMenu(false); });
-    });
+    menu.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && menu.classList.contains("open")) {
-        setMenu(false);
-        burger.focus();
-      }
+      if (e.key === "Escape" && menu.classList.contains("open")) { setMenu(false); burger.focus(); }
     });
   }
 
-  /* ---- Reveal on scroll ---- */
-  var revealEls = document.querySelectorAll(".reveal");
-  if ("IntersectionObserver" in window && !reduced) {
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            e.target.classList.add("in");
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.14 }
-    );
-    revealEls.forEach(function (el) { io.observe(el); });
-  } else {
-    revealEls.forEach(function (el) { el.classList.add("in"); });
+  /* ---- Formularios ----
+     data-endpoint: URL que recibe un POST con FormData. Si está vacío,
+     el formulario lo dice en lugar de fingir un envío. */
+  var EMAIL = "hola@sibberia.com";
+  var MSG = {
+    nombre: "Escribe tu nombre.",
+    email: "Escribe un email válido, por ejemplo nombre@empresa.com.",
+    mensaje: "Cuéntanos brevemente qué necesitas.",
+    privacidad: "Necesitamos que aceptes la política de privacidad para poder responderte."
+  };
+
+  function fieldError(form, input, text) {
+    input.setAttribute("aria-invalid", text ? "true" : "false");
+    var id = input.getAttribute("aria-describedby");
+    var box = id && form.querySelector("#" + id);
+    if (box && box.classList.contains("ferr")) box.textContent = text || "";
   }
 
-  /* ---- Contadores data-count ---- */
-  function animateCount(el) {
-    var target = parseInt(el.getAttribute("data-count"), 10) || 0;
-    var suffix = el.getAttribute("data-suffix") || "";
-    var prefix = el.getAttribute("data-prefix") || "";
-    if (reduced) { el.textContent = prefix + target + suffix; return; }
-    var dur = 1600, t0 = null;
-    function tick(t) {
-      if (!t0) t0 = t;
-      var k = Math.min((t - t0) / dur, 1);
-      k = 1 - Math.pow(1 - k, 3);
-      el.textContent = prefix + Math.round(target * k) + suffix;
-      if (k < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-  var counters = document.querySelectorAll("[data-count]");
-  if ("IntersectionObserver" in window) {
-    var cio = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            animateCount(e.target);
-            cio.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-    counters.forEach(function (el) { cio.observe(el); });
-  } else {
-    counters.forEach(animateCount);
+  function validate(form) {
+    var first = null, problems = [];
+    form.querySelectorAll("input[required], textarea[required]").forEach(function (el) {
+      var ok = el.type === "checkbox" ? el.checked : el.checkValidity() && el.value.trim() !== "";
+      var text = ok ? "" : (MSG[el.name] || "Revisa este campo.");
+      fieldError(form, el, text);
+      if (!ok) { problems.push(text); if (!first) first = el; }
+    });
+    return { first: first, problems: problems };
   }
 
-  /* ---- Marquee: duplicar pista para loop continuo ---- */
-  document.querySelectorAll(".marquee").forEach(function (m) {
-    var track = m.querySelector(".mtrack");
-    if (track && m.children.length === 1) {
-      m.appendChild(track.cloneNode(true));
-    }
+  function setStatus(form, text, kind) {
+    var s = form.querySelector(".form-status");
+    if (!s) return;
+    s.textContent = text;
+    s.className = "form-status" + (kind ? " " + kind : "");
+  }
+
+  document.querySelectorAll("form[data-form]").forEach(function (form) {
+    // enlaza cada campo con su caja de error si existe
+    ["name", "email", "msg"].forEach(function (k) {
+      var input = form.querySelector("#f-" + k), box = form.querySelector("#e-" + k);
+      if (input && box) input.setAttribute("aria-describedby", box.id);
+    });
+    var kind = form.getAttribute("data-form");
+    var button = form.querySelector('button[type="submit"]');
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var v = validate(form);
+      if (v.first) {
+        setStatus(form, v.problems.length > 1 ? "Revisa los campos marcados." : v.problems[0], "err");
+        v.first.focus();
+        return;
+      }
+      // honeypot: los bots rellenan el campo oculto; respondemos sin enviar
+      var hp = form.querySelector('input[name="website"]');
+      if (hp && hp.value) { form.reset(); setStatus(form, "Gracias.", "ok"); return; }
+
+      var endpoint = form.getAttribute("data-endpoint");
+      if (!endpoint) {
+        setStatus(form, "El envío online aún no está activo. Escríbenos a " + EMAIL + " y te responderemos.", "err");
+        return;
+      }
+      button.disabled = true;
+      setStatus(form, "Enviando…", "");
+      fetch(endpoint, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          form.reset();
+          setStatus(form, kind === "newsletter"
+            ? "Listo: te has suscrito a la newsletter."
+            : "Gracias, hemos recibido tu mensaje. Te responderemos lo antes posible.", "ok");
+        })
+        .catch(function () {
+          setStatus(form, "No hemos podido enviar el formulario. Inténtalo de nuevo o escríbenos a " + EMAIL + ".", "err");
+        })
+        .then(function () { button.disabled = false; });
+    });
   });
 
-  /* ---- Año en footer ---- */
-  var y = document.getElementById("year");
-  if (y) y.textContent = new Date().getFullYear();
+  /* ---- Año en el pie ---- */
+  document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();

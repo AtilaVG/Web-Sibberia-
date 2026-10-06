@@ -24,6 +24,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # SITE_URL (variable del repositorio) fija canonical, og:url y sitemap.
+      # En producción: https://sibberia.com
+      - name: Build
+        env:
+          SITE_URL: ${{ vars.SITE_URL || 'https://atilavg.github.io/Web-Sibberia-' }}
+        run: |
+          npm ci
+          npm run build
+
+      - name: Prepare artifact
+        run: |
+          mkdir _site
+          rsync -a ./ _site/ --exclude _site --exclude .git --exclude .github --exclude .claude \
+            --exclude node_modules --exclude site --exclude scripts --exclude docs \
+            --exclude 'assets/js/src' --exclude 'package*.json'
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
@@ -32,7 +54,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment

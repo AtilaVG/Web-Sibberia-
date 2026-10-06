@@ -1,216 +1,147 @@
 /* SIBBERIA — home.js
-   Hero 3D "mercado de talento" guiado por scroll (GSAP + ScrollTrigger),
-   entrada orquestada del hero y scrollytelling del proceso de selección.
-   Sin GSAP o sin WebGL la página queda completa y estática. */
+   Escena de cubos de hielo (assets/js/hero3d.js) ligada al scroll del
+   hero y de los capítulos Compartir → Crear → Crecer.
+   Principios:
+   - El contenido siempre es visible: aquí no se oculta nada.
+   - Sin GSAP, sin WebGL, con ahorro de datos o en móviles poco potentes
+     se queda la foto fija (.stage-fallback).
+   - El render se pausa fuera de los capítulos y con la pestaña oculta.
+   - Con movimiento reducido: un fotograma por capítulo, sin animación. */
 (function () {
   "use strict";
 
-  var hero = document.getElementById("hero");
-  var canvas = document.getElementById("talent3d");
-  var story = document.querySelector(".story");
-
-  if (!window.gsap || !window.ScrollTrigger) {
-    if (story) story.classList.add("s1", "s2", "s3", "s4");
-    return;
-  }
+  var stage = document.querySelector(".stage");
+  var canvas = document.getElementById("ice3d");
+  var chapters = document.querySelectorAll(".chapter");
+  if (!stage || !canvas || !chapters.length || !window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
 
-  function hasWebGL() {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var desktop = window.matchMedia("(min-width: 881px)").matches;
+
+  function canRun3D() {
+    var nav = navigator, conn = nav.connection || {};
+    if (conn.saveData) return false;
+    if (nav.deviceMemory && nav.deviceMemory < 4) return false;
+    var coarse = window.matchMedia("(pointer: coarse)").matches;
+    if (coarse && nav.hardwareConcurrency && nav.hardwareConcurrency <= 4) return false;
     try {
       var c = document.createElement("canvas");
       return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl")));
     } catch (e) { return false; }
   }
 
-  /* Carga diferida de la escena: el texto del hero nunca espera al 3D */
-  function loadScene(cb) {
-    if (window.SibHero3D) return cb();
-    var s = document.createElement("script");
-    s.src = "assets/js/hero3d.js?v=1";
-    s.async = true;
-    s.onload = cb;
-    s.onerror = function () { hero.classList.add("no-3d"); };
-    document.head.appendChild(s);
-  }
-
-  var mm = gsap.matchMedia();
-
-  /* ============ HERO ============ */
-  mm.add(
-    {
-      desktop: "(min-width: 881px)",
-      mobile: "(max-width: 880px)",
-      reduce: "(prefers-reduced-motion: reduce)"
-    },
-    function (ctx) {
-      var c = ctx.conditions;
-      var lines = hero.querySelectorAll("h1 .ln");
-      var rest = hero.querySelectorAll(".motto, .sub, .hero-acts, .quick");
-      var phases = hero.querySelectorAll(".hero-phases li");
-      var scene = null;
-      var state = { progress: 0, intro: 0 };
-      var alive = true;
-      var px = { x: 0, y: 0 };
-
-      function tick(time) {
-        scene.setIntro(state.intro);
-        scene.setProgress(state.progress);
-        scene.setPointer(px.x, -px.y);
-        scene.render(time);
-      }
-      function onMove(e) {
-        px.toX((e.clientX / window.innerWidth) * 2 - 1);
-        px.toY((e.clientY / window.innerHeight) * 2 - 1);
-      }
-      function onResize() { if (scene) scene.resize(); }
-
-      if (!c.reduce) {
-        // Un único momento orquestado: el titular entra línea a línea
-        gsap.from(lines, { yPercent: 60, autoAlpha: 0, duration: 1.1, ease: "power3.out", stagger: 0.12, delay: 0.1 });
-        gsap.from(rest, { y: 18, autoAlpha: 0, duration: 0.9, ease: "power2.out", stagger: 0.08, delay: 0.45 });
-      }
-
-      if (canvas && hasWebGL()) {
-        loadScene(function () {
-          if (!alive || !window.SibHero3D) return;
-          try {
-            scene = SibHero3D.create(canvas, {
-              count: c.desktop ? 2400 : 1100,
-              offsetX: c.desktop ? 2.4 : 0,
-              bloom: c.desktop,
-              maxPixelRatio: c.desktop ? 2 : 1.5
-            });
-          } catch (e) {
-            hero.classList.add("no-3d");
-            return;
-          }
-          hero.classList.add("has-3d");
-          window.addEventListener("resize", onResize);
-
-          if (c.reduce) {
-            // Sin movimiento: un único fotograma con la shortlist ya formada
-            scene.setIntro(1);
-            scene.setProgress(0);
-            scene.render(0);
-            return;
-          }
-
-          // ctx.add registra lo creado aquí (asíncrono) en este matchMedia
-          ctx.add(function () {
-            gsap.to(state, { intro: 1, duration: 2.4, ease: "power2.out" });
-
-            // Inclinación con el ratón: quickTo reutiliza un solo tween
-            px.toX = gsap.quickTo(px, "x", { duration: 0.8, ease: "power3" });
-            px.toY = gsap.quickTo(px, "y", { duration: 0.8, ease: "power3" });
-            if (c.desktop) hero.addEventListener("mousemove", onMove);
-
-            if (c.desktop) {
-              // Escritorio: el hero se fija y el scroll cuenta el proceso
-              gsap.timeline({
-                scrollTrigger: {
-                  trigger: hero,
-                  start: "top top",
-                  end: "+=220%",
-                  pin: true,
-                  scrub: 1,
-                  onUpdate: function (self) {
-                    var p = self.progress;
-                    var idx = p < 0.55 ? 0 : p < 0.8 ? 1 : 2;
-                    phases.forEach(function (li, i) { li.classList.toggle("on", i === idx && p > 0.04); });
-                  }
-                }
-              })
-                .to(state, { progress: 1, ease: "none", duration: 1 }, 0)
-                .to(".hero-in", { autoAlpha: 0, y: -40, ease: "power1.in", duration: 0.14 }, 0.1)
-                .to(".scroll-cue", { autoAlpha: 0, duration: 0.1 }, 0);
-            } else {
-              // Móvil: el hero ya ocupa más que la pantalla; sin fijarlo,
-              // la escena avanza mientras se sale de ella
-              gsap.to(state, {
-                progress: 0.3, ease: "none",
-                scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 1 }
-              });
-            }
-
-            // Render solo mientras el hero está en pantalla. Se crea después
-            // del pin para medir también el espacio que este añade.
-            var visible = ScrollTrigger.create({
-              trigger: c.desktop ? hero.parentNode : hero,
-              start: "top bottom",
-              end: "bottom top",
-              onToggle: function (self) {
-                if (self.isActive) gsap.ticker.add(tick);
-                else gsap.ticker.remove(tick);
-              }
-            });
-            if (visible.isActive) gsap.ticker.add(tick);
-
-            ScrollTrigger.refresh();
-          });
-        });
-      } else {
-        hero.classList.add("no-3d");
-      }
-
-      // Limpieza al cambiar de breakpoint o de preferencia de movimiento
-      return function () {
-        alive = false;
-        gsap.ticker.remove(tick);
-        hero.removeEventListener("mousemove", onMove);
-        window.removeEventListener("resize", onResize);
-        if (scene) { scene.dispose(); scene = null; }
-        hero.classList.remove("has-3d");
-        phases.forEach(function (li) { li.classList.remove("on"); });
-      };
-    }
-  );
-
-  /* ============ PROCESO: scrollytelling ============ */
-  mm.add("(min-width: 881px) and (prefers-reduced-motion: no-preference)", function () {
-    var track = story.querySelector(".story-track");
-    var steps = story.querySelectorAll(".sstep");
-    var bar = story.querySelector(".sprog i");
-    var callouts = story.querySelectorAll(".callout");
-    var phase = 0;
-
-    function setPhase(n) {
-      if (n === phase) return;
-      phase = n;
-      story.classList.remove("s1", "s2", "s3", "s4");
-      for (var i = 1; i <= n; i++) story.classList.add("s" + i);
-      steps.forEach(function (s, idx) { s.classList.toggle("on", idx < n); });
-    }
-
-    var st = ScrollTrigger.create({
-      trigger: track,
-      start: "top top",
-      end: "bottom bottom",
-      onUpdate: function (self) {
-        var p = self.progress;
-        gsap.set(bar, { scaleX: p });
-        setPhase(Math.min(Math.floor(p * 4) + 1, 4));
-        callouts.forEach(function (el) {
-          var r = (el.getAttribute("data-r") || "0,1").split(",");
-          el.classList.toggle("show", p >= +r[0] && p <= +r[1]);
-        });
-      }
+  /* Tipografía gigante: se desplaza con el scroll (solo transform) */
+  if (!reduce) {
+    document.querySelectorAll(".chapter .word").forEach(function (el, i) {
+      gsap.fromTo(el, { xPercent: i % 2 ? 8 : -8 }, {
+        xPercent: i % 2 ? -8 : 8, ease: "none",
+        scrollTrigger: { trigger: el.closest(".chapter"), start: "top bottom", end: "bottom top", scrub: true }
+      });
     });
-    setPhase(1);
-
-    return function () {
-      st.kill();
-      story.classList.add("s1", "s2", "s3", "s4");
-      steps.forEach(function (s) { s.classList.add("on"); });
-    };
-  });
-
-  // Móvil o movimiento reducido: el proceso se muestra completo
-  mm.add("(max-width: 880px), (prefers-reduced-motion: reduce)", function () {
-    story.classList.add("s1", "s2", "s3", "s4");
-  });
-
-  // Las fuentes cambian alturas: recalcular posiciones al cargarlas
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
   }
+
+  if (!canRun3D()) return;
+
+  var first = chapters[0], last = chapters[chapters.length - 1];
+  var scene = null, running = false, visible = true, inRange = true;
+  var state = { progress: 0, intro: 0 };
+  var px = { x: 0, y: 0 };
+  var slow = 0, frames = 0, lastT = 0;
+  // ?3d=force desactiva la protección de rendimiento (solo para pruebas)
+  var force = /[?&]3d=force\b/.test(location.search);
+
+  function fallback() {
+    stop();
+    if (scene) { scene.dispose(); scene = null; }
+    stage.classList.remove("is-3d");
+  }
+
+  function tick(time) {
+    // Si el dispositivo no llega (frames lentos de forma sostenida), foto fija
+    if (lastT) {
+      var dt = time - lastT;
+      frames++;
+      if (dt > 0.06) slow++;
+      if (!force && frames === 40 && slow > 24) { fallback(); return; }
+    }
+    lastT = time;
+    scene.setIntro(state.intro);
+    scene.setProgress(state.progress);
+    scene.setPointer(px.x, -px.y);
+    scene.render(time);
+  }
+  function start() { if (!running && scene) { running = true; lastT = 0; gsap.ticker.add(tick); } }
+  function stop() { if (running) { running = false; gsap.ticker.remove(tick); } }
+  function sync() { if (visible && inRange && !reduce) start(); else stop(); }
+
+  document.addEventListener("visibilitychange", function () {
+    visible = document.visibilityState === "visible";
+    sync();
+  });
+
+  var s = document.createElement("script");
+  s.src = "assets/js/hero3d.js?v=3";
+  s.async = true;
+  s.onload = function () {
+    try {
+      scene = SibHero3D.create(canvas, {
+        count: desktop ? 27 : 18,
+        offsetX: desktop ? 2.4 : 0,
+        maxPixelRatio: desktop ? 1.75 : 1.25
+      });
+    } catch (e) { return; }
+    stage.classList.add("is-3d");
+    window.addEventListener("resize", function () { if (scene) scene.resize(); });
+
+    if (reduce) {
+      // Un fotograma por capítulo, sin transición
+      state.intro = 1;
+      chapters.forEach(function (ch) {
+        ScrollTrigger.create({
+          trigger: ch, start: "top center", end: "bottom center",
+          onToggle: function (self) {
+            if (!self.isActive || !scene) return;
+            scene.setIntro(1);
+            scene.setProgress(+ch.getAttribute("data-step"));
+            scene.render(0);
+          }
+        });
+      });
+      scene.setIntro(1); scene.setProgress(0); scene.render(0);
+      return;
+    }
+
+    gsap.to(state, { intro: 1, duration: 2.4, ease: "power2.out" });
+
+    // Cada capítulo lleva la escena de su paso anterior al suyo mientras
+    // entra en pantalla: la formación está completa cuando su texto llega
+    // al centro (Compartir = 1, Crear = 2, Crecer = 3)
+    chapters.forEach(function (ch) {
+      var step = +ch.getAttribute("data-step");
+      if (!step) return;
+      gsap.fromTo(state, { progress: step - 1 }, {
+        progress: step, ease: "none", immediateRender: false,
+        scrollTrigger: { trigger: ch, start: "top bottom", end: "center center", scrub: 1.2 }
+      });
+    });
+
+    // Fuera de los capítulos la escena queda tapada: se pausa
+    ScrollTrigger.create({
+      trigger: first, endTrigger: last, start: "top bottom", end: "bottom top",
+      onToggle: function (self) { inRange = self.isActive; sync(); }
+    });
+
+    if (desktop) {
+      var toX = gsap.quickTo(px, "x", { duration: 0.9, ease: "power3" });
+      var toY = gsap.quickTo(px, "y", { duration: 0.9, ease: "power3" });
+      window.addEventListener("mousemove", function (e) {
+        toX((e.clientX / window.innerWidth) * 2 - 1);
+        toY((e.clientY / window.innerHeight) * 2 - 1);
+      }, { passive: true });
+    }
+    inRange = ScrollTrigger.isInViewport(first) || ScrollTrigger.isInViewport(last) || window.scrollY < last.offsetTop + last.offsetHeight;
+    sync();
+  };
+  document.head.appendChild(s);
 })();
