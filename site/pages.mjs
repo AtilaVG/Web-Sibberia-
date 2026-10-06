@@ -76,14 +76,23 @@ function ofertasList(root, ofertas, attrs = "", h = "h3") {
 }
 
 function areasGrid(root, areas, current) {
-  return `<ul class="areas">${areas.filter((a) => a.slug !== current).map((a) => `<li class="area">
+  // En la página de una familia se muestran las otras 6 (rejilla de 3);
+  // en el resto, las 7 más una tarjeta de contacto para completar la rejilla de 4.
+  const otro = current ? "" : `<li class="area area-cta">
+  <a href="${root}contacto/">
+    <h3>¿Buscas otro perfil técnico?</h3>
+    <p>Cuéntanos qué necesitas y lo vemos contigo.</p>
+    <span class="more">Escríbenos ${icon.arrow}</span>
+  </a>
+</li>`;
+  return `<ul class="areas${current ? " six" : ""}">${areas.filter((a) => a.slug !== current).map((a) => `<li class="area">
   <a href="${root}seleccion-personas/${a.slug}/">
     ${areaIcon(a.slug)}
     <h3>${esc(a.nombre)}</h3>
     <p>${a.perfiles.map(esc).join(", ")}</p>
     <span class="more">Ver perfiles ${icon.arrow}</span>
   </a>
-</li>`).join("")}</ul>`;
+</li>`).join("")}${otro}</ul>`;
 }
 
 function phero(root, { kicker, title, sub, foto, crumbs, actions = "" }) {
@@ -356,7 +365,7 @@ ${phero(root, {
   title: esc(a.titulo),
   sub: intro,
   crumbs,
-  actions: `<div class="acts"><a class="btn btn-primary" href="${root}contacto/">Busco este perfil ${icon.arrow}</a><a class="btn btn-out" href="${root}ofertas-de-trabajo/">Busco empleo</a></div>`
+  actions: `<div class="acts"><a class="btn btn-primary" href="${root}contacto/">Busco este perfil ${icon.arrow}</a><a class="btn btn-out" href="${root}ofertas-de-trabajo/${suyas.length ? `?familia=${a.slug}` : ""}">Busco empleo</a></div>`
 })}
 <section class="sec" aria-labelledby="t-perf">
   <div class="wrap">

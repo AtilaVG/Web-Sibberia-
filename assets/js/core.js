@@ -129,10 +129,26 @@
     });
   });
 
-  /* ---- Pie: en móvil, listas largas plegadas (siguen siendo enlaces normales) ---- */
-  if (window.matchMedia("(max-width: 640px)").matches) {
+  /* ---- Pie: en móvil, listas largas plegadas (siguen siendo enlaces normales).
+     En pantallas anchas las columnas van siempre abiertas: el título no pliega
+     (tampoco con teclado). ---- */
+  var narrow = window.matchMedia("(max-width: 640px)");
+  var footCols = document.querySelectorAll("footer details.foot-col");
+  if (narrow.matches) {
     document.querySelectorAll("footer details[data-collapse]").forEach(function (d) { d.open = false; });
   }
+  footCols.forEach(function (d) {
+    var s = d.querySelector("summary");
+    s.addEventListener("click", function (e) { if (!narrow.matches) e.preventDefault(); });
+  });
+  var syncFoot = function () {
+    footCols.forEach(function (d) {
+      d.querySelector("summary").tabIndex = narrow.matches ? 0 : -1;
+      if (!narrow.matches) d.open = true;
+    });
+  };
+  syncFoot();
+  if (narrow.addEventListener) narrow.addEventListener("change", syncFoot);
 
   /* ---- Año en el pie ---- */
   document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });

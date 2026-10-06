@@ -47,6 +47,7 @@ de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se edita
 - Crear: «Diseñamos cada proyecto desde cero, a la medida de tu empresa, para que cada persona encaje en su puesto y en su equipo.»
 - Crecer: «Un equipo de consultores especializados acompaña a las personas y a la empresa para que crezcan juntas.»
 - Compartir, Crear y Crecer se muestran ahora en un único bloque de tres columnas, con las cifras reales (+15 años de experiencia, 100% proyectos a medida, +20 consultores especializados). Título oculto para lectores de pantalla: «Cómo trabajamos: compartir, crear, crecer».
+- Tarjeta que cierra la rejilla de familias (inicio y página de Selección): «¿Buscas otro perfil técnico?» / «Cuéntanos qué necesitas y lo vemos contigo.» / «Escríbenos».
 - Bloque «Qué hacemos» (resúmenes de servicio, abajo).
 - Valores: «Escuchamos antes de proponer y aprendemos de cada empresa y de cada persona.» / «Decimos lo que hacemos y hacemos lo que decimos, con transparencia en cada proceso.» / «Cuidamos cada detalle del proceso para que el resultado sea el que necesitas.»
 - «Trabajamos a éxito. Así nuestro objetivo es el mismo que el tuyo.»

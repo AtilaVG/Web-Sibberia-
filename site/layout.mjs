@@ -148,8 +148,8 @@ export function page(p, cfg) {
   <link rel="icon" href="${root}assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="${root}assets/fonts/titillium-web-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="${root}assets/fonts/mulish-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="${root}assets/css/base.css?v=5">
-  ${(p.css || []).map((c) => `<link rel="stylesheet" href="${root}assets/css/${c}?v=5">`).join("\n  ")}
+  <link rel="stylesheet" href="${root}assets/css/base.css?v=6">
+  ${(p.css || []).map((c) => `<link rel="stylesheet" href="${root}assets/css/${c}?v=6">`).join("\n  ")}
   ${p.head || ""}
   ${ld}
 </head>
@@ -159,7 +159,7 @@ ${header(root, p.nav, cfg)}
 ${p.body(root)}
 </main>
 ${footer(root, cfg)}
-<script src="${root}assets/js/core.js?v=5" defer></script>
+<script src="${root}assets/js/core.js?v=6" defer></script>
 ${scripts}
 </body>
 </html>
