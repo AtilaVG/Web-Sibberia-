@@ -1,5 +1,5 @@
 {
-  "_nota": "Fuente de las ofertas. La página de listado lo lee en el navegador; las fichas se generan con `npm run build`. Los campos null están pendientes de que el cliente los facilite.",
+  "_nota": "Fuente de las ofertas. La página de listado lo lee en el navegador; las fichas se generan con `npm run build`. Los campos null están pendientes de que el cliente los facilite. 'area' enlaza la oferta con su familia de perfiles (data/areas.json); null = sin familia.",
   "ofertas": [
     {
       "slug": "tecnico-climatizacion-frigorista-asturias",
@@ -15,7 +15,8 @@
       "requisitos": [],
       "fechaPublicacion": null,
       "validaHasta": null,
-      "estado": "abierta"
+      "estado": "abierta",
+      "area": "mantenimiento-y-sat"
     },
     {
       "slug": "tecnico-laboral-madrid",
@@ -31,7 +32,8 @@
       "requisitos": [],
       "fechaPublicacion": null,
       "validaHasta": null,
-      "estado": "abierta"
+      "estado": "abierta",
+      "area": null
     },
     {
       "slug": "ontologo-senior-espana",
@@ -47,7 +49,8 @@
       "requisitos": [],
       "fechaPublicacion": null,
       "validaHasta": null,
-      "estado": "abierta"
+      "estado": "abierta",
+      "area": null
     },
     {
       "slug": "tecnico-estudios-pozuelo-de-alarcon",
@@ -63,7 +66,8 @@
       "requisitos": [],
       "fechaPublicacion": null,
       "validaHasta": null,
-      "estado": "abierta"
+      "estado": "abierta",
+      "area": "ingenieria-y-proyectos"
     },
     {
       "slug": "ingeniero-rfq-ofertas-tecnicas-leganes",
@@ -79,7 +83,8 @@
       "requisitos": [],
       "fechaPublicacion": null,
       "validaHasta": null,
-      "estado": "abierta"
+      "estado": "abierta",
+      "area": "ingenieria-y-proyectos"
     }
   ]
 }

@@ -7,7 +7,7 @@ export const esc = (s) => String(s ?? "")
   .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 export const NAV = [
-  { href: "seleccion-personas/", label: "Selección", full: "Selección de personas" },
+  { href: "seleccion-personas/", label: "Perfiles técnicos", full: "Selección de perfiles técnicos" },
   { href: "estrategia-y-gestion-del-capital-humano/", label: "Estrategia", full: "Estrategia y gestión del capital humano" },
   { href: "formacion-y-desarrollo-de-personas/", label: "Formación", full: "Formación y desarrollo de personas" },
   { href: "ofertas-de-trabajo/", label: "Ofertas de trabajo", full: "Ofertas de trabajo" },
@@ -70,6 +70,7 @@ function footer(root, cfg) {
           <p class="form-status" id="nl-status" role="status" aria-live="polite"></p>
         </form>
       </div>
+      <div><h2 class="foot-h">Perfiles técnicos</h2><ul>${(cfg.areas || []).map((a) => `<li><a href="${root}seleccion-personas/${a.slug}/">${esc(a.nombre)}</a></li>`).join("")}</ul></div>
       <div><h2 class="foot-h">Sibberia</h2><ul>${links}</ul></div>
       <div><h2 class="foot-h">Contacto</h2><ul><li><a href="mailto:${cfg.email}">${cfg.email}</a></li>${tels}<li><a href="${root}contacto/">Formulario de contacto</a></li></ul></div>
     </div>
@@ -92,8 +93,9 @@ export function organization(cfg, url) {
     email: cfg.email,
     telephone: cfg.telefonos.map((t) => t.tel),
     slogan: "Compartir, crear, crecer",
+    description: "Selección de perfiles técnicos e industriales, estrategia y gestión del capital humano, y formación y desarrollo de personas.",
     areaServed: { "@type": "Country", name: "España" },
-    knowsAbout: NAV.slice(0, 3).map((n) => n.full)
+    knowsAbout: ["Selección de perfiles técnicos e industriales", ...(cfg.areas || []).map((a) => a.titulo), "Estrategia y gestión del capital humano", "Formación y desarrollo de personas"]
   };
 }
 

@@ -18,6 +18,26 @@ los títulos y ubicaciones de las cinco ofertas.
 - Blog: faltan los títulos y textos reales (`data/blog.json`). No he podido leerlos porque sibberia.com está bloqueado desde el entorno de trabajo. No se ha inventado ninguno.
 - Destino de los formularios (contacto y newsletter): `site/config.json → formularios`.
 
+## Especialización en perfiles técnicos (feedback del 6-oct-2026)
+
+Las 7 familias y sus perfiles salen del mensaje de Samuel. He desglosado algunas
+en perfiles concretos que conviene confirmar: «Técnico/a de calidad», «Técnico/a
+de prevención de riesgos laborales (PRL)», «Técnico/a de medioambiente»,
+«Personal de almacén», «Técnico/a de logística», «Planificador/a», «Técnico/a de
+compras», «Ingeniero/a / Técnico/a de automatización», «Ingeniero/a / Técnico/a
+de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se editan en
+`data/areas.json`.
+
+- Inicio, antetítulo del H1: «Selección de perfiles técnicos e industriales»
+- Inicio, subtítulo: «Mantenimiento y SAT, producción, calidad y PRL, logística, ingeniería, automatización y programación. Encontramos a quien encaja en tu planta, en tu proyecto y en tu equipo.»
+- Camino empresas: «Necesito incorporar perfiles técnicos o industriales en mi empresa.»
+- Bloque de la home: «Somos especialistas en seleccionar los perfiles que hacen funcionar una empresa industrial.»
+- Selección (resumen e intro): «Especialistas en perfiles técnicos e industriales…» / «Especialistas en selección de perfiles técnicos e industriales: mantenimiento, producción, calidad, logística, ingeniería, automatización y programación. Trabajamos a éxito y diseñamos cada proceso a medida.»
+- Nueva pregunta frecuente: «¿Qué perfiles técnicos e industriales seleccionáis?» → lista de familias.
+- Páginas de familia, intro: «En Sibberia seleccionamos {perfiles} para empresas industriales y técnicas. Diseñamos cada proceso a la medida del puesto y del equipo, y trabajamos a éxito.»
+- Páginas de familia, «Crecer»: «Te acompañamos hasta que la incorporación se consolida.» Botones: «Busco este perfil», «Busco empleo». Llamada final: «¿Buscas este perfil?»
+- Asignación de ofertas a familias (`area` en `data/ofertas.json`): Frigorista → Mantenimiento y SAT; Ingeniero/a RFQ y Técnico/a de estudios → Ingeniería y Proyectos; Técnico/a laboral y Ontólogo/a sin familia.
+
 ## Inicio
 
 - Titular: «Personas que encajan»

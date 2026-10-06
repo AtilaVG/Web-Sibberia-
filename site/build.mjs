@@ -14,10 +14,12 @@ cfg.siteUrl = cfg.siteUrl.replace(/\/+$/, "");
 
 const { ofertas } = JSON.parse(readFileSync("data/ofertas.json", "utf8"));
 const { articulos } = JSON.parse(readFileSync("data/blog.json", "utf8"));
-const pages = buildPages(cfg, { ofertas, articulos });
+const { areas } = JSON.parse(readFileSync("data/areas.json", "utf8"));
+cfg.areas = areas; // el pie y el JSON-LD de la organización las enlazan
+const pages = buildPages(cfg, { ofertas, articulos, areas });
 
 // Directorios generados: se limpian para no dejar fichas de ofertas cerradas
-for (const d of ["ofertas-de-trabajo", "blog"]) if (existsSync(d)) rmSync(d, { recursive: true });
+for (const d of ["ofertas-de-trabajo", "blog", ...areas.map((a) => `seleccion-personas/${a.slug}`)]) if (existsSync(d)) rmSync(d, { recursive: true });
 
 const write = (file, html) => {
   mkdirSync(dirname(file), { recursive: true });

@@ -61,3 +61,7 @@ main{position:relative}
   #crear .stat{margin-left:0;flex-direction:row}
 }
 body.home footer.site{position:relative;z-index:1}
+.perfiles-sec{position:relative;z-index:1;background:var(--paper)}
+.hero h1{color:#fff}
+.hero h1 .kicker{display:block;font-size:clamp(1.05rem,1.6vw,1.3rem)}
+.hero h1 .giant{display:block;margin-bottom:28px}
