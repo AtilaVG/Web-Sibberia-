@@ -1,5 +1,5 @@
 /* SIBBERIA — hero3d.js (fuente)
-   "Personas que encajan": cubos de hielo con una persona grabada.
+   Cubos de hielo con una persona grabada: los perfiles que encajan.
    La escena acompaña el lema a lo largo de la home:
      0 hero       cubos dispersos sobre el hielo; uno se eleva (el elegido)
      1 Compartir  se acercan y forman un círculo alrededor del elegido
