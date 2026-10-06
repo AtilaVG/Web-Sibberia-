@@ -31,19 +31,18 @@
     } catch (e) { return false; }
   }
 
-  /* Tipografía gigante: se desplaza con el scroll (solo transform) */
-  if (!reduce) {
-    document.querySelectorAll(".chapter .word").forEach(function (el, i) {
-      gsap.fromTo(el, { xPercent: i % 2 ? 8 : -8 }, {
-        xPercent: i % 2 ? -8 : 8, ease: "none",
-        scrollTrigger: { trigger: el.closest(".chapter"), start: "top bottom", end: "bottom top", scrub: true }
-      });
-    });
-  }
-
   if (!canRun3D()) return;
 
-  var first = chapters[0], last = chapters[chapters.length - 1];
+  var first = chapters[0];
+  var lema = document.querySelector(".lema");
+  var steps = [].slice.call(document.querySelectorAll(".lema-step"));
+  var last = lema || chapters[chapters.length - 1];
+
+  // Resalta la columna del paso en el que está la escena (las demás, atenuadas)
+  function setActive(p) {
+    var idx = Math.min(Math.max(Math.round(p), 1), 3);
+    steps.forEach(function (st) { st.classList.toggle("is-active", +st.getAttribute("data-step") === idx); });
+  }
   var scene = null, running = false, visible = true, inRange = true;
   var state = { progress: 0, intro: 0 };
   var px = { x: 0, y: 0 };
@@ -81,7 +80,7 @@
   });
 
   var s = document.createElement("script");
-  s.src = "assets/js/hero3d.js?v=3";
+  s.src = "assets/js/hero3d.js?v=4";
   s.async = true;
   s.onload = function () {
     try {
@@ -95,15 +94,15 @@
     window.addEventListener("resize", function () { if (scene) scene.resize(); });
 
     if (reduce) {
-      // Un fotograma por capítulo, sin transición
+      // Un fotograma por paso, sin transición
       state.intro = 1;
-      chapters.forEach(function (ch) {
+      [first].concat(steps).forEach(function (el) {
         ScrollTrigger.create({
-          trigger: ch, start: "top center", end: "bottom center",
+          trigger: el, start: "top center", end: "bottom center",
           onToggle: function (self) {
             if (!self.isActive || !scene) return;
             scene.setIntro(1);
-            scene.setProgress(+ch.getAttribute("data-step"));
+            scene.setProgress(+(el.getAttribute("data-step") || 0));
             scene.render(0);
           }
         });
@@ -114,23 +113,45 @@
 
     gsap.to(state, { intro: 1, duration: 2.4, ease: "power2.out" });
 
-    // Cada capítulo lleva la escena de su paso anterior al suyo mientras
-    // entra en pantalla: la formación está completa cuando su texto llega
-    // al centro (Compartir = 1, Crear = 2, Crecer = 3)
-    chapters.forEach(function (ch) {
-      var step = +ch.getAttribute("data-step");
-      if (!step) return;
-      gsap.fromTo(state, { progress: step - 1 }, {
-        progress: step, ease: "none", immediateRender: false,
-        scrollTrigger: { trigger: ch, start: "top bottom", end: "center center", scrub: 1.2 }
-      });
-    });
+    lema.classList.add("is-live");
+    setActive(1);
 
-    // Fuera de los capítulos la escena queda tapada: se pausa
+    if (desktop) {
+      // Del hero al bloque del lema: paso 0 → 1
+      gsap.fromTo(state, { progress: 0 }, {
+        progress: 1, ease: "none", immediateRender: false,
+        scrollTrigger: { trigger: lema, start: "top bottom", end: "top top", scrub: 1.2 }
+      });
+      // Bloque fijado: el scroll recorre Compartir → Crear → Crecer
+      gsap.fromTo(state, { progress: 1 }, {
+        progress: 3, ease: "none", immediateRender: false,
+        scrollTrigger: {
+          trigger: lema, start: "top top", end: "+=200%", pin: true, scrub: 1.2,
+          onUpdate: function (self) { setActive(1 + self.progress * 2); }
+        }
+      });
+    } else {
+      // Móvil: sin fijar; cada paso lleva la escena al suyo al llegar al centro
+      steps.forEach(function (st) {
+        var step = +st.getAttribute("data-step");
+        gsap.fromTo(state, { progress: step - 1 }, {
+          progress: step, ease: "none", immediateRender: false,
+          scrollTrigger: { trigger: st, start: "top bottom", end: "center center", scrub: 1.2 }
+        });
+        ScrollTrigger.create({
+          trigger: st, start: "top center", end: "bottom center",
+          onToggle: function (self) { if (self.isActive) setActive(step); }
+        });
+      });
+    }
+
+    // Fuera del hero y del lema la escena queda tapada: se pausa.
+    // Se crea después del pin para medir también su espacio.
     ScrollTrigger.create({
-      trigger: first, endTrigger: last, start: "top bottom", end: "bottom top",
+      trigger: first, endTrigger: desktop ? lema.parentNode : lema, start: "top bottom", end: "bottom top",
       onToggle: function (self) { inRange = self.isActive; sync(); }
     });
+    ScrollTrigger.refresh();
 
     if (desktop) {
       var toX = gsap.quickTo(px, "x", { duration: 0.9, ease: "power3" });

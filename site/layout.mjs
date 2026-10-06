@@ -29,10 +29,12 @@ export function picture(root, { name, widths, alt, eager = false, sizes = "100vw
   return `<img class="${cls}" src="${root}assets/img/${name}-${w}.webp" srcset="${srcset}" sizes="${sizes}" width="${w}" height="${h}" alt="${esc(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
 }
 
-function header(root, active) {
-  const links = NAV.map((n) =>
+const navFor = (cfg) => NAV.filter((n) => n.href !== "blog/" || cfg.hasBlog);
+
+function header(root, active, cfg) {
+  const links = navFor(cfg).map((n) =>
     `<li><a href="${root}${n.href}"${active === n.href ? ' aria-current="page"' : ""}>${n.label}</a></li>`).join("");
-  const mobile = NAV.map((n) =>
+  const mobile = navFor(cfg).map((n) =>
     `<a href="${root}${n.href}"${active === n.href ? ' aria-current="page"' : ""}>${n.full}</a>`).join("");
   return `<a class="skip" href="#main">Saltar al contenido</a>
 <header class="site">
@@ -51,14 +53,14 @@ function header(root, active) {
 
 function footer(root, cfg) {
   const tels = cfg.telefonos.map((t) => `<li><a href="tel:${t.tel}">${t.texto}</a></li>`).join("");
-  const links = NAV.map((n) => `<li><a href="${root}${n.href}">${n.full}</a></li>`).join("");
+  const links = navFor(cfg).map((n) => `<li><a href="${root}${n.href}">${n.full}</a></li>`).join("");
   return `<footer class="site">
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
         <a class="logo" href="${root}"><img src="${root}assets/img/sibberia-logo-blanco.svg" width="154" height="28" alt="Sibberia" loading="lazy"></a>
         <p class="foot-motto" translate="no">${cfg.lema}</p>
-        <form class="newsletter" data-form="newsletter" data-endpoint="${esc(cfg.formularios.newsletter)}" novalidate>
+        ${cfg.formularios.newsletter ? `<form class="newsletter" data-form="newsletter" data-endpoint="${esc(cfg.formularios.newsletter)}" novalidate>
           <h2 class="foot-h" id="nl-title">Newsletter</h2>
           <div class="nl-row">
             <label class="sr-only" for="nl-email">Tu email</label>
@@ -68,11 +70,11 @@ function footer(root, cfg) {
           <label class="check"><input type="checkbox" name="privacidad" required> <span>He leído y acepto la <a href="${root}legal/#privacidad">política de privacidad</a>.</span></label>
           <div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
           <p class="form-status" id="nl-status" role="status" aria-live="polite"></p>
-        </form>
+        </form>` : ""}
       </div>
-      <div><h2 class="foot-h">Perfiles técnicos</h2><ul>${(cfg.areas || []).map((a) => `<li><a href="${root}seleccion-personas/${a.slug}/">${esc(a.nombre)}</a></li>`).join("")}</ul></div>
-      <div><h2 class="foot-h">Sibberia</h2><ul>${links}</ul></div>
-      <div><h2 class="foot-h">Contacto</h2><ul><li><a href="mailto:${cfg.email}">${cfg.email}</a></li>${tels}<li><a href="${root}contacto/">Formulario de contacto</a></li></ul></div>
+      <details class="foot-col" data-collapse open><summary><h2 class="foot-h">Perfiles técnicos</h2></summary><ul>${(cfg.areas || []).map((a) => `<li><a href="${root}seleccion-personas/${a.slug}/">${esc(a.nombre)}</a></li>`).join("")}</ul></details>
+      <details class="foot-col" data-collapse open><summary><h2 class="foot-h">Sibberia</h2></summary><ul>${links}</ul></details>
+      <details class="foot-col" open><summary><h2 class="foot-h">Contacto</h2></summary><ul><li><a href="mailto:${cfg.email}">${cfg.email}</a></li>${tels}<li><a href="${root}contacto/">Formulario de contacto</a></li></ul></details>
     </div>
     <div class="foot-bot">
       <p>© <span data-year>2026</span> Sibberia</p>
@@ -146,18 +148,18 @@ export function page(p, cfg) {
   <link rel="icon" href="${root}assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="${root}assets/fonts/titillium-web-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="${root}assets/fonts/mulish-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="${root}assets/css/base.css?v=4">
-  ${(p.css || []).map((c) => `<link rel="stylesheet" href="${root}assets/css/${c}?v=4">`).join("\n  ")}
+  <link rel="stylesheet" href="${root}assets/css/base.css?v=5">
+  ${(p.css || []).map((c) => `<link rel="stylesheet" href="${root}assets/css/${c}?v=5">`).join("\n  ")}
   ${p.head || ""}
   ${ld}
 </head>
 <body class="${p.bodyClass || ""}">
-${header(root, p.nav)}
+${header(root, p.nav, cfg)}
 <main id="main">
 ${p.body(root)}
 </main>
 ${footer(root, cfg)}
-<script src="${root}assets/js/core.js?v=4" defer></script>
+<script src="${root}assets/js/core.js?v=5" defer></script>
 ${scripts}
 </body>
 </html>

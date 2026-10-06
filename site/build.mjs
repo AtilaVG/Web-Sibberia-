@@ -16,6 +16,7 @@ const { ofertas } = JSON.parse(readFileSync("data/ofertas.json", "utf8"));
 const { articulos } = JSON.parse(readFileSync("data/blog.json", "utf8"));
 const { areas } = JSON.parse(readFileSync("data/areas.json", "utf8"));
 cfg.areas = areas; // el pie y el JSON-LD de la organización las enlazan
+cfg.hasBlog = articulos.some((a) => a.titulo && a.cuerpo); // sin artículos no hay blog en menú ni sitemap
 const pages = buildPages(cfg, { ofertas, articulos, areas });
 
 // Directorios generados: se limpian para no dejar fichas de ofertas cerradas
@@ -46,7 +47,7 @@ const old = {
   "pages/consultoria.html": "estrategia-y-gestion-del-capital-humano/",
   "pages/formacion.html": "formacion-y-desarrollo-de-personas/",
   "pages/nosotros.html": "nosotros/",
-  "pages/blog.html": "blog/",
+  "pages/blog.html": cfg.hasBlog ? "blog/" : "",
   "pages/contacto.html": "contacto/",
   "pages/legal.html": "legal/"
 };

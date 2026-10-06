@@ -1,5 +1,5 @@
 {
-  "_nota": "Familias de perfiles técnicos e industriales (feedback del cliente, 6-oct-2026). Cada una genera una página en /seleccion-personas/<slug>/. 'busquedas' son las consultas que debe posicionar esa página; 'perfiles' se muestran tal cual. 'descripcion' completa la frase «En Sibberia seleccionamos …».",
+  "_nota": "Familias de perfiles técnicos e industriales (feedback del cliente, 6-oct-2026). Cada una genera una página en /seleccion-personas/<slug>/. 'busquedas' son las consultas que debe posicionar esa página; 'perfiles' se muestran tal cual. 'descripcion' completa la frase «En Sibberia seleccionamos …». 'seoTitulo' (≤60) y 'seoDescripcion' (≤155) son la etiqueta title y la meta description.",
   "areas": [
     {
       "slug": "mantenimiento-y-sat",
@@ -17,7 +17,9 @@
         "técnico de mantenimiento electromecánico",
         "técnico SAT"
       ],
-      "descripcion": "técnicos/as de mantenimiento eléctrico, mecánico y electromecánico, y técnicos/as de SAT"
+      "descripcion": "técnicos/as de mantenimiento eléctrico, mecánico y electromecánico, y técnicos/as de SAT",
+      "seoTitulo": "Selección de técnicos de mantenimiento y SAT | Sibberia",
+      "seoDescripcion": "Seleccionamos técnicos de mantenimiento eléctrico, mecánico y electromecánico y técnicos de SAT. Procesos a medida y a éxito."
     },
     {
       "slug": "produccion",
@@ -32,7 +34,9 @@
         "operario especialista",
         "jefe de turno producción"
       ],
-      "descripcion": "operarios/as especialistas y jefes/as de turno"
+      "descripcion": "operarios/as especialistas y jefes/as de turno",
+      "seoTitulo": "Selección de personal de producción | Sibberia",
+      "seoDescripcion": "Seleccionamos operarios especialistas y jefes de turno para plantas industriales. Procesos a medida y a éxito."
     },
     {
       "slug": "calidad-prl-medioambiente",
@@ -48,7 +52,9 @@
         "técnico PRL",
         "técnico de medioambiente industria"
       ],
-      "descripcion": "técnicos/as de calidad, de prevención de riesgos laborales (PRL) y de medioambiente"
+      "descripcion": "técnicos/as de calidad, de prevención de riesgos laborales (PRL) y de medioambiente",
+      "seoTitulo": "Selección de técnicos de calidad, PRL y medioambiente",
+      "seoDescripcion": "Seleccionamos técnicos de calidad, de prevención de riesgos laborales (PRL) y de medioambiente. Procesos a medida y a éxito."
     },
     {
       "slug": "almacen-logistica-planificacion-compras",
@@ -66,7 +72,9 @@
         "planificador de producción",
         "técnico de compras"
       ],
-      "descripcion": "personal de almacén, logística, planificación y compras"
+      "descripcion": "personal de almacén, logística, planificación y compras",
+      "seoTitulo": "Selección de personal de logística y almacén | Sibberia",
+      "seoDescripcion": "Seleccionamos personal de almacén, logística, planificación y compras para la industria. Procesos a medida y a éxito."
     },
     {
       "slug": "ingenieria-y-proyectos",
@@ -83,7 +91,9 @@
         "técnico de proyectos",
         "técnico de site"
       ],
-      "descripcion": "proyectistas, técnicos/as de site y técnicos/as de proyectos"
+      "descripcion": "proyectistas, técnicos/as de site y técnicos/as de proyectos",
+      "seoTitulo": "Selección de ingenieros y técnicos de proyectos | Sibberia",
+      "seoDescripcion": "Seleccionamos proyectistas, técnicos de site y técnicos de proyectos. Procesos a medida y a éxito."
     },
     {
       "slug": "automatizacion-y-robotica",
@@ -100,7 +110,9 @@
         "técnico de automatización",
         "técnico de robótica industrial"
       ],
-      "descripcion": "ingenieros/as y técnicos/as de automatización y robótica"
+      "descripcion": "ingenieros/as y técnicos/as de automatización y robótica",
+      "seoTitulo": "Selección de técnicos de automatización y robótica",
+      "seoDescripcion": "Seleccionamos ingenieros y técnicos de automatización y robótica industrial. Procesos a medida y a éxito."
     },
     {
       "slug": "programadores",
@@ -113,7 +125,9 @@
         "selección programadores",
         "empresa selección programadores"
       ],
-      "descripcion": "programadores/as"
+      "descripcion": "programadores/as",
+      "seoTitulo": "Selección de programadores | Sibberia",
+      "seoDescripcion": "Seleccionamos programadores para empresas industriales y técnicas. Procesos a medida y a éxito."
     }
   ]
 }
