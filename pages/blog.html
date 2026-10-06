@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#152238">
   <title>Blog — Ideas sobre Talento y RRHH | Sibberia</title>
   <meta name="description" content="Artículos sobre selección, headhunting, liderazgo, formación y tendencias en gestión de personas. El blog de Sibberia.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700;800&family=Barlow+Semi+Condensed:wght@600&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/base.css?v=1">
-  <link rel="stylesheet" href="../assets/css/home.css?v=1">
-  <link rel="stylesheet" href="../assets/css/subpage.css?v=1">
+  <link rel="stylesheet" href="../assets/css/base.css?v=2">
+  <link rel="stylesheet" href="../assets/css/home.css?v=2">
+  <link rel="stylesheet" href="../assets/css/subpage.css?v=2">
 </head>
 <body>
 
@@ -30,16 +31,16 @@
     </ul>
     <div class="nav-r">
       <a class="btn btn-primary" href="contacto.html">Hablemos
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <button class="burger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
 </header>
-<div class="mobile-menu" aria-label="Menú móvil">
+<nav class="mobile-menu" id="mobile-menu" aria-label="Menú móvil">
   <a href="../index.html">Inicio</a><a href="seleccion.html">Selección</a><a href="formacion.html">Formación</a><a href="consultoria.html">Consultoría</a><a href="nosotros.html">Nosotros</a><a href="blog.html" class="active">Blog</a>
   <a class="btn btn-primary" href="contacto.html">Hablemos</a>
-</div>
+</nav>
 <div id="overlay"></div>
 
 <main id="main">
@@ -66,82 +67,70 @@
 
     <div class="blog-grid">
       <article class="bcard reveal" data-cat="seleccion">
-        <a href="#">
+        <div class="bcard-in">
           <div class="bimg t1"><span class="bcat">Selección</span></div>
           <div class="bbody">
             <span class="bmeta">15 May 2025 · 5 min</span>
             <h3>Headhunting: cómo llegar al talento que no busca empleo</h3>
             <p>La búsqueda directa es la única vía para captar directivos y perfiles muy especializados. Así funciona por dentro.</p>
-            <span class="more">Leer artículo
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
+            <span class="more soon">Artículo en preparación</span>
           </div>
-        </a>
+        </div>
       </article>
       <article class="bcard reveal d1" data-cat="liderazgo">
-        <a href="#">
+        <div class="bcard-in">
           <div class="bimg t2"><span class="bcat">Liderazgo</span></div>
           <div class="bbody">
             <span class="bmeta">3 Abr 2025 · 7 min</span>
             <h3>Inteligencia emocional: el diferencial del líder moderno</h3>
             <p>La competencia más valorada en comités de dirección ya no es técnica. Y la buena noticia: se puede entrenar.</p>
-            <span class="more">Leer artículo
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
+            <span class="more soon">Artículo en preparación</span>
           </div>
-        </a>
+        </div>
       </article>
       <article class="bcard reveal d2" data-cat="tendencias">
-        <a href="#">
+        <div class="bcard-in">
           <div class="bimg t3"><span class="bcat">Tendencias</span></div>
           <div class="bbody">
             <span class="bmeta">18 Mar 2025 · 6 min</span>
             <h3>Generación Z: claves para atraer y retener al nuevo talento</h3>
             <p>Expectativas distintas, reglas distintas. ¿Está tu propuesta de valor al empleado a la altura de lo que piden?</p>
-            <span class="more">Leer artículo
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
+            <span class="more soon">Artículo en preparación</span>
           </div>
-        </a>
+        </div>
       </article>
       <article class="bcard reveal" data-cat="formacion">
-        <a href="#">
+        <div class="bcard-in">
           <div class="bimg t2"><span class="bcat">Formación</span></div>
           <div class="bbody">
             <span class="bmeta">22 Feb 2025 · 5 min</span>
             <h3>Formación continua: el seguro de vida de tu plantilla</h3>
             <p>Por qué las empresas que más forman son las que menos rotación sufren — y cómo empezar sin grandes presupuestos.</p>
-            <span class="more">Leer artículo
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
+            <span class="more soon">Artículo en preparación</span>
           </div>
-        </a>
+        </div>
       </article>
       <article class="bcard reveal d1" data-cat="liderazgo">
-        <a href="#">
+        <div class="bcard-in">
           <div class="bimg t1"><span class="bcat">Liderazgo</span></div>
           <div class="bbody">
             <span class="bmeta">30 Ene 2025 · 6 min</span>
             <h3>Habilidades de comunicación: lo que separa a un buen técnico de un buen manager</h3>
             <p>Promocionar al mejor técnico sin prepararle es la receta clásica para perder dos veces. Cómo evitarlo.</p>
-            <span class="more">Leer artículo
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
+            <span class="more soon">Artículo en preparación</span>
           </div>
-        </a>
+        </div>
       </article>
       <article class="bcard reveal d2" data-cat="tendencias">
-        <a href="#">
+        <div class="bcard-in">
           <div class="bimg t3"><span class="bcat">Tendencias</span></div>
           <div class="bbody">
             <span class="bmeta">12 Ene 2025 · 4 min</span>
             <h3>Cultura de empresa: el KPI invisible que decide quién se queda</h3>
             <p>El salario te hace competitivo; la cultura te hace elegible. Qué mirar (y medir) para no perder a los mejores.</p>
-            <span class="more">Leer artículo
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
+            <span class="more soon">Artículo en preparación</span>
           </div>
-        </a>
+        </div>
       </article>
     </div>
   </div>
@@ -153,7 +142,7 @@
     <p>Los artículos están bien; una conversación sobre tu caso concreto está mejor.</p>
     <div class="acts">
       <a class="btn btn-primary" href="contacto.html">Contactar
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
   </div>
@@ -167,7 +156,7 @@
       <div>
         <a class="logo" href="../index.html"><span class="mark">S</span><span class="word">SIBBER<em>IA</em></span></a>
         <p class="foot-desc">Consultoría de Recursos Humanos en Madrid. Selección, formación y estrategia para que las personas impulsen tu negocio.</p>
-        <p class="foot-motto">Compartir · Crear · Crecer</p>
+        <p class="foot-motto" translate="no">Compartir, crear, crecer</p>
       </div>
       <div class="foot-col">
         <h4>Servicios</h4>
@@ -203,7 +192,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/core.js?v=1"></script>
+<script src="../assets/js/core.js?v=2"></script>
 <script>
 // Filtro de categorías
 (function () {

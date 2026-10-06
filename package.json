@@ -1,0 +1,12 @@
+{
+  "name": "web-sibberia",
+  "private": true,
+  "description": "Web de Sibberia. Sitio estático; solo la escena 3D del hero necesita compilarse.",
+  "scripts": {
+    "build": "esbuild assets/js/src/hero3d.js --bundle --minify --format=iife --global-name=SibHero3D --target=es2018 --legal-comments=eof --outfile=assets/js/hero3d.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "three": "0.186.1"
+  }
+}
