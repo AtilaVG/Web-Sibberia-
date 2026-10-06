@@ -18,10 +18,10 @@ import {
   BufferGeometry, Float32BufferAttribute, Points, LineSegments,
   IcosahedronGeometry, SphereGeometry,
   ShaderMaterial, MeshPhysicalMaterial, MeshBasicMaterial,
-  AdditiveBlending, NormalBlending, BackSide, DoubleSide, Color, Vector2,
-  PMREMGenerator, ACESFilmicToneMapping, SRGBColorSpace
+  AdditiveBlending, NormalBlending, DoubleSide, Color, Vector2,
+  ACESFilmicToneMapping, SRGBColorSpace
 } from "three";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { diamond, smooth, rng, makeSky, studioEnvironment } from "./common.js";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
@@ -160,88 +160,6 @@ const LINES_FS = /* glsl */ `
   }
 `;
 
-const SKY_VS = /* glsl */ `
-  varying vec3 vDir;
-  void main(){
-    vDir = normalize(position);
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
-const SKY_FS = /* glsl */ `
-  uniform vec3 uTop;
-  uniform vec3 uBottom;
-  uniform vec3 uWarm;
-  varying vec3 vDir;
-  void main(){
-    float h = vDir.y * 0.5 + 0.5;
-    vec3 col = mix(uBottom, uTop, smoothstep(0.1, 0.9, h));
-    // resplandor cálido detrás del cristal
-    float glow = pow(max(dot(vDir, normalize(vec3(0.15, 0.05, -1.0))), 0.0), 28.0);
-    col += uWarm * glow * 0.12;
-    gl_FragColor = vec4(col, 1.0);
-  }
-`;
-
-/* Diamante en talla brillante (corona, rondís y pabellón), con las
-   facetas ligeramente irregulares de una piedra en bruto */
-function diamond(rand) {
-  const SEG = 16; // facetas alrededor del rondís
-  const ring = (n, r, y, twist, jitter) => {
-    const out = [];
-    for (let i = 0; i < n; i++) {
-      const a = (i / n) * Math.PI * 2 + twist;
-      const k = 1 + (rand() - 0.5) * jitter;
-      out.push([Math.cos(a) * r * k, y + (rand() - 0.5) * jitter * 0.3, Math.sin(a) * r * k]);
-    }
-    return out;
-  };
-  const table = ring(SEG / 2, 0.9, 0.78, Math.PI / SEG * 2, 0.06);
-  const crown = ring(SEG, 1.32, 0.42, Math.PI / SEG, 0.05);
-  const girdle = ring(SEG, 1.5, 0.12, 0, 0.03);
-  const pav = ring(SEG / 2, 0.75, -0.9, Math.PI / SEG * 2, 0.08);
-  const top = [0, 0.8, 0], culet = [0, -1.95, 0];
-
-  const v = [];
-  const tri = (a, b, c) => v.push(...a, ...b, ...c);
-  for (let i = 0; i < SEG / 2; i++) {
-    const j = (i + 1) % (SEG / 2);
-    tri(top, table[j], table[i]);                       // mesa
-    const c0 = crown[2 * i], c1 = crown[2 * i + 1], c2 = crown[(2 * i + 2) % SEG];
-    tri(table[i], table[j], c1);                        // estrellas
-    tri(table[i], c1, c0);
-    tri(table[j], c2, c1);
-    const p0 = pav[i], p1 = pav[j];
-    tri(culet, p0, p1);                                 // punta
-    tri(p0, girdle[2 * i + 1], p1);
-    tri(p0, girdle[2 * i], girdle[2 * i + 1]);
-    tri(p1, girdle[2 * i + 1], girdle[(2 * i + 2) % SEG]);
-  }
-  for (let i = 0; i < SEG; i++) {                       // corona → rondís
-    const j = (i + 1) % SEG;
-    tri(crown[i], crown[j], girdle[j]);
-    tri(crown[i], girdle[j], girdle[i]);
-  }
-  const g = new BufferGeometry();
-  g.setAttribute("position", new Float32BufferAttribute(v, 3));
-  g.computeVertexNormals();
-  return g;
-}
-
-const smooth = (a, b, x) => {
-  const t = Math.min(Math.max((x - a) / (b - a), 0), 1);
-  return t * t * (3 - 2 * t);
-};
-
-/* PRNG determinista: la constelación es la misma en cada visita */
-function rng(seed) {
-  return function () {
-    seed |= 0; seed = (seed + 0x6d2b79f5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
 function buildPoints(count, rand) {
   const base = new Float32Array(count * 3);
   const seed = new Float32Array(count);
@@ -336,24 +254,9 @@ export function create(canvas, opts = {}) {
   const scene = new Scene();
   const camera = new PerspectiveCamera(40, 1, 0.05, 80);
 
-  // Reflejos de estudio sin descargar ningún HDR
-  const pmrem = new PMREMGenerator(renderer);
-  const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-  scene.environment = envTex;
-  scene.environmentIntensity = 0.8;
-  pmrem.dispose();
+  const envTex = studioEnvironment(renderer, scene, 0.8);
 
-  const sky = new Mesh(
-    new SphereGeometry(40, 32, 16),
-    new ShaderMaterial({
-      vertexShader: SKY_VS, fragmentShader: SKY_FS, side: BackSide, depthWrite: false,
-      uniforms: {
-        uTop: { value: new Color("#1b2c47") },
-        uBottom: { value: new Color("#0b1322") },
-        uWarm: { value: new Color("#f0741e") }
-      }
-    })
-  );
+  const sky = makeSky();
   scene.add(sky);
 
   const field = new Group();
