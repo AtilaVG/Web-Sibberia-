@@ -10,7 +10,7 @@ const SERVICIOS = [
     nombre: "Selección de personas",
     corto: "Selección",
     foto: { name: "bloques-personas", widths: [960, 1600], alt: "Una mano elige un bloque de madera con la figura de una persona entre varios bloques iguales." },
-    resumen: "Especialistas en perfiles técnicos e industriales: buscamos y evaluamos a las personas que encajan en tu empresa, en su puesto y en su equipo.",
+    resumen: "Especialistas en perfiles técnicos e industriales: buscamos y evaluamos a los profesionales que tu empresa necesita, para su puesto y para su equipo.",
     intro: "Especialistas en selección de perfiles técnicos e industriales: mantenimiento, producción, calidad, logística, ingeniería, automatización y programación. Trabajamos a éxito y diseñamos cada proceso a medida."
   },
   {
@@ -130,7 +130,7 @@ export function buildPages(cfg, data) {
 
 <section class="hero chapter" id="hero" data-step="0">
   <div class="wrap">
-    <h1><span class="kicker">Selección de perfiles técnicos e industriales</span> <span class="giant">Personas<br>que encajan</span></h1>
+    <h1><span class="kicker">Selección de</span> <span class="giant">Perfiles técnicos<br>e industriales</span></h1>
     <p class="sub">Mantenimiento y SAT, producción, calidad y PRL, logística, ingeniería, automatización y programación. Encontramos a quien encaja en tu planta, en tu proyecto y en tu equipo.</p>
     <div class="paths">
       <a class="path" href="${root}seleccion-personas/">

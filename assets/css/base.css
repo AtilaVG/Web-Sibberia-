@@ -8,7 +8,6 @@
 @font-face{font-family:"Titillium Web";font-weight:400;font-style:normal;font-display:swap;src:url(../fonts/titillium-web-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:"Titillium Web";font-weight:600;font-style:normal;font-display:swap;src:url(../fonts/titillium-web-latin-600-normal.woff2) format("woff2")}
 @font-face{font-family:"Titillium Web";font-weight:700;font-style:normal;font-display:swap;src:url(../fonts/titillium-web-latin-700-normal.woff2) format("woff2")}
-@font-face{font-family:"Titillium Web";font-weight:900;font-style:normal;font-display:swap;src:url(../fonts/titillium-web-latin-900-normal.woff2) format("woff2")}
 @font-face{font-family:"Mulish";font-weight:400;font-style:normal;font-display:swap;src:url(../fonts/mulish-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:"Mulish";font-weight:600;font-style:normal;font-display:swap;src:url(../fonts/mulish-latin-600-normal.woff2) format("woff2")}
 @font-face{font-family:"Mulish";font-weight:700;font-style:normal;font-display:swap;src:url(../fonts/mulish-latin-700-normal.woff2) format("woff2")}
@@ -45,7 +44,7 @@ body{
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
 h1,h2,h3,h4{font-family:var(--display);font-weight:700;line-height:1.05;letter-spacing:-.01em;color:var(--indigo);text-wrap:balance}
-h1{font-size:clamp(2.6rem,6vw,5rem);font-weight:900}
+h1{font-size:clamp(2.6rem,6vw,5rem);font-weight:700}
 h2{font-size:clamp(1.9rem,3.6vw,3rem)}
 h3{font-size:1.35rem}
 p{color:var(--muted);text-wrap:pretty}
@@ -59,8 +58,8 @@ ul,ol{list-style:none}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* Tipografía gigante */
-.giant{font-family:var(--display);font-weight:900;font-size:clamp(3.4rem,11vw,10.5rem);line-height:.88;letter-spacing:-.035em}
-.giant-sm{font-family:var(--display);font-weight:900;font-size:clamp(2.4rem,6vw,5.2rem);line-height:.95;letter-spacing:-.025em;margin-bottom:clamp(28px,4vw,48px)}
+.giant{font-family:var(--display);font-weight:700;font-size:clamp(3rem,8.5vw,8rem);line-height:.95;letter-spacing:-.02em}
+.giant-sm{font-family:var(--display);font-weight:700;font-size:clamp(2.1rem,4.6vw,3.9rem);line-height:1;letter-spacing:-.015em;margin-bottom:clamp(28px,4vw,48px)}
 .kicker{font-family:var(--display);font-weight:700;font-size:1.05rem;color:var(--yellow);margin-bottom:18px}
 
 /* Accesibilidad */
@@ -124,13 +123,13 @@ header.site nav{display:flex;align-items:center;justify-content:space-between;ga
 /* Cifras */
 .cifras{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:clamp(40px,6vw,72px)}
 .cifras div{display:flex;flex-direction:column-reverse;gap:6px;border-top:3px solid var(--yellow);padding-top:18px}
-.cifras dd{font-family:var(--display);font-weight:900;font-size:clamp(3rem,7vw,5.5rem);line-height:.9;color:var(--indigo);font-variant-numeric:tabular-nums}
+.cifras dd{font-family:var(--display);font-weight:700;font-size:clamp(3rem,7vw,5.5rem);line-height:.9;color:var(--indigo);font-variant-numeric:tabular-nums}
 .cifras dt{font-size:1.05rem;color:var(--muted)}
 @media (max-width:640px){.cifras{grid-template-columns:1fr}}
 
 /* Valores */
 .valores{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px)}
-.valores h3{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:900;margin-bottom:10px}
+.valores h3{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;margin-bottom:10px}
 .valores li{border-top:1px solid var(--line);padding-top:20px}
 .exito{margin-top:40px;font-size:1.15rem}
 .exito b{color:var(--indigo)}
@@ -203,7 +202,7 @@ mark.pending{background:#fff3cd;color:#6b4d00;padding:0 4px;border-radius:3px}
 /* Familias de perfiles técnicos */
 .areas{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
 .area a{display:flex;flex-direction:column;gap:10px;height:100%;padding:26px;border-radius:var(--r);border:1px solid var(--line);border-top:4px solid var(--yellow);background:var(--paper);text-decoration:none;transition:background-color .25s,border-color .25s,color .25s}
-.area h3{font-size:1.45rem;font-weight:900}
+.area h3{font-size:1.45rem;font-weight:700}
 .area p{font-size:.95rem}
 .area a:hover{background:var(--indigo);border-color:var(--indigo)}
 .area a:hover h3,.area a:hover .more{color:#fff}

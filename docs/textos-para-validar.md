@@ -28,11 +28,10 @@ compras», «Ingeniero/a / Técnico/a de automatización», «Ingeniero/a / Téc
 de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se editan en
 `data/areas.json`.
 
-- Inicio, antetítulo del H1: «Selección de perfiles técnicos e industriales»
 - Inicio, subtítulo: «Mantenimiento y SAT, producción, calidad y PRL, logística, ingeniería, automatización y programación. Encontramos a quien encaja en tu planta, en tu proyecto y en tu equipo.»
 - Camino empresas: «Necesito incorporar perfiles técnicos o industriales en mi empresa.»
 - Bloque de la home: «Somos especialistas en seleccionar los perfiles que hacen funcionar una empresa industrial.»
-- Selección (resumen e intro): «Especialistas en perfiles técnicos e industriales…» / «Especialistas en selección de perfiles técnicos e industriales: mantenimiento, producción, calidad, logística, ingeniería, automatización y programación. Trabajamos a éxito y diseñamos cada proceso a medida.»
+- Selección (resumen e intro): «Especialistas en perfiles técnicos e industriales: buscamos y evaluamos a los profesionales que tu empresa necesita, para su puesto y para su equipo.» / «Especialistas en selección de perfiles técnicos e industriales: mantenimiento, producción, calidad, logística, ingeniería, automatización y programación. Trabajamos a éxito y diseñamos cada proceso a medida.»
 - Nueva pregunta frecuente: «¿Qué perfiles técnicos e industriales seleccionáis?» → lista de familias.
 - Páginas de familia, intro: «En Sibberia seleccionamos {perfiles} para empresas industriales y técnicas. Diseñamos cada proceso a la medida del puesto y del equipo, y trabajamos a éxito.»
 - Páginas de familia, «Crecer»: «Te acompañamos hasta que la incorporación se consolida.» Botones: «Busco este perfil», «Busco empleo». Llamada final: «¿Buscas este perfil?»
@@ -40,7 +39,7 @@ de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se edita
 
 ## Inicio
 
-- Titular: «Personas que encajan»
+- Titular: «Selección de perfiles técnicos e industriales» (antetítulo «Selección de» y titular gigante «Perfiles técnicos e industriales»). Sustituye a «Personas que encajan».
 - Subtítulo: «Selección de personas, estrategia y gestión del capital humano, y formación. Trabajamos a éxito y a la medida de cada empresa.»
 - Camino empresas: «Para empresas · Busco talento · Necesito incorporar o desarrollar personas en mi empresa.»
 - Camino candidatos: «Para candidatos · Busco empleo · Quiero ver las ofertas abiertas y presentar mi candidatura.»
@@ -54,7 +53,7 @@ de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se edita
 
 ## Servicios
 
-- Selección de personas — resumen: «Buscamos y evaluamos a las personas que encajan en tu empresa, en su puesto y en su equipo.» Intro: «Nos encargamos del proceso de selección para que incorpores a la persona que tu empresa necesita. Trabajamos a éxito y diseñamos cada proceso a medida.»
+- Selección de personas — resumen: ver «Especialización en perfiles técnicos». Intro: «Nos encargamos del proceso de selección para que incorpores a la persona que tu empresa necesita. Trabajamos a éxito y diseñamos cada proceso a medida.»
 - Estrategia y gestión del capital humano — resumen: «Te ayudamos a definir y gestionar la estrategia de personas de tu organización.» Intro: «Acompañamos a la dirección y al área de personas en la estrategia y la gestión del capital humano, con proyectos diseñados a medida de cada organización.»
 - Formación y desarrollo de personas — resumen: «Diseñamos formación para que las personas de tu equipo desarrollen todo su potencial.» Intro: «Diseñamos e impartimos programas de formación y desarrollo a la medida de las necesidades de cada equipo.»
 - «Cómo trabajamos» (los tres servicios): Compartir — «Escuchamos tu necesidad y conocemos tu empresa, tu equipo y su cultura.» / Crear — «Diseñamos un proyecto a medida, con objetivos y plazos acordados contigo.» / Crecer — «Te acompañamos durante el proyecto para que el resultado se consolide.»
