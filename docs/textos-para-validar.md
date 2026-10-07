@@ -111,9 +111,13 @@ de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se edita
 
 ## Imágenes
 
-- Fotos de las cabeceras de familia (generadas por el cliente con ChatGPT, ilustrativas; ver `docs/imagenes.md`). Textos alternativos redactados para la web (`data/areas.json → foto.alt`):
+- Fotos de las cabeceras (generadas por el cliente con ChatGPT, ilustrativas; ver `docs/imagenes.md`). Textos alternativos redactados para la web (familias en `data/areas.json → foto.alt`; Selección, Ofertas y Contacto en `site/pages.mjs`):
   - Producción: «Jefa de turno con gafas de seguridad consulta una tableta mientras recorre una línea de producción; dos operarios trabajan al fondo.»
   - Calidad, PRL y Medioambiente: «Inspector de calidad con chaleco reflectante mide una pieza mecanizada con un calibre digital en un banco de inspección.»
   - Almacén, Logística, Planificación y Compras: «Técnica de logística con chaleco reflectante escanea el código de barras de una caja en una estantería de almacén; al fondo, una carretilla.»
   - Ingeniería y Proyectos: «Ingeniero de proyectos trabaja con un portátil y planos en una mesa de una planta industrial, con un casco de seguridad al lado.»
   - Automatización y Robótica: «Técnica con gafas de seguridad programa un brazo robot industrial con la consola de programación, junto a una célula de seguridad.»
+  - Programadores/as: «Programador con gafas de seguridad trabaja con un portátil y módulos de PLC en un puesto acristalado con vistas a la planta.»
+  - Selección: «Una consultora de selección entrevista a un candidato con ropa de trabajo en una sala acristalada junto a la planta.»
+  - Ofertas de trabajo: «Una candidata con ropa de trabajo consulta su móvil a la entrada de una nave industrial al amanecer.»
+  - Contacto: «Una consultora y un responsable de planta conversan junto a un portátil en una oficina acristalada con vistas a la planta.»

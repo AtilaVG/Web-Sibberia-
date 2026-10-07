@@ -4,7 +4,7 @@ La web usa las fotos facilitadas por el cliente:
 
 | Foto | Dónde se usa |
 | --- | --- |
-| Bloques de madera (`bloques-personas`) | Home (fondo sin 3D, tarjeta de Selección), cabecera de Selección e imagen para redes sociales |
+| Bloques de madera (`bloques-personas`) | Home (fondo sin 3D, tarjeta de Selección) e imagen para redes sociales |
 | Equipo colaborando (`equipo-colaborando`) | Estrategia y gestión del capital humano y su tarjeta |
 | Sesión de formación (`formacion-sesion`) | Formación y desarrollo de personas y su tarjeta |
 | Taller con asistentes (`taller-asistentes`) | Nosotros |
@@ -13,15 +13,18 @@ La web usa las fotos facilitadas por el cliente:
 | Técnica con lector en el almacén (`foto-almacen-logistica-planificacion-compras`) | Familia Almacén, Logística, Planificación y Compras |
 | Ingeniero con portátil y planos (`foto-ingenieria-y-proyectos`) | Familia Ingeniería y Proyectos y sus ofertas |
 | Técnica programando un robot (`foto-automatizacion-y-robotica`) | Familia Automatización y Robótica |
+| Programador con módulos de PLC (`foto-programadores`) | Familia Programadores/as |
+| Entrevista de selección (`foto-seleccion`) | Cabecera de Selección de perfiles técnicos |
+| Candidata con el móvil a la entrada de una nave (`foto-ofertas`) | Listado de ofertas y ofertas sin foto de familia |
+| Consultora y responsable de planta (`foto-contacto`) | Contacto |
 
-Las cinco fotos de familias (7-oct-2026) las ha generado el cliente con ChatGPT
+Estas nueve fotos (7-oct-2026) las ha generado el cliente con ChatGPT
 a partir de los prompts de este documento. Son **imágenes ilustrativas**: no deben
 presentarse como el equipo de Sibberia. Se enlazan en `data/areas.json` (campo
 `foto`, con su texto alternativo) y las ofertas de esa familia usan la misma.
 
-Pendientes: Mantenimiento y SAT, Programadores/as, Ofertas de trabajo (listado y
-ofertas sin familia), Contacto y, opcionalmente, Selección. Mientras no lleguen,
-esas cabeceras siguen en azul, sin foto.
+Pendiente: Mantenimiento y SAT. Mientras no llegue, su cabecera sigue en azul
+y su oferta usa la foto de Ofertas.
 
 Equipo colaborando, Sesión de formación y Taller con asistentes solo existen
 a 960 px. Con los originales en más resolución se verían más nítidas en pantallas

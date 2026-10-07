@@ -10,6 +10,7 @@ const SERVICIOS = [
     nombre: "Selección de personas",
     corto: "Selección",
     foto: { name: "bloques-personas", widths: [960, 1600], alt: "Una mano elige un bloque de madera con la figura de una persona entre varios bloques iguales." },
+    cabecera: { name: "foto-seleccion", widths: [640, 960, 1600], alt: "Una consultora de selección entrevista a un candidato con ropa de trabajo en una sala acristalada junto a la planta.", cls: "foco-dcha" },
     resumen: "Especialistas en perfiles técnicos e industriales: buscamos y evaluamos a los profesionales que tu empresa necesita, para su puesto y para su equipo.",
     intro: "Especialistas en selección de perfiles técnicos e industriales: mantenimiento, producción, calidad, logística, ingeniería, automatización y programación. Trabajamos a éxito y diseñamos cada proceso a medida."
   },
@@ -62,7 +63,10 @@ let AREA_NAMES = {};
 
 /* Foto de cabecera de una familia (data/areas.json → foto). El tema está a la
    derecha de la foto: la clase lo mantiene a la vista cuando se recorta en móvil. */
-const fotoArea = (a) => (a && a.foto ? { name: a.foto.archivo, widths: [640, 960, 1600], alt: a.foto.alt, cls: "foco-dcha" } : null);
+const fotoCabecera = (archivo, alt) => ({ name: archivo, widths: [640, 960, 1600], alt, cls: "foco-dcha" });
+const fotoArea = (a) => (a && a.foto ? fotoCabecera(a.foto.archivo, a.foto.alt) : null);
+const FOTO_OFERTAS = fotoCabecera("foto-ofertas", "Una candidata con ropa de trabajo consulta su móvil a la entrada de una nave industrial al amanecer.");
+const FOTO_CONTACTO = fotoCabecera("foto-contacto", "Una consultora y un responsable de planta conversan junto a un portátil en una oficina acristalada con vistas a la planta.");
 
 /* Formulario «Envíanos tu CV». Con destino configurado (formularios.candidaturas)
    se adjunta el CV; sin él, se prepara un correo y se pide adjuntarlo. */
@@ -335,7 +339,7 @@ ${phero(root, {
   kicker: hub ? s.nombre : "Servicio",
   title: hub ? "Selección de perfiles técnicos e industriales" : s.nombre,
   sub: s.intro,
-  foto: s.foto,
+  foto: s.cabecera || s.foto,
   crumbs: crumb({ name: s.nombre, path: s.path }),
   actions: `<div class="acts"><a class="btn btn-primary" href="${root}contacto/">Cuéntanos tu caso ${icon.arrow}</a></div>`
 })}
@@ -494,6 +498,7 @@ ${phero(root, {
   kicker: "Para candidatos",
   title: "Ofertas de trabajo",
   sub: "Estas son las posiciones que tenemos abiertas ahora mismo.",
+  foto: FOTO_OFERTAS,
   crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }),
   actions: `<div class="acts"><a class="btn btn-primary" href="#envia-tu-cv">Envíanos tu CV ${icon.arrow}</a></div>`
 })}
@@ -571,7 +576,7 @@ ${phero(root, {
   kicker: "Oferta de trabajo",
   title: esc(o.titulo),
   sub: `${icon.pin} ${esc(o.ubicacion)}`,
-  foto: fotoArea(areaBySlug[o.area]),
+  foto: fotoArea(areaBySlug[o.area]) || FOTO_OFERTAS,
   crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }, { name: o.titulo, path: p }),
   actions: `<div class="acts"><a class="btn btn-primary" href="#candidatura">Envíanos tu CV ${icon.arrow}</a></div>`
 })}
@@ -656,7 +661,7 @@ ${phero(root, { kicker: "Blog", title: esc(a.titulo), crumbs: crumb({ name: "Blo
     crumbs: crumb({ name: "Contacto", path: "contacto/" }),
     jsonld: [{ "@type": "ContactPage", url: `${url}/contacto/`, about: org }],
     body: (root) => `
-${phero(root, { kicker: "Contacto", title: "Hablemos", sub: "Cuéntanos qué necesitas. Si buscas empleo, revisa antes nuestras ofertas abiertas.", crumbs: crumb({ name: "Contacto", path: "contacto/" }) })}
+${phero(root, { kicker: "Contacto", title: "Hablemos", sub: "Cuéntanos qué necesitas. Si buscas empleo, revisa antes nuestras ofertas abiertas.", foto: FOTO_CONTACTO, crumbs: crumb({ name: "Contacto", path: "contacto/" }) })}
 <section class="sec">
   <div class="wrap contact-grid">
     <aside class="cinfo">

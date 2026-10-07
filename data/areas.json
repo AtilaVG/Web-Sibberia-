@@ -147,7 +147,11 @@
       ],
       "descripcion": "programadores/as",
       "seoTitulo": "Selección de programadores | Sibberia",
-      "seoDescripcion": "Seleccionamos programadores para empresas industriales y técnicas. Procesos a medida y a éxito."
+      "seoDescripcion": "Seleccionamos programadores para empresas industriales y técnicas. Procesos a medida y a éxito.",
+      "foto": {
+        "archivo": "foto-programadores",
+        "alt": "Programador con gafas de seguridad trabaja con un portátil y módulos de PLC en un puesto acristalado con vistas a la planta."
+      }
     }
   ]
 }
