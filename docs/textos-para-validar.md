@@ -112,6 +112,7 @@ de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se edita
 ## Imágenes
 
 - Fotos de las cabeceras (generadas por el cliente con ChatGPT, ilustrativas; ver `docs/imagenes.md`). Textos alternativos redactados para la web (familias en `data/areas.json → foto.alt`; Selección, Ofertas y Contacto en `site/pages.mjs`):
+  - Mantenimiento y SAT: «Técnico de mantenimiento con gafas de seguridad comprueba con un multímetro el cableado de un cuadro eléctrico abierto en una planta industrial.»
   - Producción: «Jefa de turno con gafas de seguridad consulta una tableta mientras recorre una línea de producción; dos operarios trabajan al fondo.»
   - Calidad, PRL y Medioambiente: «Inspector de calidad con chaleco reflectante mide una pieza mecanizada con un calibre digital en un banco de inspección.»
   - Almacén, Logística, Planificación y Compras: «Técnica de logística con chaleco reflectante escanea el código de barras de una caja en una estantería de almacén; al fondo, una carretilla.»

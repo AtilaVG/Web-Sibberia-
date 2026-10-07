@@ -19,7 +19,11 @@
       ],
       "descripcion": "técnicos/as de mantenimiento eléctrico, mecánico y electromecánico, y técnicos/as de SAT",
       "seoTitulo": "Selección de técnicos de mantenimiento y SAT | Sibberia",
-      "seoDescripcion": "Seleccionamos técnicos de mantenimiento eléctrico, mecánico y electromecánico y técnicos de SAT. Procesos a medida y a éxito."
+      "seoDescripcion": "Seleccionamos técnicos de mantenimiento eléctrico, mecánico y electromecánico y técnicos de SAT. Procesos a medida y a éxito.",
+      "foto": {
+        "archivo": "foto-mantenimiento-y-sat",
+        "alt": "Técnico de mantenimiento con gafas de seguridad comprueba con un multímetro el cableado de un cuadro eléctrico abierto en una planta industrial."
+      }
     },
     {
       "slug": "produccion",

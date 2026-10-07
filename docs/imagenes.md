@@ -8,6 +8,7 @@ La web usa las fotos facilitadas por el cliente:
 | Equipo colaborando (`equipo-colaborando`) | Estrategia y gestión del capital humano y su tarjeta |
 | Sesión de formación (`formacion-sesion`) | Formación y desarrollo de personas y su tarjeta |
 | Taller con asistentes (`taller-asistentes`) | Nosotros |
+| Técnico con multímetro en un cuadro eléctrico (`foto-mantenimiento-y-sat`) | Familia Mantenimiento y SAT y su oferta |
 | Jefa de turno con tableta (`foto-produccion`) | Familia Producción |
 | Inspector con calibre (`foto-calidad-prl-medioambiente`) | Familia Calidad, PRL y Medioambiente |
 | Técnica con lector en el almacén (`foto-almacen-logistica-planificacion-compras`) | Familia Almacén, Logística, Planificación y Compras |
@@ -18,13 +19,13 @@ La web usa las fotos facilitadas por el cliente:
 | Candidata con el móvil a la entrada de una nave (`foto-ofertas`) | Listado de ofertas y ofertas sin foto de familia |
 | Consultora y responsable de planta (`foto-contacto`) | Contacto |
 
-Estas nueve fotos (7-oct-2026) las ha generado el cliente con ChatGPT
+Estas diez fotos (7-oct-2026) las ha generado el cliente con ChatGPT
 a partir de los prompts de este documento. Son **imágenes ilustrativas**: no deben
 presentarse como el equipo de Sibberia. Se enlazan en `data/areas.json` (campo
 `foto`, con su texto alternativo) y las ofertas de esa familia usan la misma.
 
-Pendiente: Mantenimiento y SAT. Mientras no llegue, su cabecera sigue en azul
-y su oferta usa la foto de Ofertas.
+Todas las familias, Selección, Ofertas y Contacto tienen ya su foto. Una oferta
+usa la foto de su familia y, si no tiene familia, la de Ofertas.
 
 Equipo colaborando, Sesión de formación y Taller con asistentes solo existen
 a 960 px. Con los originales en más resolución se verían más nítidas en pantallas
