@@ -8,7 +8,9 @@
 .phero.has-photo{min-height:min(720px,90vh);display:flex;align-items:flex-end}
 .phero-media{position:absolute;inset:0}
 .phero-media img{width:100%;height:100%;object-fit:cover}
-.phero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,19,56,.92) 0%,rgba(22,31,85,.75) 50%,rgba(34,53,139,.35) 100%)}
+/* fotos con el tema a la derecha: que no se recorte en móvil */
+.phero-media img.foco-dcha{object-position:70% 35%}
+.phero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,19,56,.75) 0,rgba(13,19,56,0) 170px),linear-gradient(90deg,rgba(13,19,56,.92) 0%,rgba(22,31,85,.75) 50%,rgba(34,53,139,.35) 100%)}
 .phero .wrap{position:relative;z-index:1;width:100%}
 .phero h1{color:#fff;font-size:clamp(2.05rem,5.4vw,4.6rem);line-height:1;letter-spacing:-.015em;max-width:15ch;margin-bottom:22px}
 .phero .sub{color:var(--white-70);font-size:1.15rem;max-width:620px;display:flex;align-items:center;gap:8px}
@@ -64,8 +66,11 @@
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .ffield{display:flex;flex-direction:column;gap:6px}
 .ffield label{font-family:var(--display);font-weight:700;color:var(--indigo)}
-.ffield input,.ffield textarea{font:inherit;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;width:100%;transition:border-color .2s}
-.ffield input:focus-visible,.ffield textarea:focus-visible{border-color:var(--indigo);outline:3px solid rgba(34,53,139,.2);outline-offset:0}
+.ffield input,.ffield textarea,.ffield select{font:inherit;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;width:100%;min-height:48px;transition:border-color .2s}
+.ffield select{appearance:auto;cursor:pointer}
+.ffield input[type="file"]{padding:9px 12px;cursor:pointer}
+.ffield input[type="file"]::file-selector-button{font:inherit;font-weight:700;color:var(--indigo);background:#eef1fb;border:0;border-radius:8px;padding:6px 12px;margin-right:12px;cursor:pointer}
+.ffield input:focus-visible,.ffield textarea:focus-visible,.ffield select:focus-visible{border-color:var(--indigo);outline:3px solid rgba(34,53,139,.2);outline-offset:0}
 .ffield [aria-invalid="true"]{border-color:#b3261e}
 .ferr{min-height:1.2em;font-size:.88rem;color:#b3261e;margin:0}
 .cform .btn{align-self:flex-start}
@@ -79,3 +84,13 @@
 
 /* Móvil en horizontal: el título de la página entra en la primera pantalla */
 @media (max-height:500px) and (orientation:landscape){.phero{padding-top:96px}.crumb ol{margin-bottom:14px}}
+
+/* Cabecera con imagen en móvil: velo de arriba abajo (el texto va abajo, a todo el ancho) */
+@media (max-width:700px){
+  .phero-media::after{background:linear-gradient(180deg,rgba(13,19,56,.6) 0,rgba(13,19,56,.25) 90px,rgba(13,19,56,.5) 30%,rgba(13,19,56,.85) 55%,rgba(13,19,56,.95) 100%)}
+}
+
+/* Envíanos tu CV */
+.cv-lead{font-size:1.1rem;margin:-12px 0 28px;max-width:640px}
+.cv-lead a,.cv-note a{color:var(--indigo);font-weight:600}
+.cv-note{font-size:.95rem;color:var(--muted);background:#fff;border-left:4px solid var(--yellow);border-radius:8px;padding:12px 16px}

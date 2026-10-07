@@ -93,6 +93,8 @@
     } catch (e) { return; }
     stage.classList.add("is-3d");
     window.addEventListener("resize", function () { if (scene) scene.resize(); });
+    // si el navegador pierde el contexto gráfico (GPU reiniciada, poca memoria), foto fija
+    canvas.addEventListener("webglcontextlost", function (e) { e.preventDefault(); fallback(); });
 
     if (reduce) {
       // Un fotograma por paso, sin transición

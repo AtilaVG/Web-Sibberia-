@@ -64,7 +64,9 @@ ul,ol{list-style:none}
 .kicker{font-family:var(--display);font-weight:700;font-size:1.05rem;color:var(--yellow);margin-bottom:18px}
 
 /* Accesibilidad */
-:focus-visible{outline:3px solid var(--yellow);outline-offset:3px;border-radius:4px}
+:focus-visible{outline:3px solid var(--indigo);outline-offset:3px;border-radius:4px}
+/* sobre fondo oscuro, el anillo de foco en amarillo (en fondo claro no se vería) */
+header.site :focus-visible,.mobile-menu :focus-visible,footer.site :focus-visible,.phero :focus-visible,.chapter :focus-visible,.cta :focus-visible,.area-cta :focus-visible,.skip:focus-visible{outline-color:var(--yellow)}
 .skip{position:absolute;left:-999px;top:8px;z-index:200;background:var(--indigo);color:#fff;padding:10px 18px;border-radius:8px}
 .skip:focus{left:8px}
 
@@ -90,7 +92,8 @@ ul,ol{list-style:none}
 header.site{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 0;transition:background-color .3s,padding .3s}
 header.site.scrolled{background:var(--indigo);padding:12px 0;box-shadow:0 10px 30px -18px rgba(13,19,56,.6)}
 header.site nav{display:flex;align-items:center;justify-content:space-between;gap:24px}
-.logo img{width:154px;height:auto}
+.logo img{width:196px;height:auto}
+@media (max-width:480px){.logo img{width:164px}}
 .nav-links{display:flex;gap:26px}
 .nav-links a{font-family:var(--display);font-weight:600;font-size:1rem;color:var(--white-70);text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
 .nav-links a:hover{color:#fff}
@@ -221,7 +224,8 @@ mark.pending{background:#fff3cd;color:#6b4d00;padding:0 4px;border-radius:3px}
 .area a:hover p{color:var(--white-70)}
 .sec-lead{font-size:1.15rem;margin-top:14px;max-width:560px}
 .perfiles{display:flex;flex-wrap:wrap;gap:12px}
-.perfiles li{font-family:var(--display);font-weight:700;font-size:clamp(1.1rem,2vw,1.45rem);color:var(--indigo);border:2px solid var(--indigo);border-radius:999px;padding:10px 22px}
+/* etiquetas informativas (no son botones): fondo suave, sin borde */
+.perfiles li{font-family:var(--display);font-weight:700;font-size:clamp(1.05rem,1.8vw,1.3rem);color:var(--indigo);background:#eef1fb;border-left:4px solid var(--yellow);border-radius:8px;padding:10px 18px}
 .area-ico{width:34px;height:34px;color:var(--indigo);margin-bottom:6px;transition:color .25s}
 .area a:hover .area-ico{color:var(--yellow)}
 /* Tarjeta de contacto que completa la rejilla de familias */
@@ -281,3 +285,6 @@ footer.site li a{display:inline-flex;align-items:center;min-height:44px}
   :root{--maxw:1440px}
   html{font-size:17px}
 }
+
+/* Menú móvil abierto: la página de detrás no se desplaza */
+html.menu-open{overflow:hidden}

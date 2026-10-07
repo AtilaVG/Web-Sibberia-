@@ -13,10 +13,10 @@ los títulos y ubicaciones de las cinco ofertas.
 
 ## Datos bloqueados hasta que el cliente los confirme
 
-- Razón social, CIF y dirección postal: **no se publican**. En el aviso legal aparecen marcados como «pendiente de validar» y la página está en `noindex`. Se rellenan en `site/config.json → pendienteDeValidar`.
-- Ofertas: falta la descripción, la fecha de publicación (obligatoria para Google en JobPosting), la jornada y el tipo de contrato de cada una (`data/ofertas.json`). «Ontólogo/a senior (España)»: confirmar si es en remoto.
+- Razón social, CIF y dirección postal: **no se publican**. En el aviso legal esas líneas no aparecen hasta tenerlas y la página está en `noindex`. Se rellenan en `site/config.json → pendienteDeValidar`.
+- Ofertas: falta la descripción, la fecha de publicación, la jornada y el tipo de contrato de cada una (`data/ofertas.json`). Sin fecha y descripción reales no se publican los datos estructurados JobPosting (Google los marcaría como erróneos); aparecen solos en cuanto se rellenan. «Ontólogo/a senior (España)»: confirmar si es en remoto.
 - Blog: faltan los títulos y textos reales (`data/blog.json`). No he podido leerlos porque sibberia.com está bloqueado desde el entorno de trabajo. No se ha inventado ninguno.
-- Destino de los formularios (contacto y newsletter): `site/config.json → formularios`.
+- Destino de los formularios (contacto, candidaturas con CV adjunto y newsletter): `site/config.json → formularios`. Para recibir el CV como archivo hace falta un servicio que acepte adjuntos (por ejemplo Formspree o Basin en un plan que los permita).
 
 ## Especialización en perfiles técnicos (feedback del 6-oct-2026)
 
@@ -70,11 +70,16 @@ de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se edita
 
 ## Ofertas de trabajo
 
-- Listado: «Estas son las posiciones que tenemos abiertas ahora mismo.» / «¿No encuentras la tuya? Escríbenos a hola@sibberia.com.»
+- Listado: «Estas son las posiciones que tenemos abiertas ahora mismo.»
 - Ficha: el texto provisional «Estamos preparando la descripción…» se ha quitado; la ficha muestra la descripción solo cuando el cliente la facilite.
 - Filtros del listado: «Familia», «Zona», «Todas», contador «N ofertas abiertas» y, si no hay resultados, «No hay ofertas abiertas con estos filtros.» con el botón «Ver todas». Cada oferta lleva la etiqueta de su familia profesional.
-- Descripción provisional en el JSON-LD: «Sibberia selecciona {puesto} en {ubicación}.»
-- «Cómo inscribirte: envía tu CV a hola@sibberia.com indicando en el asunto el nombre de la oferta.» (confirmar que es el canal correcto de candidaturas).
+- **Envíanos tu CV** (nuevo, 7-oct-2026). Botón «Envíanos tu CV» en la cabecera de cada oferta, del listado y en la sección de ofertas de la home.
+  - Ficha de oferta: título «Envíanos tu CV» y «Déjanos tus datos para optar a esta oferta. Si lo prefieres, escríbenos a hola@sibberia.com con el nombre de la oferta en el asunto.» (sustituye a «Cómo inscribirte…»; confirmar que hola@sibberia.com es el canal de candidaturas).
+  - Listado: «¿No encuentras tu oferta? Envíanos tu CV» y «Puedes enviarnos tu candidatura aunque ahora no veas una oferta para tu perfil. También puedes escribirnos a hola@sibberia.com.»
+  - Campos: «Oferta» (con «Candidatura espontánea»), «Familia profesional» («Elige una (opcional)»), «Nombre y apellidos», «Email», «Teléfono», «Tu CV (PDF o Word, máx. 5 MB)» (solo si hay destino configurado), «Cuéntanos algo de ti (opcional)», casilla de privacidad y botón «Enviar mi CV».
+  - Sin destino configurado: «Al enviar se abrirá tu programa de correo con estos datos: adjunta tu CV antes de enviarlo.» y, al enviar, «Hemos preparado el correo con tus datos: adjunta tu CV y envíalo. Si no se ha abierto, escríbenos a hola@sibberia.com.»
+  - Con destino: «Gracias, hemos recibido tu candidatura.» y el aviso del campo «Adjunta tu CV en PDF o Word (máximo 5 MB).»
+  - Contacto: si se marca «Candidato/a», aparece «¿Buscas empleo? Envíanos tu CV desde la página de ofertas.»
 
 ## Blog
 
@@ -85,7 +90,7 @@ de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se edita
 - «Hablemos. Cuéntanos qué necesitas. Si buscas empleo, revisa antes nuestras ofertas abiertas.»
 - Mensajes: «Gracias, hemos recibido tu mensaje. Te responderemos lo antes posible.» / «Listo: te has suscrito a la newsletter.» / «Hemos preparado el mensaje en tu programa de correo; solo tienes que enviarlo. Si no se ha abierto, escríbenos a hola@sibberia.com.» (mientras no haya destino configurado, el formulario abre el correo con los datos rellenados) / «No hemos podido enviar el formulario. Inténtalo de nuevo o escríbenos a hola@sibberia.com.» y los avisos de cada campo.
 - La newsletter del pie está oculta hasta que se configure su destino.
-- Aviso legal y privacidad: las líneas de razón social, CIF y domicilio no se muestran hasta que el cliente las confirme (la página queda en noindex).  reutiliza el texto anterior; he añadido la finalidad «gestionar tu candidatura o enviarte la newsletter si te suscribes» y la frase sobre tipografías servidas desde el propio sitio. Revisar con el asesor legal.
+- Aviso legal y privacidad: las líneas de razón social, CIF y domicilio no se muestran hasta que el cliente las confirme (la página queda en noindex). Reutiliza el texto anterior; he añadido la finalidad «gestionar tu candidatura o enviarte la newsletter si te suscribes» y la frase sobre tipografías servidas desde el propio sitio. Revisar con el asesor legal.
 
 ## Metadatos (SEO)
 
@@ -103,3 +108,17 @@ de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se edita
   - Automatización y Robótica: «Selección de técnicos de automatización y robótica» / «Seleccionamos ingenieros y técnicos de automatización y robótica industrial. Procesos a medida y a éxito.»
   - Programadores/as: «Selección de programadores | Sibberia» / «Seleccionamos programadores para empresas industriales y técnicas. Procesos a medida y a éxito.»
 - Textos alternativos de las fotos y de la imagen para redes sociales.
+
+## Imágenes
+
+- Fotos de las cabeceras (generadas por el cliente con ChatGPT, ilustrativas; ver `docs/imagenes.md`). Textos alternativos redactados para la web (familias en `data/areas.json → foto.alt`; Selección, Ofertas y Contacto en `site/pages.mjs`):
+  - Mantenimiento y SAT: «Técnico de mantenimiento con gafas de seguridad comprueba con un multímetro el cableado de un cuadro eléctrico abierto en una planta industrial.»
+  - Producción: «Jefa de turno con gafas de seguridad consulta una tableta mientras recorre una línea de producción; dos operarios trabajan al fondo.»
+  - Calidad, PRL y Medioambiente: «Inspector de calidad con chaleco reflectante mide una pieza mecanizada con un calibre digital en un banco de inspección.»
+  - Almacén, Logística, Planificación y Compras: «Técnica de logística con chaleco reflectante escanea el código de barras de una caja en una estantería de almacén; al fondo, una carretilla.»
+  - Ingeniería y Proyectos: «Ingeniero de proyectos trabaja con un portátil y planos en una mesa de una planta industrial, con un casco de seguridad al lado.»
+  - Automatización y Robótica: «Técnica con gafas de seguridad programa un brazo robot industrial con la consola de programación, junto a una célula de seguridad.»
+  - Programadores/as: «Programador con gafas de seguridad trabaja con un portátil y módulos de PLC en un puesto acristalado con vistas a la planta.»
+  - Selección: «Una consultora de selección entrevista a un candidato con ropa de trabajo en una sala acristalada junto a la planta.»
+  - Ofertas de trabajo: «Una candidata con ropa de trabajo consulta su móvil a la entrada de una nave industrial al amanecer.»
+  - Contacto: «Una consultora y un responsable de planta conversan junto a un portátil en una oficina acristalada con vistas a la planta.»

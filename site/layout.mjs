@@ -6,6 +6,9 @@
 export const esc = (s) => String(s ?? "")
   .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
+/* Teléfono para mostrar: sin cortes de línea entre los grupos de cifras */
+export const telTxt = (t) => esc(t.texto).replace(/ /g, "&nbsp;");
+
 export const NAV = [
   { href: "seleccion-personas/", label: "Perfiles técnicos", full: "Selección de perfiles técnicos" },
   { href: "estrategia-y-gestion-del-capital-humano/", label: "Estrategia", full: "Estrategia y gestión del capital humano" },
@@ -39,7 +42,7 @@ function header(root, active, cfg) {
   return `<a class="skip" href="#main">Saltar al contenido</a>
 <header class="site">
   <nav class="wrap" aria-label="Principal">
-    <a class="logo" href="${root}" aria-label="Sibberia, inicio"><img src="${root}assets/img/sibberia-logo-blanco.svg" width="154" height="28" alt="Sibberia"></a>
+    <a class="logo" href="${root}" aria-label="Sibberia, inicio"><img src="${root}assets/img/sibberia-logo-blanco.svg" width="196" height="36" alt="Sibberia"></a>
     <ul class="nav-links">${links}</ul>
     <div class="nav-r">
       <a class="btn btn-primary btn-sm" href="${root}contacto/">Contacto</a>
@@ -52,15 +55,15 @@ function header(root, active, cfg) {
 }
 
 function footer(root, cfg) {
-  const tels = cfg.telefonos.map((t) => `<li><a href="tel:${t.tel}">${t.texto}</a></li>`).join("");
+  const tels = cfg.telefonos.map((t) => `<li><a href="tel:${t.tel}">${telTxt(t)}</a></li>`).join("");
   const links = navFor(cfg).map((n) => `<li><a href="${root}${n.href}">${n.full}</a></li>`).join("");
   return `<footer class="site">
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a class="logo" href="${root}"><img src="${root}assets/img/sibberia-logo-blanco.svg" width="154" height="28" alt="Sibberia" loading="lazy"></a>
+        <a class="logo" href="${root}"><img src="${root}assets/img/sibberia-logo-blanco.svg" width="196" height="36" alt="Sibberia" loading="lazy"></a>
         <p class="foot-motto" translate="no">${cfg.lema}</p>
-        ${cfg.formularios.newsletter ? `<form class="newsletter" data-form="newsletter" data-endpoint="${esc(cfg.formularios.newsletter)}" novalidate>
+        ${cfg.formularios.newsletter ? `<form class="newsletter" data-form="newsletter" data-endpoint="${esc(cfg.formularios.newsletter)}" action="${esc(cfg.formularios.newsletter)}" method="post" novalidate>
           <h2 class="foot-h" id="nl-title">Newsletter</h2>
           <div class="nl-row">
             <label class="sr-only" for="nl-email">Tu email</label>
@@ -130,7 +133,7 @@ export function page(p, cfg) {
   <meta name="description" content="${esc(p.description)}">
   ${p.noindex ? '<meta name="robots" content="noindex">' : ""}
   <meta name="theme-color" content="#22358B">
-  <link rel="canonical" href="${canonical}">
+  ${p.file ? "" : `<link rel="canonical" href="${canonical}">`}
   <meta property="og:type" content="${p.ogType || "website"}">
   <meta property="og:site_name" content="Sibberia">
   <meta property="og:locale" content="es_ES">
@@ -148,8 +151,8 @@ export function page(p, cfg) {
   <link rel="icon" href="${root}assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="${root}assets/fonts/titillium-web-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="${root}assets/fonts/mulish-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="${root}assets/css/base.css?v=7">
-  ${(p.css || []).map((c) => `<link rel="stylesheet" href="${root}assets/css/${c}?v=7">`).join("\n  ")}
+  <link rel="stylesheet" href="${root}assets/css/base.css?v=8">
+  ${(p.css || []).map((c) => `<link rel="stylesheet" href="${root}assets/css/${c}?v=8">`).join("\n  ")}
   ${p.head || ""}
   ${ld}
 </head>
@@ -159,7 +162,7 @@ ${header(root, p.nav, cfg)}
 ${p.body(root)}
 </main>
 ${footer(root, cfg)}
-<script src="${root}assets/js/core.js?v=7" defer></script>
+<script src="${root}assets/js/core.js?v=8" defer></script>
 ${scripts}
 </body>
 </html>

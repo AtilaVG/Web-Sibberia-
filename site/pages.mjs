@@ -2,7 +2,7 @@
    Regla de contenido: solo datos verificados en sibberia.com o facilitados
    por el cliente. Cualquier texto redactado para esta web está listado en
    docs/textos-para-validar.md. */
-import { esc, icon, picture, organization, NAV } from "./layout.mjs";
+import { esc, icon, picture, organization, NAV, telTxt } from "./layout.mjs";
 
 const SERVICIOS = [
   {
@@ -10,6 +10,7 @@ const SERVICIOS = [
     nombre: "Selección de personas",
     corto: "Selección",
     foto: { name: "bloques-personas", widths: [960, 1600], alt: "Una mano elige un bloque de madera con la figura de una persona entre varios bloques iguales." },
+    cabecera: { name: "foto-seleccion", widths: [640, 960, 1600], alt: "Una consultora de selección entrevista a un candidato con ropa de trabajo en una sala acristalada junto a la planta.", cls: "foco-dcha" },
     resumen: "Especialistas en perfiles técnicos e industriales: buscamos y evaluamos a los profesionales que tu empresa necesita, para su puesto y para su equipo.",
     intro: "Especialistas en selección de perfiles técnicos e industriales: mantenimiento, producción, calidad, logística, ingeniería, automatización y programación. Trabajamos a éxito y diseñamos cada proceso a medida."
   },
@@ -59,6 +60,49 @@ const AREA_ICON = {
 const areaIcon = (slug) => `<svg class="area-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${AREA_ICON[slug] || AREA_ICON.produccion}</svg>`;
 
 let AREA_NAMES = {};
+
+/* Foto de cabecera de una familia (data/areas.json → foto). El tema está a la
+   derecha de la foto: la clase lo mantiene a la vista cuando se recorta en móvil. */
+const fotoCabecera = (archivo, alt) => ({ name: archivo, widths: [640, 960, 1600], alt, cls: "foco-dcha" });
+const fotoArea = (a) => (a && a.foto ? fotoCabecera(a.foto.archivo, a.foto.alt) : null);
+const FOTO_OFERTAS = fotoCabecera("foto-ofertas", "Una candidata con ropa de trabajo consulta su móvil a la entrada de una nave industrial al amanecer.");
+const FOTO_CONTACTO = fotoCabecera("foto-contacto", "Una consultora y un responsable de planta conversan junto a un portátil en una oficina acristalada con vistas a la planta.");
+
+/* Formulario «Envíanos tu CV». Con destino configurado (formularios.candidaturas)
+   se adjunta el CV; sin él, se prepara un correo y se pide adjuntarlo. */
+function cvForm(root, cfg, { id, oferta = null, ofertas = [], areas = [] }) {
+  const endpoint = cfg.formularios.candidaturas || "";
+  const sinJs = endpoint
+    ? `action="${esc(endpoint)}" method="post" enctype="multipart/form-data"`
+    : `action="mailto:${cfg.email}" method="post" enctype="text/plain"`;
+  const nombreOferta = (o) => `${o.titulo} (${o.ubicacion})`;
+  return `<form class="cform cvform" data-form="candidatura" data-endpoint="${esc(endpoint)}" ${sinJs} novalidate>
+      ${oferta ? `<input type="hidden" name="oferta" value="${esc(nombreOferta(oferta))}">` : `<div class="frow">
+        <div class="ffield"><label for="${id}-oferta">Oferta</label><select id="${id}-oferta" name="oferta">
+          <option value="">Candidatura espontánea</option>
+          ${ofertas.map((o) => `<option value="${esc(nombreOferta(o))}">${esc(o.titulo)} · ${esc(o.ubicacion)}</option>`).join("")}
+        </select></div>
+        <div class="ffield"><label for="${id}-familia">Familia profesional</label><select id="${id}-familia" name="familia">
+          <option value="">Elige una (opcional)</option>
+          ${areas.map((a) => `<option>${esc(a.nombre)}</option>`).join("")}
+        </select></div>
+      </div>`}
+      <div class="frow">
+        <div class="ffield"><label for="${id}-name">Nombre y apellidos *</label><input id="${id}-name" name="nombre" type="text" required autocomplete="name"><p class="ferr"></p></div>
+        <div class="ffield"><label for="${id}-email">Email *</label><input id="${id}-email" name="email" type="email" required autocomplete="email" spellcheck="false" inputmode="email"><p class="ferr"></p></div>
+      </div>
+      <div class="frow">
+        <div class="ffield"><label for="${id}-phone">Teléfono</label><input id="${id}-phone" name="telefono" type="tel" autocomplete="tel" inputmode="tel"></div>
+        ${endpoint ? `<div class="ffield"><label for="${id}-cv">Tu CV (PDF o Word, máx. 5&nbsp;MB) *</label><input id="${id}-cv" name="cv" type="file" required accept=".pdf,.doc,.docx,.odt"><p class="ferr"></p></div>` : ""}
+      </div>
+      <div class="ffield"><label for="${id}-msg">Cuéntanos algo de ti (opcional)</label><textarea id="${id}-msg" name="mensaje" rows="4"></textarea></div>
+      ${endpoint ? "" : `<p class="cv-note">Al enviar se abrirá tu programa de correo con estos datos: adjunta tu CV antes de enviarlo.</p>`}
+      <label class="check"><input type="checkbox" name="privacidad" required> <span>He leído y acepto la <a href="${root}legal/#privacidad">política de privacidad</a>. *</span></label>
+      <div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <button class="btn btn-primary" type="submit">Enviar mi CV ${icon.arrow}</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>`;
+}
 
 function ofertaCard(root, o, h = "h3") {
   const area = AREA_NAMES[o.area];
@@ -123,7 +167,7 @@ function contactoCTA(root, cfg, titulo = "¿Hablamos?") {
     <div class="acts">
       <a class="btn btn-primary" href="${root}contacto/">Escríbenos ${icon.arrow}</a>
       <a class="btn btn-out" href="mailto:${cfg.email}">${cfg.email}</a>
-      <a class="btn btn-out" href="tel:${cfg.telefonos[0].tel}">${cfg.telefonos[0].texto}</a>
+      <a class="btn btn-out" href="tel:${cfg.telefonos[0].tel}">${telTxt(cfg.telefonos[0])}</a>
     </div>
   </div>
 </section>`;
@@ -149,7 +193,7 @@ export function buildPages(cfg, data) {
     description: "Selección de perfiles técnicos e industriales: mantenimiento y SAT, producción, calidad, logística, ingeniería, automatización y programación.",
     css: ["home.css"],
     bodyClass: "home",
-    scripts: ["assets/vendor/gsap.min.js", "assets/vendor/ScrollTrigger.min.js", "assets/js/ofertas.js?v=2", "assets/js/pages/home.js?v=6"],
+    scripts: ["assets/vendor/gsap.min.js", "assets/vendor/ScrollTrigger.min.js", "assets/js/ofertas.js?v=3", "assets/js/pages/home.js?v=7"],
     jsonld: [org, { "@type": "WebSite", "@id": `${url}/#web`, url: `${url}/`, name: "Sibberia", inLanguage: "es", publisher: { "@id": `${url}/#organizacion` } }],
     body: (root) => `
 <div class="stage" aria-hidden="true">
@@ -242,7 +286,10 @@ export function buildPages(cfg, data) {
   <div class="wrap">
     <div class="sec-head">
       <h2 class="giant-sm" id="t-ofertas">Ofertas de trabajo</h2>
-      <a class="btn btn-ghost" href="${root}ofertas-de-trabajo/">Ver todas las ofertas ${icon.arrow}</a>
+      <div class="acts">
+        <a class="btn btn-ghost" href="${root}ofertas-de-trabajo/">Ver todas las ofertas ${icon.arrow}</a>
+        <a class="btn btn-primary" href="${root}ofertas-de-trabajo/#envia-tu-cv">Envíanos tu CV ${icon.arrow}</a>
+      </div>
     </div>
     ${ofertasList(root, ofertas.slice(0, 5), `data-ofertas data-limit="5" data-root="${root}"`)}
   </div>
@@ -292,7 +339,7 @@ ${phero(root, {
   kicker: hub ? s.nombre : "Servicio",
   title: hub ? "Selección de perfiles técnicos e industriales" : s.nombre,
   sub: s.intro,
-  foto: s.foto,
+  foto: s.cabecera || s.foto,
   crumbs: crumb({ name: s.nombre, path: s.path }),
   actions: `<div class="acts"><a class="btn btn-primary" href="${root}contacto/">Cuéntanos tu caso ${icon.arrow}</a></div>`
 })}
@@ -364,6 +411,7 @@ ${phero(root, {
   kicker: "Selección de perfiles técnicos",
   title: esc(a.titulo),
   sub: intro,
+  foto: fotoArea(a),
   crumbs,
   actions: `<div class="acts"><a class="btn btn-primary" href="${root}contacto/">Busco este perfil ${icon.arrow}</a><a class="btn btn-out" href="${root}ofertas-de-trabajo/${suyas.length ? `?familia=${a.slug}` : ""}">Busco empleo</a></div>`
 })}
@@ -439,7 +487,7 @@ ${contactoCTA(root, cfg)}`
     title: "Ofertas de trabajo técnicas e industriales | Sibberia",
     description: "Ofertas de trabajo para perfiles técnicos e industriales: mantenimiento, ingeniería, producción y más. Consulta las posiciones abiertas.",
     css: ["subpage.css"],
-    scripts: ["assets/js/ofertas.js?v=2"],
+    scripts: ["assets/js/ofertas.js?v=3"],
     crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }),
     jsonld: [{
       "@type": "ItemList",
@@ -450,7 +498,9 @@ ${phero(root, {
   kicker: "Para candidatos",
   title: "Ofertas de trabajo",
   sub: "Estas son las posiciones que tenemos abiertas ahora mismo.",
-  crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" })
+  foto: FOTO_OFERTAS,
+  crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }),
+  actions: `<div class="acts"><a class="btn btn-primary" href="#envia-tu-cv">Envíanos tu CV ${icon.arrow}</a></div>`
 })}
 <section class="sec">
   <div class="wrap">
@@ -469,7 +519,13 @@ ${phero(root, {
     <p class="count" data-ofertas-count aria-live="polite">${ofertas.length} ofertas abiertas</p>
     ${ofertasList(root, ofertas, `data-ofertas data-root="${root}" data-h="h2"`, "h2")}
     <p class="empty" data-ofertas-empty hidden>No hay ofertas abiertas con estos filtros. <button type="button" class="linkish" data-reset>Ver todas</button></p>
-    <p class="note">¿No encuentras la tuya? Escríbenos a <a href="mailto:${cfg.email}">${cfg.email}</a>.</p>
+  </div>
+</section>
+<section class="sec soft cv-sec" id="envia-tu-cv" aria-labelledby="t-cv">
+  <div class="wrap narrow">
+    <h2 class="giant-sm" id="t-cv">¿No encuentras tu oferta? Envíanos tu CV</h2>
+    <p class="cv-lead">Puedes enviarnos tu candidatura aunque ahora no veas una oferta para tu perfil. También puedes escribirnos a <a href="mailto:${cfg.email}">${cfg.email}</a>.</p>
+    ${cvForm(root, cfg, { id: "cv", ofertas, areas })}
   </div>
 </section>`
   });
@@ -495,6 +551,9 @@ ${phero(root, {
       directApply: false,
       identifier: { "@type": "PropertyValue", name: "Sibberia", value: o.slug }
     };
+    // Google exige fecha y descripción reales: sin ellas el JobPosting daría error
+    // en Search Console, así que no se publica hasta tenerlas.
+    const jobCompleto = Boolean(o.fechaPublicacion && o.descripcion);
     if (o.fechaPublicacion) job.datePosted = o.fechaPublicacion;
     if (o.validaHasta) job.validThrough = o.validaHasta;
     if (o.contrato) job.employmentType = o.contrato;
@@ -507,17 +566,19 @@ ${phero(root, {
       description: `Oferta de empleo de ${o.titulo} en ${o.ubicacion}. Envía tu candidatura a Sibberia.`,
       css: ["subpage.css"],
       crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }, { name: o.titulo, path: p }),
-      jsonld: [job],
+      jsonld: jobCompleto ? [job] : [],
       warnings: [
-        !o.fechaPublicacion && `Oferta "${o.titulo}": falta fechaPublicacion (datePosted es obligatorio para Google).`,
-        !o.descripcion && `Oferta "${o.titulo}": falta la descripción real.`
+        !o.fechaPublicacion && `Oferta "${o.titulo}": falta fechaPublicacion (sin ella no se publica el JobPosting para Google).`,
+        !o.descripcion && `Oferta "${o.titulo}": falta la descripción real (sin ella no se publica el JobPosting para Google).`
       ].filter(Boolean),
       body: (root) => `
 ${phero(root, {
   kicker: "Oferta de trabajo",
   title: esc(o.titulo),
   sub: `${icon.pin} ${esc(o.ubicacion)}`,
-  crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }, { name: o.titulo, path: p })
+  foto: fotoArea(areaBySlug[o.area]) || FOTO_OFERTAS,
+  crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }, { name: o.titulo, path: p }),
+  actions: `<div class="acts"><a class="btn btn-primary" href="#candidatura">Envíanos tu CV ${icon.arrow}</a></div>`
 })}
 <section class="sec">
   <div class="wrap narrow">
@@ -530,12 +591,14 @@ ${phero(root, {
     </dl>
     ${o.descripcion ? `<div class="prose">${esc(o.descripcion)}</div>` : ""}
     ${o.requisitos && o.requisitos.length ? `<h2>Requisitos</h2><ul class="prose">${o.requisitos.map((r) => `<li>${esc(r)}</li>`).join("")}</ul>` : ""}
-    <div class="apply">
-      <h2>Cómo inscribirte</h2>
-      <p>Envía tu CV a <a href="mailto:${cfg.email}?subject=${encodeURIComponent("Candidatura: " + o.titulo + " (" + o.ubicacion + ")")}">${cfg.email}</a> indicando en el asunto el nombre de la oferta.</p>
-      <a class="btn btn-primary" href="mailto:${cfg.email}?subject=${encodeURIComponent("Candidatura: " + o.titulo + " (" + o.ubicacion + ")")}">Enviar mi candidatura ${icon.arrow}</a>
-    </div>
     <p class="back"><a href="${root}ofertas-de-trabajo/">← Todas las ofertas</a></p>
+  </div>
+</section>
+<section class="sec soft cv-sec" id="candidatura" aria-labelledby="t-cv">
+  <div class="wrap narrow">
+    <h2 class="giant-sm" id="t-cv">Envíanos tu CV</h2>
+    <p class="cv-lead">Déjanos tus datos para optar a esta oferta. Si lo prefieres, escríbenos a <a href="mailto:${cfg.email}?subject=${encodeURIComponent("Candidatura: " + o.titulo + " (" + o.ubicacion + ")")}">${cfg.email}</a> con el nombre de la oferta en el asunto.</p>
+    ${cvForm(root, cfg, { id: "cv", oferta: o })}
   </div>
 </section>`
     });
@@ -545,7 +608,7 @@ ${phero(root, {
   if (articulos.length) pages.push({
     path: "blog/",
     nav: "blog/",
-    title: "Blog · Sibberia",
+    title: "Blog | Sibberia",
     description: "Artículos de Sibberia sobre selección, gestión y desarrollo de personas.",
     css: ["subpage.css"],
     crumbs: crumb({ name: "Blog", path: "blog/" }),
@@ -576,7 +639,7 @@ ${phero(root, { kicker: "Blog", title: "Blog", sub: "Ideas sobre selección, ges
       path: p,
       nav: "blog/",
       ogType: "article",
-      title: `${a.titulo} · Blog · Sibberia`,
+      title: fit(`${a.titulo} | Blog | Sibberia`, `${a.titulo} | Sibberia`, a.titulo),
       description: a.resumen || a.titulo,
       css: ["subpage.css"],
       crumbs: crumb({ name: "Blog", path: "blog/" }, { name: a.titulo, path: p }),
@@ -598,32 +661,33 @@ ${phero(root, { kicker: "Blog", title: esc(a.titulo), crumbs: crumb({ name: "Blo
     crumbs: crumb({ name: "Contacto", path: "contacto/" }),
     jsonld: [{ "@type": "ContactPage", url: `${url}/contacto/`, about: org }],
     body: (root) => `
-${phero(root, { kicker: "Contacto", title: "Hablemos", sub: "Cuéntanos qué necesitas. Si buscas empleo, revisa antes nuestras ofertas abiertas.", crumbs: crumb({ name: "Contacto", path: "contacto/" }) })}
+${phero(root, { kicker: "Contacto", title: "Hablemos", sub: "Cuéntanos qué necesitas. Si buscas empleo, revisa antes nuestras ofertas abiertas.", foto: FOTO_CONTACTO, crumbs: crumb({ name: "Contacto", path: "contacto/" }) })}
 <section class="sec">
   <div class="wrap contact-grid">
     <aside class="cinfo">
       <h2>Contacto directo</h2>
       <ul>
         <li>${icon.mail}<a href="mailto:${cfg.email}">${cfg.email}</a></li>
-        ${cfg.telefonos.map((t) => `<li>${icon.phone}<a href="tel:${t.tel}">${t.texto}</a></li>`).join("")}
+        ${cfg.telefonos.map((t) => `<li>${icon.phone}<a href="tel:${t.tel}">${telTxt(t)}</a></li>`).join("")}
       </ul>
       <a class="btn btn-ghost" href="${root}ofertas-de-trabajo/">Ver ofertas de trabajo ${icon.arrow}</a>
     </aside>
-    <form class="cform" data-form="contacto" data-endpoint="${esc(cfg.formularios.contacto)}" novalidate>
+    <form class="cform" data-form="contacto" data-endpoint="${esc(cfg.formularios.contacto)}" ${cfg.formularios.contacto ? `action="${esc(cfg.formularios.contacto)}" method="post"` : `action="mailto:${cfg.email}" method="post" enctype="text/plain"`} novalidate>
       <fieldset class="who">
         <legend>Te escribo como</legend>
         <label><input type="radio" name="perfil" value="empresa" checked> Empresa</label>
         <label><input type="radio" name="perfil" value="candidato"> Candidato/a</label>
       </fieldset>
+      <p class="cv-note" data-solo-candidato hidden>¿Buscas empleo? <a href="${root}ofertas-de-trabajo/#envia-tu-cv">Envíanos tu CV</a> desde la página de ofertas.</p>
       <div class="frow">
-        <div class="ffield"><label for="f-name">Nombre *</label><input id="f-name" name="nombre" type="text" required autocomplete="name"><p class="ferr" id="e-name"></p></div>
+        <div class="ffield"><label for="f-name">Nombre *</label><input id="f-name" name="nombre" type="text" required autocomplete="name"><p class="ferr"></p></div>
         <div class="ffield"><label for="f-company">Empresa</label><input id="f-company" name="empresa" type="text" autocomplete="organization"></div>
       </div>
       <div class="frow">
-        <div class="ffield"><label for="f-email">Email *</label><input id="f-email" name="email" type="email" required autocomplete="email" spellcheck="false" inputmode="email"><p class="ferr" id="e-email"></p></div>
+        <div class="ffield"><label for="f-email">Email *</label><input id="f-email" name="email" type="email" required autocomplete="email" spellcheck="false" inputmode="email"><p class="ferr"></p></div>
         <div class="ffield"><label for="f-phone">Teléfono</label><input id="f-phone" name="telefono" type="tel" autocomplete="tel" inputmode="tel"></div>
       </div>
-      <div class="ffield"><label for="f-msg">Mensaje *</label><textarea id="f-msg" name="mensaje" required rows="6"></textarea><p class="ferr" id="e-msg"></p></div>
+      <div class="ffield"><label for="f-msg">Mensaje *</label><textarea id="f-msg" name="mensaje" required rows="6"></textarea><p class="ferr"></p></div>
       <label class="check"><input type="checkbox" name="privacidad" required> <span>He leído y acepto la <a href="${root}legal/#privacidad">política de privacidad</a>. *</span></label>
       <div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn btn-primary" type="submit">Enviar mensaje ${icon.arrow}</button>
@@ -654,7 +718,7 @@ ${phero(root, { kicker: "Legal", title: "Aviso legal y privacidad", crumbs: crum
       ${dato("razonSocial", "Titular")}
       ${dato("cif", "CIF")}
       ${dato("direccion", "Domicilio")}
-      <li>Email: <a href="mailto:${cfg.email}">${cfg.email}</a> · Teléfonos: ${cfg.telefonos.map((t) => `<a href="tel:${t.tel}">${t.texto}</a>`).join(" y ")}</li>
+      <li>Email: <a href="mailto:${cfg.email}">${cfg.email}</a> · Teléfonos: ${cfg.telefonos.map((t) => `<a href="tel:${t.tel}">${telTxt(t)}</a>`).join(" y ")}</li>
     </ul>
     <p>El acceso y uso de este sitio web atribuye la condición de usuario e implica la aceptación de las presentes condiciones. Los contenidos de esta web (textos, imágenes, diseño) son propiedad de Sibberia o de sus legítimos titulares y no podrán ser reproducidos sin autorización expresa.</p>
     <h2 id="privacidad">Política de privacidad</h2>
@@ -678,7 +742,7 @@ ${phero(root, { kicker: "Legal", title: "Aviso legal y privacidad", crumbs: crum
     path: "404.html",
     file: "404.html",
     nav: "",
-    title: "Página no encontrada · Sibberia",
+    title: "Página no encontrada | Sibberia",
     description: "La página que buscas no existe.",
     css: ["subpage.css"],
     noindex: true,

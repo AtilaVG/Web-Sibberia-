@@ -15,8 +15,9 @@
     "direccion": null
   },
   "formularios": {
-    "_nota": "URL que recibe los formularios por POST (FormData). Vacío = el formulario explica que aún no está conectado.",
+    "_nota": "URL que recibe cada formulario por POST (FormData; en candidaturas, con el CV adjunto). Vacío = se abre el programa de correo con los datos (y en candidaturas se pide adjuntar el CV); la newsletter no se muestra.",
     "contacto": "",
+    "candidaturas": "",
     "newsletter": ""
   }
 }
