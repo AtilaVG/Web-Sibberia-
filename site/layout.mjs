@@ -25,10 +25,10 @@ export const icon = {
   phone: '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>'
 };
 
-/* Imagen responsive en WebP con alt y carga diferida */
-export function picture(root, { name, widths, alt, eager = false, sizes = "100vw", cls = "" }) {
+/* Imagen responsive en WebP con alt y carga diferida (ratio = alto/ancho; 16:9 por defecto) */
+export function picture(root, { name, widths, alt, eager = false, sizes = "100vw", cls = "", ratio = 9 / 16 }) {
   const srcset = widths.map((w) => `${root}assets/img/${name}-${w}.webp ${w}w`).join(", ");
-  const w = widths[0], h = Math.round(w * 9 / 16);
+  const w = widths[0], h = Math.round(w * ratio);
   return `<img class="${cls}" src="${root}assets/img/${name}-${w}.webp" srcset="${srcset}" sizes="${sizes}" width="${w}" height="${h}" alt="${esc(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
 }
 
@@ -42,7 +42,7 @@ function header(root, active, cfg) {
   return `<a class="skip" href="#main">Saltar al contenido</a>
 <header class="site">
   <nav class="wrap" aria-label="Principal">
-    <a class="logo" href="${root}" aria-label="Sibberia, inicio"><img src="${root}assets/img/sibberia-logo-blanco.svg" width="196" height="36" alt="Sibberia"></a>
+    <a class="logo" href="${root}" aria-label="SIBBERIA, inicio"><img src="${root}assets/img/sibberia-logo-blanco.svg" width="196" height="36" alt="SIBBERIA"></a>
     <ul class="nav-links">${links}</ul>
     <div class="nav-r">
       <a class="btn btn-primary btn-sm" href="${root}contacto/">Contacto</a>
@@ -61,7 +61,7 @@ function footer(root, cfg) {
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <a class="logo" href="${root}"><img src="${root}assets/img/sibberia-logo-blanco.svg" width="196" height="36" alt="Sibberia" loading="lazy"></a>
+        <a class="logo" href="${root}"><img src="${root}assets/img/sibberia-logo-blanco.svg" width="196" height="36" alt="SIBBERIA" loading="lazy"></a>
         <p class="foot-motto" translate="no">${cfg.lema}</p>
         ${cfg.formularios.newsletter ? `<form class="newsletter" data-form="newsletter" data-endpoint="${esc(cfg.formularios.newsletter)}" action="${esc(cfg.formularios.newsletter)}" method="post" novalidate>
           <h2 class="foot-h" id="nl-title">Newsletter</h2>
@@ -76,11 +76,11 @@ function footer(root, cfg) {
         </form>` : ""}
       </div>
       <details class="foot-col" data-collapse open><summary><h2 class="foot-h">Perfiles técnicos</h2></summary><ul>${(cfg.areas || []).map((a) => `<li><a href="${root}seleccion-personas/${a.slug}/">${esc(a.nombre)}</a></li>`).join("")}</ul></details>
-      <details class="foot-col" data-collapse open><summary><h2 class="foot-h">Sibberia</h2></summary><ul>${links}</ul></details>
+      <details class="foot-col" data-collapse open><summary><h2 class="foot-h">SIBBERIA</h2></summary><ul>${links}</ul></details>
       <details class="foot-col" open><summary><h2 class="foot-h">Contacto</h2></summary><ul><li><a href="mailto:${cfg.email}">${cfg.email}</a></li>${tels}<li><a href="${root}contacto/">Formulario de contacto</a></li></ul></details>
     </div>
     <div class="foot-bot">
-      <p>© <span data-year>2026</span> Sibberia</p>
+      <p>© <span data-year>2026</span> SIBBERIA</p>
       <p><a href="${root}legal/">Aviso legal</a> · <a href="${root}legal/#privacidad">Privacidad</a> · <a href="${root}legal/#cookies">Cookies</a></p>
     </div>
   </div>
@@ -91,14 +91,14 @@ export function organization(cfg, url) {
   return {
     "@type": "ProfessionalService",
     "@id": `${url}/#organizacion`,
-    name: "Sibberia",
+    name: "SIBBERIA",
     url: `${url}/`,
     logo: `${url}/assets/img/sibberia-logo-azul.svg`,
     image: `${url}/assets/img/og-sibberia.jpg`,
     email: cfg.email,
     telephone: cfg.telefonos.map((t) => t.tel),
     slogan: "Compartir, crear, crecer",
-    description: "Selección de perfiles técnicos e industriales, estrategia y gestión del capital humano, y formación y desarrollo de personas.",
+    description: "Especialistas en selección de perfiles técnicos e industriales en España. También estrategia y gestión del capital humano, y formación y desarrollo de personas.",
     areaServed: { "@type": "Country", name: "España" },
     knowsAbout: ["Selección de perfiles técnicos e industriales", ...(cfg.areas || []).map((a) => a.titulo), "Estrategia y gestión del capital humano", "Formación y desarrollo de personas"]
   };
@@ -135,7 +135,7 @@ export function page(p, cfg) {
   <meta name="theme-color" content="#22358B">
   ${p.file ? "" : `<link rel="canonical" href="${canonical}">`}
   <meta property="og:type" content="${p.ogType || "website"}">
-  <meta property="og:site_name" content="Sibberia">
+  <meta property="og:site_name" content="SIBBERIA">
   <meta property="og:locale" content="es_ES">
   <meta property="og:title" content="${esc(p.ogTitle || p.title)}">
   <meta property="og:description" content="${esc(p.description)}">
@@ -143,7 +143,7 @@ export function page(p, cfg) {
   <meta property="og:image" content="${image}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Bloques de madera con figuras de personas; una mano elige uno. Logotipo de Sibberia.">
+  <meta property="og:image:alt" content="Bloques de madera con figuras de personas; una mano elige uno. Logotipo de SIBBERIA.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${esc(p.ogTitle || p.title)}">
   <meta name="twitter:description" content="${esc(p.description)}">
@@ -151,8 +151,8 @@ export function page(p, cfg) {
   <link rel="icon" href="${root}assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="${root}assets/fonts/titillium-web-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="${root}assets/fonts/mulish-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="${root}assets/css/base.css?v=8">
-  ${(p.css || []).map((c) => `<link rel="stylesheet" href="${root}assets/css/${c}?v=8">`).join("\n  ")}
+  <link rel="stylesheet" href="${root}assets/css/base.css?v=9">
+  ${(p.css || []).map((c) => `<link rel="stylesheet" href="${root}assets/css/${c}?v=9">`).join("\n  ")}
   ${p.head || ""}
   ${ld}
 </head>
@@ -162,7 +162,7 @@ ${header(root, p.nav, cfg)}
 ${p.body(root)}
 </main>
 ${footer(root, cfg)}
-<script src="${root}assets/js/core.js?v=8" defer></script>
+<script src="${root}assets/js/core.js?v=9" defer></script>
 ${scripts}
 </body>
 </html>

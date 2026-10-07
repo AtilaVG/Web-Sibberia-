@@ -31,6 +31,17 @@ Equipo colaborando, Sesión de formación y Taller con asistentes solo existen
 a 960 px. Con los originales en más resolución se verían más nítidas en pantallas
 grandes; se regeneran con `node scripts/images.mjs <carpeta>`.
 
+Falta la **foto profesional de Samuel** para Nosotros (PDF del cliente: «de
+forma discreta»). Cuando llegue:
+
+```bash
+node scripts/foto.mjs <foto-original> samuel-sanchez retrato
+```
+
+y en `site/pages.mjs` se rellena `FOTO_FUNDADOR` (instrucciones en el comentario).
+Sale pequeña, junto a la historia, con el pie «Samuel Sánchez, fundador de
+SIBBERIA».
+
 ### Añadir una foto nueva
 
 ```bash

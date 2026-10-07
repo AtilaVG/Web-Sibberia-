@@ -66,7 +66,7 @@ ul,ol{list-style:none}
 /* Accesibilidad */
 :focus-visible{outline:3px solid var(--indigo);outline-offset:3px;border-radius:4px}
 /* sobre fondo oscuro, el anillo de foco en amarillo (en fondo claro no se vería) */
-header.site :focus-visible,.mobile-menu :focus-visible,footer.site :focus-visible,.phero :focus-visible,.chapter :focus-visible,.cta :focus-visible,.area-cta :focus-visible,.skip:focus-visible{outline-color:var(--yellow)}
+header.site :focus-visible,.mobile-menu :focus-visible,footer.site :focus-visible,.phero :focus-visible,.chapter :focus-visible,.cta :focus-visible,.area-cta :focus-visible,.dark :focus-visible,.talento :focus-visible,.skip:focus-visible{outline-color:var(--yellow)}
 .skip{position:absolute;left:-999px;top:8px;z-index:200;background:var(--indigo);color:#fff;padding:10px 18px;border-radius:8px}
 .skip:focus{left:8px}
 
@@ -124,21 +124,6 @@ header.site nav{display:flex;align-items:center;justify-content:space-between;ga
 .cta h2{color:#fff}
 .cta p{color:var(--white-70);font-size:1.1rem;margin-bottom:30px}
 
-/* Cifras */
-.cifras{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:clamp(40px,6vw,72px)}
-.cifras div{display:flex;flex-direction:column-reverse;gap:6px;border-top:3px solid var(--yellow);padding-top:18px}
-.cifras dd{font-family:var(--display);font-weight:700;font-size:clamp(3rem,7vw,5.5rem);line-height:.9;color:var(--indigo);font-variant-numeric:tabular-nums}
-.cifras dt{font-size:1.05rem;color:var(--muted)}
-@media (max-width:640px){.cifras{grid-template-columns:1fr}}
-
-/* Valores */
-.valores{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px)}
-.valores h3{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;margin-bottom:10px}
-.valores li{border-top:1px solid var(--line);padding-top:20px}
-.exito{margin-top:40px;font-size:1.15rem}
-.exito b{color:var(--indigo)}
-@media (max-width:760px){.valores{grid-template-columns:1fr}}
-
 /* Ofertas */
 .ofertas{display:grid;border-top:1px solid var(--line)}
 .oferta a{display:grid;grid-template-columns:1fr auto auto;gap:24px;align-items:center;padding:24px 4px;border-bottom:1px solid var(--line);text-decoration:none;transition:background-color .2s,padding .3s var(--ease)}
@@ -150,24 +135,8 @@ header.site nav{display:flex;align-items:center;justify-content:space-between;ga
 .oferta-cta svg{width:18px;height:18px}
 @media (max-width:640px){.oferta a{grid-template-columns:1fr;gap:8px}}
 
-/* Servicios */
-.serv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.serv-grid.two{grid-template-columns:repeat(2,1fr)}
-.serv a{display:flex;flex-direction:column;gap:12px;height:100%;text-decoration:none}
-.serv figure{overflow:hidden;border-radius:var(--r);aspect-ratio:16/10;background:var(--soft)}
-.serv img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
-.serv a:hover img{transform:scale(1.04)}
-.serv h3{font-size:1.5rem;margin-top:6px}
 .more{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:700;color:var(--indigo)}
 .more svg{width:18px;height:18px}
-@media (max-width:900px){.serv-grid,.serv-grid.two{grid-template-columns:1fr}}
-/* Tableta: tarjeta horizontal (foto a la izquierda) para no apilar fotos enormes */
-@media (min-width:641px) and (max-width:900px){
-  .serv a{display:grid;grid-template-columns:42% 1fr;column-gap:28px;row-gap:10px;align-content:center}
-  .serv figure{grid-row:1/span 3;align-self:center}
-  .serv h3{margin-top:0;align-self:end}
-  .serv .more{align-self:start}
-}
 
 /* Blog */
 .posts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
@@ -288,3 +257,60 @@ footer.site li a{display:inline-flex;align-items:center;min-height:44px}
 
 /* Menú móvil abierto: la página de detrás no se desplaza */
 html.menu-open{overflow:hidden}
+
+
+/* Antetítulo dentro de un título de sección: barra amarilla y texto índigo
+   (en amarillo solo sobre fondo oscuro, donde se lee bien) */
+h2 .kicker{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:clamp(1rem,1.4vw,1.2rem);line-height:1.3;letter-spacing:0;color:var(--indigo)}
+h2 .kicker::before{content:"";width:28px;height:3px;border-radius:2px;background:var(--yellow);flex-shrink:0}
+.dark h2 .kicker{color:var(--yellow)}
+
+/* ¿Por qué trabajar con SIBBERIA? */
+.ventajas{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.ventajas li{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px 26px}
+.ventajas h3{font-size:1.3rem;line-height:1.15;margin-bottom:10px}
+.ventajas p{font-size:.98rem}
+.v-ico{width:46px;height:46px;padding:11px;border-radius:12px;background:var(--indigo);color:var(--yellow);margin-bottom:18px}
+.por-que .acts{margin-top:clamp(32px,5vw,48px)}
+.dark{background:var(--indigo);color:#fff}
+.dark .giant-sm,.dark h3{color:#fff}
+.dark p{color:var(--white-70)}
+.por-que.dark .ventajas li{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16)}
+.por-que.dark .v-ico{background:var(--yellow);color:var(--indigo)}
+@media (max-width:980px){.ventajas{grid-template-columns:repeat(2,1fr)}}
+/* móvil: icono a la izquierda del título, tarjetas más bajas */
+@media (max-width:620px){
+  .ventajas{grid-template-columns:1fr;gap:14px}
+  .ventajas li{display:grid;grid-template-columns:40px minmax(0,1fr);column-gap:14px;align-items:center;padding:20px 18px}
+  .v-ico{width:40px;height:40px;padding:9px;margin:0}
+  .ventajas h3{margin:0}
+  .ventajas p{grid-column:1/-1;margin-top:10px}
+}
+
+/* ¿Qué más hacemos en SIBBERIA? La tarjeta entera es el enlace del título */
+.mas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.mas{position:relative;display:flex;flex-direction:column;gap:14px;padding:32px;border-radius:var(--r);background:#fff;border:1px solid var(--line);transition:border-color .25s,box-shadow .25s}
+.mas:hover{border-color:var(--indigo);box-shadow:0 18px 40px -28px rgba(13,19,56,.45)}
+.mas.principal{border-top:4px solid var(--yellow)}
+.mas h3{font-size:clamp(1.4rem,2.2vw,1.7rem)}
+.mas h3 a{text-decoration:none;color:inherit}
+.mas h3 a::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.mas h3 a:focus-visible{outline:none}
+.mas h3 a:focus-visible::after{outline:3px solid var(--indigo);outline-offset:3px}
+.mas-tag{font-family:var(--display);font-weight:700;font-size:.85rem;color:var(--indigo);text-transform:uppercase;letter-spacing:.06em;margin-bottom:-6px}
+.mas .more{padding-top:6px}
+.mas:hover .more svg{transform:translateX(4px)}
+.more svg{transition:transform .3s var(--ease)}
+@media (max-width:860px){.mas-grid{grid-template-columns:1fr}.mas{padding:26px 22px}}
+
+/* Etiquetas informativas (no son botones) */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips li{font-size:.9rem;font-weight:600;line-height:1.3;color:var(--indigo);background:#eef1fb;border-radius:999px;padding:7px 14px}
+.chips.big{gap:12px}
+.chips.big li{font-family:var(--display);font-weight:700;font-size:clamp(1rem,1.6vw,1.2rem);border-radius:8px;border-left:4px solid var(--yellow);padding:10px 18px}
+
+/* Botón al final de una sección */
+.sec-cta{margin-top:clamp(32px,5vw,56px)}
+
+/* Casilla obligatoria sin marcar al enviar */
+.check input[aria-invalid="true"]{outline:2px solid #b3261e;outline-offset:2px}

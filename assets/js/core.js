@@ -66,6 +66,7 @@
   var MSG = {
     nombre: "Escribe tu nombre.",
     email: "Escribe un email válido, por ejemplo nombre@empresa.com.",
+    telefono: "Escribe un teléfono de contacto (al menos 9 cifras).",
     mensaje: "Cuéntanos brevemente qué necesitas.",
     privacidad: "Necesitamos que aceptes la política de privacidad para poder responderte.",
     cv: "Adjunta tu CV en PDF o Word (máximo 5 MB)."
@@ -89,7 +90,12 @@
 
   function fileOk(el) {
     var f = el.files && el.files[0];
-    return !!f && f.size <= MAX_CV && /\.(pdf|docx?|odt)$/i.test(f.name);
+    return !!f && f.size <= MAX_CV && /\.(pdf|docx?)$/i.test(f.name);
+  }
+
+  // Teléfono: al menos 9 cifras, admite espacios, guiones, paréntesis y prefijo +
+  function telOk(el) {
+    return el.value.replace(/\D/g, "").length >= 9;
   }
 
   function validate(form) {
@@ -97,6 +103,7 @@
     form.querySelectorAll("input[required], textarea[required], select[required]").forEach(function (el) {
       var ok = el.type === "checkbox" ? el.checked
         : el.type === "file" ? fileOk(el)
+        : el.type === "tel" ? telOk(el)
         : el.checkValidity() && el.value.trim() !== "";
       var text = ok ? "" : (MSG[el.name] || "Revisa este campo.");
       fieldError(el, text);
@@ -116,7 +123,7 @@
   function mailto(form, kind) {
     var data = new FormData(form), lines = [];
     var campos = kind === "candidatura"
-      ? [["oferta", "Oferta"], ["familia", "Familia profesional"], ["nombre", "Nombre"], ["email", "Email"], ["telefono", "Teléfono"]]
+      ? [["oferta", "Oferta"], ["nombre", "Nombre"], ["email", "Email"], ["telefono", "Teléfono"]]
       : [["perfil", "Escribo como"], ["nombre", "Nombre"], ["empresa", "Empresa"], ["email", "Email"], ["telefono", "Teléfono"]];
     campos.forEach(function (f) {
       var v = data.get(f[0]);
@@ -126,7 +133,7 @@
     var subject;
     if (kind === "candidatura") {
       lines.push("", "(Adjunto mi CV.)");
-      subject = "Candidatura: " + (data.get("oferta") || "candidatura espontánea" + (data.get("familia") ? " — " + data.get("familia") : ""));
+      subject = "Candidatura: " + (data.get("oferta") || "candidatura espontánea");
     } else {
       subject = "Contacto web" + (data.get("empresa") ? " — " + data.get("empresa") : "");
     }
@@ -137,12 +144,14 @@
   }
 
   document.querySelectorAll("form[data-form]").forEach(function (form, n) {
-    // cada campo, enlazado con su caja de error (para lectores de pantalla)
+    // cada campo, enlazado con su caja de error (para lectores de pantalla),
+    // sin perder la ayuda que ya tuviera (p. ej. «PDF o Word, máximo 5 MB»)
     form.querySelectorAll(".ffield").forEach(function (field, i) {
       var input = field.querySelector("input, textarea, select"), box = field.querySelector(".ferr");
       if (!input || !box) return;
       if (!box.id) box.id = "err-" + n + "-" + i;
-      input.setAttribute("aria-describedby", box.id);
+      var prev = input.getAttribute("aria-describedby");
+      input.setAttribute("aria-describedby", prev ? prev + " " + box.id : box.id);
     });
     // el CV se revisa en cuanto se elige
     form.querySelectorAll('input[type="file"]').forEach(function (el) {

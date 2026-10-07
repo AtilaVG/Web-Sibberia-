@@ -13,8 +13,9 @@
 .phero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,19,56,.75) 0,rgba(13,19,56,0) 170px),linear-gradient(90deg,rgba(13,19,56,.92) 0%,rgba(22,31,85,.75) 50%,rgba(34,53,139,.35) 100%)}
 .phero .wrap{position:relative;z-index:1;width:100%}
 .phero h1{color:#fff;font-size:clamp(2.05rem,5.4vw,4.6rem);line-height:1;letter-spacing:-.015em;max-width:15ch;margin-bottom:22px}
-.phero .sub{color:var(--white-70);font-size:1.15rem;max-width:620px;display:flex;align-items:center;gap:8px}
-.phero .sub svg{width:20px;height:20px;color:var(--yellow);flex-shrink:0}
+.phero .sub{color:var(--white-70);font-size:1.15rem;max-width:640px}
+.phero .sub svg{display:inline-block;width:20px;height:20px;color:var(--yellow);vertical-align:-3px;margin-right:4px}
+.phero .sub a{color:#fff;font-weight:600}
 .phero .acts{margin-top:32px}
 .crumb ol{display:flex;flex-wrap:wrap;gap:8px;font-size:.9rem;color:rgba(255,255,255,.65);margin-bottom:26px}
 .crumb li+li::before{content:"/";margin-right:8px;color:rgba(255,255,255,.4)}
@@ -94,3 +95,58 @@
 .cv-lead{font-size:1.1rem;margin:-12px 0 28px;max-width:640px}
 .cv-lead a,.cv-note a{color:var(--indigo);font-weight:600}
 .cv-note{font-size:.95rem;color:var(--muted);background:#fff;border-left:4px solid var(--yellow);border-radius:8px;padding:12px 16px}
+
+.cv-oferta{font-size:1.05rem;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.cv-oferta b{color:var(--indigo)}
+.fhint{font-size:.88rem;color:var(--muted);margin:0}
+/* Adjuntar el CV: zona grande y fácil de tocar en el móvil */
+.ffile input[type="file"]{min-height:60px;padding:10px 12px;border-style:dashed;border-width:2px}
+.ffile input[type="file"]::file-selector-button{padding:10px 16px;margin-right:14px;background:var(--indigo);color:#fff}
+.ffile input[type="file"]:hover{border-color:var(--indigo)}
+
+/* Base de talento */
+.talento{background:var(--indigo-deep);color:#fff}
+.talento-grid{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:center}
+.talento p.talento-num{font-family:var(--display);font-weight:700;font-size:clamp(5rem,13vw,10.5rem);line-height:.85;letter-spacing:-.03em;color:var(--yellow);font-variant-numeric:tabular-nums;max-width:none}
+.talento h2{color:#fff;font-size:clamp(1.8rem,3.4vw,2.9rem);margin-bottom:18px}
+.talento p{color:var(--white-70);font-size:1.1rem;max-width:660px}
+.talento p+p{margin-top:12px}
+@media (max-width:760px){.talento-grid{grid-template-columns:1fr;gap:16px}}
+
+/* Páginas de familia: perfiles, qué valoramos y por qué cuesta encontrarlos */
+.perf-nota{margin-top:22px;font-size:1.05rem;color:var(--ink)}
+.perf-nota a{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--indigo);font-weight:700}
+.perf-nota svg{width:16px;height:16px}
+.claves{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,80px)}
+.clave h2{font-size:clamp(1.7rem,2.8vw,2.4rem);margin-bottom:22px}
+.lista li{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--line);color:var(--ink)}
+.lista li:last-child{border-bottom:1px solid var(--line)}
+.l-ico{width:24px;height:24px;flex-shrink:0;margin-top:1px}
+.l-ico.ok{color:var(--indigo)}
+.l-ico.dif{color:#b07800}
+.clave-nota{margin-top:24px;font-weight:600;color:var(--ink)}
+.clave-nota a{color:var(--indigo);display:inline-block;padding:10px 0}
+@media (max-width:860px){.claves{grid-template-columns:1fr}}
+
+/* Estrategia y Formación: qué podemos hacer */
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:28px 24px}
+.items li{border-top:3px solid var(--yellow);padding-top:18px}
+.items h3{font-size:1.35rem;margin-bottom:8px}
+.items-dos{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(28px,4vw,64px)}
+.items-dos h3{font-size:1.25rem;margin-bottom:16px}
+@media (max-width:860px){.items-dos{grid-template-columns:1fr}}
+
+/* Nosotros */
+.historia{display:grid;grid-template-columns:minmax(0,780px)}
+.historia.con-foto{grid-template-columns:minmax(0,1fr) 280px;gap:clamp(32px,5vw,72px);align-items:start}
+.historia .prose p{font-size:1.12rem;line-height:1.75}
+.historia .prose p.destacado{font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,2.2vw,1.65rem);line-height:1.35;color:var(--indigo);border-left:4px solid var(--yellow);padding-left:20px;margin:30px 0}
+.fundador img{width:100%;height:auto;border-radius:var(--r)}
+.fundador figcaption{font-size:.9rem;color:var(--muted);margin-top:10px}
+@media (max-width:860px){.historia.con-foto{grid-template-columns:1fr}.fundador{max-width:260px}}
+.nombre p{font-size:1.12rem;color:var(--ink);margin-bottom:14px}
+.nombre b{color:var(--indigo)}
+.nombre p.lema-cierre{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5vw,3.6rem);line-height:1.05;color:var(--indigo);margin:36px 0 0}
+.claims{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px)}
+.claims li{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,2.8vw,2.3rem);line-height:1.15;color:var(--indigo);border-top:3px solid var(--yellow);padding-top:20px}
+@media (max-width:760px){.claims{grid-template-columns:1fr}}
