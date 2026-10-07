@@ -108,3 +108,12 @@ de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se edita
   - Automatización y Robótica: «Selección de técnicos de automatización y robótica» / «Seleccionamos ingenieros y técnicos de automatización y robótica industrial. Procesos a medida y a éxito.»
   - Programadores/as: «Selección de programadores | Sibberia» / «Seleccionamos programadores para empresas industriales y técnicas. Procesos a medida y a éxito.»
 - Textos alternativos de las fotos y de la imagen para redes sociales.
+
+## Imágenes
+
+- Fotos de las cabeceras de familia (generadas por el cliente con ChatGPT, ilustrativas; ver `docs/imagenes.md`). Textos alternativos redactados para la web (`data/areas.json → foto.alt`):
+  - Producción: «Jefa de turno con gafas de seguridad consulta una tableta mientras recorre una línea de producción; dos operarios trabajan al fondo.»
+  - Calidad, PRL y Medioambiente: «Inspector de calidad con chaleco reflectante mide una pieza mecanizada con un calibre digital en un banco de inspección.»
+  - Almacén, Logística, Planificación y Compras: «Técnica de logística con chaleco reflectante escanea el código de barras de una caja en una estantería de almacén; al fondo, una carretilla.»
+  - Ingeniería y Proyectos: «Ingeniero de proyectos trabaja con un portátil y planos en una mesa de una planta industrial, con un casco de seguridad al lado.»
+  - Automatización y Robótica: «Técnica con gafas de seguridad programa un brazo robot industrial con la consola de programación, junto a una célula de seguridad.»

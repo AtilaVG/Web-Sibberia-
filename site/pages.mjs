@@ -60,6 +60,10 @@ const areaIcon = (slug) => `<svg class="area-ico" aria-hidden="true" viewBox="0 
 
 let AREA_NAMES = {};
 
+/* Foto de cabecera de una familia (data/areas.json → foto). El tema está a la
+   derecha de la foto: la clase lo mantiene a la vista cuando se recorta en móvil. */
+const fotoArea = (a) => (a && a.foto ? { name: a.foto.archivo, widths: [640, 960, 1600], alt: a.foto.alt, cls: "foco-dcha" } : null);
+
 /* Formulario «Envíanos tu CV». Con destino configurado (formularios.candidaturas)
    se adjunta el CV; sin él, se prepara un correo y se pide adjuntarlo. */
 function cvForm(root, cfg, { id, oferta = null, ofertas = [], areas = [] }) {
@@ -403,6 +407,7 @@ ${phero(root, {
   kicker: "Selección de perfiles técnicos",
   title: esc(a.titulo),
   sub: intro,
+  foto: fotoArea(a),
   crumbs,
   actions: `<div class="acts"><a class="btn btn-primary" href="${root}contacto/">Busco este perfil ${icon.arrow}</a><a class="btn btn-out" href="${root}ofertas-de-trabajo/${suyas.length ? `?familia=${a.slug}` : ""}">Busco empleo</a></div>`
 })}
@@ -566,6 +571,7 @@ ${phero(root, {
   kicker: "Oferta de trabajo",
   title: esc(o.titulo),
   sub: `${icon.pin} ${esc(o.ubicacion)}`,
+  foto: fotoArea(areaBySlug[o.area]),
   crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }, { name: o.titulo, path: p }),
   actions: `<div class="acts"><a class="btn btn-primary" href="#candidatura">Envíanos tu CV ${icon.arrow}</a></div>`
 })}

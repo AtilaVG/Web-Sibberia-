@@ -1,6 +1,6 @@
 # Fotos de la web
 
-La web solo usa las fotos facilitadas por el cliente:
+La web usa las fotos facilitadas por el cliente:
 
 | Foto | Dónde se usa |
 | --- | --- |
@@ -8,11 +8,34 @@ La web solo usa las fotos facilitadas por el cliente:
 | Equipo colaborando (`equipo-colaborando`) | Estrategia y gestión del capital humano y su tarjeta |
 | Sesión de formación (`formacion-sesion`) | Formación y desarrollo de personas y su tarjeta |
 | Taller con asistentes (`taller-asistentes`) | Nosotros |
+| Jefa de turno con tableta (`foto-produccion`) | Familia Producción |
+| Inspector con calibre (`foto-calidad-prl-medioambiente`) | Familia Calidad, PRL y Medioambiente |
+| Técnica con lector en el almacén (`foto-almacen-logistica-planificacion-compras`) | Familia Almacén, Logística, Planificación y Compras |
+| Ingeniero con portátil y planos (`foto-ingenieria-y-proyectos`) | Familia Ingeniería y Proyectos y sus ofertas |
+| Técnica programando un robot (`foto-automatizacion-y-robotica`) | Familia Automatización y Robótica |
 
-Las páginas de cada familia profesional, las ofertas y el contacto no llevan foto.
+Las cinco fotos de familias (7-oct-2026) las ha generado el cliente con ChatGPT
+a partir de los prompts de este documento. Son **imágenes ilustrativas**: no deben
+presentarse como el equipo de Sibberia. Se enlazan en `data/areas.json` (campo
+`foto`, con su texto alternativo) y las ofertas de esa familia usan la misma.
+
+Pendientes: Mantenimiento y SAT, Programadores/as, Ofertas de trabajo (listado y
+ofertas sin familia), Contacto y, opcionalmente, Selección. Mientras no lleguen,
+esas cabeceras siguen en azul, sin foto.
+
 Equipo colaborando, Sesión de formación y Taller con asistentes solo existen
 a 960 px. Con los originales en más resolución se verían más nítidas en pantallas
 grandes; se regeneran con `node scripts/images.mjs <carpeta>`.
+
+### Añadir una foto nueva
+
+```bash
+node scripts/foto.mjs <foto-original> foto-<slug-de-la-familia>
+```
+
+Genera `assets/img/foto-<slug>-640.webp`, `-960.webp` y `-1600.webp` (16:9). Después
+se añade a la familia en `data/areas.json`:
+`"foto": { "archivo": "foto-<slug>", "alt": "Descripción de la foto" }` y `npm run build`.
 
 ## Cómo tener una foto distinta por página (7-oct-2026)
 

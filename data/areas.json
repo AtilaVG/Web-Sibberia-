@@ -1,5 +1,5 @@
 {
-  "_nota": "Familias de perfiles técnicos e industriales (feedback del cliente, 6-oct-2026). Cada una genera una página en /seleccion-personas/<slug>/. 'busquedas' son las consultas que debe posicionar esa página; 'perfiles' se muestran tal cual. 'descripcion' completa la frase «En Sibberia seleccionamos …». 'seoTitulo' (≤60) y 'seoDescripcion' (≤155) son la etiqueta title y la meta description.",
+  "_nota": "Familias de perfiles técnicos e industriales (feedback del cliente, 6-oct-2026). Cada una genera una página en /seleccion-personas/<slug>/. 'busquedas' son las consultas que debe posicionar esa página; 'perfiles' se muestran tal cual. 'descripcion' completa la frase «En Sibberia seleccionamos …». 'seoTitulo' (≤60) y 'seoDescripcion' (≤155) son la etiqueta title y la meta description. «foto» (opcional): imagen de la cabecera (assets/img/<archivo>-640/960/1600.webp, se generan con scripts/foto.mjs) y su texto alternativo.",
   "areas": [
     {
       "slug": "mantenimiento-y-sat",
@@ -36,7 +36,11 @@
       ],
       "descripcion": "operarios/as especialistas y jefes/as de turno",
       "seoTitulo": "Selección de personal de producción | Sibberia",
-      "seoDescripcion": "Seleccionamos operarios especialistas y jefes de turno para plantas industriales. Procesos a medida y a éxito."
+      "seoDescripcion": "Seleccionamos operarios especialistas y jefes de turno para plantas industriales. Procesos a medida y a éxito.",
+      "foto": {
+        "archivo": "foto-produccion",
+        "alt": "Jefa de turno con gafas de seguridad consulta una tableta mientras recorre una línea de producción; dos operarios trabajan al fondo."
+      }
     },
     {
       "slug": "calidad-prl-medioambiente",
@@ -54,7 +58,11 @@
       ],
       "descripcion": "técnicos/as de calidad, de prevención de riesgos laborales (PRL) y de medioambiente",
       "seoTitulo": "Selección de técnicos de calidad, PRL y medioambiente",
-      "seoDescripcion": "Seleccionamos técnicos de calidad, de prevención de riesgos laborales (PRL) y de medioambiente. Procesos a medida y a éxito."
+      "seoDescripcion": "Seleccionamos técnicos de calidad, de prevención de riesgos laborales (PRL) y de medioambiente. Procesos a medida y a éxito.",
+      "foto": {
+        "archivo": "foto-calidad-prl-medioambiente",
+        "alt": "Inspector de calidad con chaleco reflectante mide una pieza mecanizada con un calibre digital en un banco de inspección."
+      }
     },
     {
       "slug": "almacen-logistica-planificacion-compras",
@@ -74,7 +82,11 @@
       ],
       "descripcion": "personal de almacén, logística, planificación y compras",
       "seoTitulo": "Selección de personal de logística y almacén | Sibberia",
-      "seoDescripcion": "Seleccionamos personal de almacén, logística, planificación y compras para la industria. Procesos a medida y a éxito."
+      "seoDescripcion": "Seleccionamos personal de almacén, logística, planificación y compras para la industria. Procesos a medida y a éxito.",
+      "foto": {
+        "archivo": "foto-almacen-logistica-planificacion-compras",
+        "alt": "Técnica de logística con chaleco reflectante escanea el código de barras de una caja en una estantería de almacén; al fondo, una carretilla."
+      }
     },
     {
       "slug": "ingenieria-y-proyectos",
@@ -93,7 +105,11 @@
       ],
       "descripcion": "proyectistas, técnicos/as de site y técnicos/as de proyectos",
       "seoTitulo": "Selección de ingenieros y técnicos de proyectos | Sibberia",
-      "seoDescripcion": "Seleccionamos proyectistas, técnicos de site y técnicos de proyectos. Procesos a medida y a éxito."
+      "seoDescripcion": "Seleccionamos proyectistas, técnicos de site y técnicos de proyectos. Procesos a medida y a éxito.",
+      "foto": {
+        "archivo": "foto-ingenieria-y-proyectos",
+        "alt": "Ingeniero de proyectos trabaja con un portátil y planos en una mesa de una planta industrial, con un casco de seguridad al lado."
+      }
     },
     {
       "slug": "automatizacion-y-robotica",
@@ -112,7 +128,11 @@
       ],
       "descripcion": "ingenieros/as y técnicos/as de automatización y robótica",
       "seoTitulo": "Selección de técnicos de automatización y robótica",
-      "seoDescripcion": "Seleccionamos ingenieros y técnicos de automatización y robótica industrial. Procesos a medida y a éxito."
+      "seoDescripcion": "Seleccionamos ingenieros y técnicos de automatización y robótica industrial. Procesos a medida y a éxito.",
+      "foto": {
+        "archivo": "foto-automatizacion-y-robotica",
+        "alt": "Técnica con gafas de seguridad programa un brazo robot industrial con la consola de programación, junto a una célula de seguridad."
+      }
     },
     {
       "slug": "programadores",
