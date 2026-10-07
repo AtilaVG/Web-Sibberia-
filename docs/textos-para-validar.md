@@ -49,10 +49,19 @@ debe validarlos, corregirlos o sustituirlos antes de publicar. Se editan en `sit
 
 - **Foto de Samuel** para Nosotros (profesional, discreta). El hueco está
   preparado en `site/pages.mjs → FOTO_FUNDADOR`.
-- **CV adjunto en el formulario.** La web ya lo admite (PDF o Word, máx. 5 MB),
-  pero necesita un servicio de formularios que reciba archivos; mientras
-  `site/config.json → formularios.candidaturas` esté vacío, el formulario prepara
-  un correo y pide adjuntar el CV a mano.
+- **Activar los formularios (una sola vez).** Los formularios de CV y de contacto
+  se envían con FormSubmit (formsubmit.co): es gratis y no necesita cuenta. Llegan
+  a hola@sibberia.com, con el CV adjunto. La primera vez que alguien envíe un
+  formulario, FormSubmit manda a hola@sibberia.com un correo con el botón
+  «Activate Form»: hay que pulsarlo, y hasta entonces no llega nada. Conviene
+  hacer un envío de prueba nada más publicar. Tras activarlo, FormSubmit ofrece
+  una dirección alternativa (una cadena aleatoria) para no mostrar el correo en
+  el código de la web; si la enviáis, la cambio en `site/config.json → formularios`.
+- **Protección de datos.** FormSubmit es gratuito y no firma un contrato de
+  encargado del tratamiento; según su documentación, guarda los envíos 30 días y
+  no conserva los archivos. Para la web definitiva (sibberia.com) conviene un
+  servicio de pago con contrato (Basin o Formspree, unos 9–10 $/mes): basta con
+  cambiar la URL en `site/config.json`.
 - **Programadores/as**: el PDF mete «Programadores PLC» en Automatización, así que
   he enfocado esta familia en programadores y desarrolladores de software para
   empresas técnicas e industriales, con un enlace a Automatización para PLC.
@@ -67,8 +76,7 @@ debe validarlos, corregirlos o sustituirlos antes de publicar. Se editan en `sit
   es en remoto.
 - Blog: faltan los títulos y textos reales (`data/blog.json`). No se ha inventado
   ninguno.
-- Destino de los formularios de contacto y newsletter (`site/config.json →
-  formularios`).
+- Destino de la newsletter (`site/config.json → formularios.newsletter`).
 
 ## Inicio
 
@@ -202,7 +210,8 @@ familia lo he redactado yo (`data/areas.json`):
 - Listado: «¿No encuentras tu oferta? Envíanos tu CV» / «Puedes enviarnos tu candidatura aunque ahora no veas una oferta para tu perfil. También puedes escribirnos a hola@sibberia.com.»
 - Campos (los del PDF, en este orden): «Nombre y apellidos», «Email», «Teléfono», «Oferta» (solo en el listado, con «Candidatura espontánea»), «Adjunta tu CV» («PDF o Word, máximo 5 MB»; solo con destino configurado) y «Mensaje (opcional)». Casilla de privacidad y botón «Enviar mi CV». Se ha quitado «Familia profesional» para que tenga menos pasos. El teléfono es obligatorio.
 - Avisos: «Escribe un teléfono de contacto (al menos 9 cifras).» / «Adjunta tu CV en PDF o Word (máximo 5 MB).» / «Gracias, hemos recibido tu candidatura.»
-- Sin destino configurado: «Al enviar se abrirá tu programa de correo con estos datos: adjunta tu CV antes de enviarlo.» y, al enviar, «Hemos preparado el correo con tus datos: adjunta tu CV y envíalo. Si no se ha abierto, escríbenos a hola@sibberia.com.»
+- Envío: el formulario se manda a FormSubmit con el CV adjunto y vuelve a la misma página, que muestra «Gracias, hemos recibido tu candidatura.» El correo llega con el asunto «Candidatura: {puesto} ({ubicación})» o «Candidatura: candidatura espontánea».
+- Si se vacía el destino en `site/config.json`, vuelve el modo sin servicio: «Al enviar se abrirá tu programa de correo con estos datos: adjunta tu CV antes de enviarlo.» y, al enviar, «Hemos preparado el correo con tus datos: adjunta tu CV y envíalo. Si no se ha abierto, escríbenos a hola@sibberia.com.»
 
 ## Contacto y formularios
 
@@ -211,7 +220,8 @@ familia lo he redactado yo (`data/areas.json`):
 - Si se marca «Candidato/a», aparece «¿Buscas empleo? Envíanos tu CV desde la página de ofertas.»
 - Mensajes: «Gracias, hemos recibido tu mensaje. Te responderemos lo antes posible.» / «Listo: te has suscrito a la newsletter.» / «Hemos preparado el mensaje en tu programa de correo; solo tienes que enviarlo. Si no se ha abierto, escríbenos a hola@sibberia.com.» (mientras no haya destino configurado) / «No hemos podido enviar el formulario. Inténtalo de nuevo o escríbenos a hola@sibberia.com.» y los avisos de cada campo.
 - La newsletter del pie está oculta hasta que se configure su destino.
-- Aviso legal y privacidad: las líneas de razón social, CIF y domicilio no se muestran hasta que el cliente las confirme (la página queda en noindex). Revisar con el asesor legal; si el CV se recibe a través de un servicio externo, la política de privacidad debe nombrarlo como encargado del tratamiento.
+- Contacto: se envía sin salir de la página y el correo llega con el asunto «Contacto web — {empresa}».
+- Aviso legal y privacidad: las líneas de razón social, CIF y domicilio no se muestran hasta que el cliente las confirme (la página queda en noindex). Nueva línea en la política de privacidad: «Encargado del tratamiento: los formularios de esta web se envían a través de FormSubmit (formsubmit.co), que nos reenvía por correo electrónico tus datos y, si lo adjuntas, tu CV.» Revisar todo con el asesor legal.
 
 ## Metadatos (SEO)
 

@@ -71,7 +71,7 @@ function footer(root, cfg) {
             <button class="btn btn-primary btn-sm" type="submit">Suscribirme</button>
           </div>
           <label class="check"><input type="checkbox" name="privacidad" required> <span>He leído y acepto la <a href="${root}legal/#privacidad">política de privacidad</a>.</span></label>
-          <div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
           <p class="form-status" id="nl-status" role="status" aria-live="polite"></p>
         </form>` : ""}
       </div>
@@ -162,7 +162,7 @@ ${header(root, p.nav, cfg)}
 ${p.body(root)}
 </main>
 ${footer(root, cfg)}
-<script src="${root}assets/js/core.js?v=9" defer></script>
+<script src="${root}assets/js/core.js?v=10" defer></script>
 ${scripts}
 </body>
 </html>

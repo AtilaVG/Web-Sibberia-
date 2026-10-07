@@ -66,7 +66,8 @@
       </ul>
       <a class="btn btn-ghost" href="../ofertas-de-trabajo/">Ver ofertas de trabajo <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
     </aside>
-    <form class="cform" data-form="contacto" data-endpoint="" action="mailto:hola@sibberia.com" method="post" enctype="text/plain" novalidate>
+    <form class="cform" data-form="contacto" data-endpoint="https://formsubmit.co/ajax/hola@sibberia.com" action="https://formsubmit.co/hola@sibberia.com" method="post" accept-charset="UTF-8" novalidate>
+      <input type="hidden" name="_subject" value="Contacto web"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="https://atilavg.github.io/Web-Sibberia-/contacto/?enviado=contacto">
       <fieldset class="who">
         <legend>Te escribo como</legend>
         <label><input type="radio" name="perfil" value="empresa" checked> Empresa</label>
@@ -83,7 +84,7 @@
       </div>
       <div class="ffield"><label for="f-msg">Mensaje *</label><textarea id="f-msg" name="mensaje" required rows="6" placeholder="Por ejemplo: técnico de mantenimiento electromecánico, a turnos, para una planta en Asturias…"></textarea><p class="ferr"></p></div>
       <label class="check"><input type="checkbox" name="privacidad" required> <span>He leído y acepto la <a href="../legal/#privacidad">política de privacidad</a>. *</span></label>
-      <div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn btn-primary" type="submit">Enviar mensaje <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
       <p class="form-status" role="status" aria-live="polite"></p>
     </form>
@@ -108,7 +109,7 @@
     </div>
   </div>
 </footer>
-<script src="../assets/js/core.js?v=9" defer></script>
+<script src="../assets/js/core.js?v=10" defer></script>
 
 </body>
 </html>
