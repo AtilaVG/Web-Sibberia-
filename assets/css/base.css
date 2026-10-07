@@ -223,7 +223,7 @@ footer.site li{margin-bottom:0}
 footer.site li a{display:inline-flex;align-items:center;min-height:44px}
 .check{min-height:44px;align-items:center}
 .check input{margin-top:0}
-.crumb a{display:inline-block;padding:10px 0}
+.crumb a{display:inline-block;padding:10px 0;min-height:44px}
 .crumb ol{align-items:baseline}
 
 /* Pie: columnas plegables en móvil */
@@ -245,6 +245,7 @@ footer.site li a{display:inline-flex;align-items:center;min-height:44px}
 @media (max-height:500px) and (orientation:landscape){
   header.site{padding:8px 0}
   header.site.scrolled{padding:4px 0}
+  .nav-r .btn-sm{padding:8px 16px}
   .mobile-menu{padding-top:64px}
   .mobile-menu a{padding:9px 0;font-size:1.05rem}
 }
