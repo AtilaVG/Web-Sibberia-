@@ -58,9 +58,11 @@
   }
 
   /* ---- Formularios ----
-     data-endpoint: URL que recibe un POST con FormData (el CV va adjunto).
-     Si está vacío, se prepara el correo con los datos en el programa de
-     correo de la persona, en lugar de fingir un envío. */
+     data-endpoint: URL que recibe un POST con FormData y responde en JSON.
+     data-nativo: el formulario se envía de forma normal (con el CV adjunto) y
+     el servicio vuelve a esta página con ?enviado=<tipo>.
+     Sin destino, se prepara el correo con los datos en el programa de correo
+     de la persona, en lugar de fingir un envío. */
   var EMAIL = "hola@sibberia.com";
   var MAX_CV = 5 * 1024 * 1024;
   var MSG = {
@@ -143,6 +145,19 @@
       : "Hemos preparado el mensaje en tu programa de correo; solo tienes que enviarlo. Si no se ha abierto, escríbenos a " + EMAIL + ".", "ok");
   }
 
+  // Asunto del correo que recibe SIBBERIA (campo _subject del servicio)
+  function asunto(form, kind) {
+    var el = form.querySelector('input[name="_subject"]');
+    if (!el) return;
+    var data = new FormData(form);
+    el.value = kind === "candidatura"
+      ? "Candidatura: " + (data.get("oferta") || "candidatura espontánea")
+      : "Contacto web" + (data.get("empresa") ? " — " + data.get("empresa") : "");
+  }
+
+  // Vuelta del servicio tras un envío normal: ?enviado=<tipo>
+  var enviado = new URLSearchParams(location.search).get("enviado");
+
   document.querySelectorAll("form[data-form]").forEach(function (form, n) {
     // cada campo, enlazado con su caja de error (para lectores de pantalla),
     // sin perder la ayuda que ya tuviera (p. ej. «PDF o Word, máximo 5 MB»)
@@ -170,6 +185,14 @@
 
     var kind = form.getAttribute("data-form");
     var button = form.querySelector('button[type="submit"]');
+    if (enviado && enviado === kind && OK[kind]) {
+      setStatus(form, OK[kind], "ok");
+      history.replaceState(null, "", location.pathname + location.hash);
+      var st = form.querySelector(".form-status");
+      if (st) setTimeout(function () { st.scrollIntoView({ block: "center" }); }, 60);
+    }
+    // al volver atrás tras un envío normal, el botón vuelve a estar activo
+    window.addEventListener("pageshow", function () { button.disabled = false; });
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -180,17 +203,24 @@
         return;
       }
       // honeypot: los bots rellenan el campo oculto; respondemos sin enviar
-      var hp = form.querySelector('input[name="website"]');
+      var hp = form.querySelector('input[name="_honey"]');
       if (hp && hp.value) { form.reset(); setStatus(form, "Gracias.", "ok"); return; }
 
       var endpoint = form.getAttribute("data-endpoint");
       if (!endpoint) { mailto(form, kind); return; }
 
+      asunto(form, kind);
       button.disabled = true;
       setStatus(form, "Enviando…", "");
+      if (form.hasAttribute("data-nativo")) { form.submit(); return; }
       fetch(endpoint, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
         .then(function (r) {
           if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json().catch(function () { return {}; });
+        })
+        .then(function (d) {
+          // FormSubmit responde 200 con success "false" si algo falla
+          if (d && (d.success === false || d.success === "false")) throw new Error(d.message || "envío rechazado");
           form.reset();
           setStatus(form, OK[kind] || OK.contacto, "ok");
         })

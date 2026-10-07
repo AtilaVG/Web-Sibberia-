@@ -15,9 +15,9 @@
     "direccion": null
   },
   "formularios": {
-    "_nota": "URL que recibe cada formulario por POST (FormData; en candidaturas, con el CV adjunto). Vacío = se abre el programa de correo con los datos (y en candidaturas se pide adjuntar el CV); la newsletter no se muestra.",
-    "contacto": "",
-    "candidaturas": "",
+    "_nota": "URL que recibe cada formulario por POST. Ahora, FormSubmit (formsubmit.co): gratis y sin cuenta; reenvía cada envío a hola@sibberia.com, con el CV adjunto. La primera vez manda a esa dirección un correo para activarlo (botón «Activate Form»). Contacto usa /ajax/ (responde sin salir de la página); candidaturas, el envío normal con el archivo, y vuelve a la página con ?enviado=candidatura. Vacío = se abre el programa de correo con los datos; la newsletter no se muestra.",
+    "contacto": "https://formsubmit.co/ajax/hola@sibberia.com",
+    "candidaturas": "https://formsubmit.co/hola@sibberia.com",
     "newsletter": ""
   }
 }

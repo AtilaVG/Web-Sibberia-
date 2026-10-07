@@ -97,17 +97,33 @@ const FOTO_FUNDADOR = null;
 const btnPerfil = (root, cls = "btn btn-primary") =>
   `<a class="${cls}" href="${root}contacto/">Cuéntanos qué perfil buscas ${icon.arrow}</a>`;
 
+/* FormSubmit (formsubmit.co): gratis y sin cuenta. Reenvía cada formulario por
+   correo a la dirección de destino, con el CV adjunto (máx. 10 MB entre todos los
+   archivos). La primera vez manda a esa dirección un correo para activarlo.
+   Campos propios: _subject (asunto), _template, _captcha, _next (página a la que
+   vuelve tras un envío normal) y _honey (antispam). La URL con /ajax/ responde en
+   JSON sin salir de la página; sin /ajax/, es un envío normal. */
+const esFormSubmit = (u) => /^https:\/\/formsubmit\.co\//.test(u || "");
+const sinAjax = (u) => u.replace("formsubmit.co/ajax/", "formsubmit.co/");
+const camposFormSubmit = (u, { asunto, vuelta }) => esFormSubmit(u)
+  ? `<input type="hidden" name="_subject" value="${esc(asunto)}"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="${esc(vuelta)}">`
+  : "";
+const HONEYPOT = `<div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>`;
+
 /* Formulario «Envíanos tu CV». Con destino configurado (formularios.candidaturas)
    el CV se adjunta en el propio formulario; sin él, se prepara un correo y se
-   pide adjuntarlo. */
+   pide adjuntarlo. Con FormSubmit se envía de forma normal (el archivo viaja con
+   el formulario) y vuelve a «vuelta» con ?enviado=candidatura. */
 const ACEPTA_CV = ".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-function cvForm(root, cfg, { id, oferta = null, ofertas = [] }) {
+function cvForm(root, cfg, { id, oferta = null, ofertas = [], vuelta = "" }) {
   const endpoint = cfg.formularios.candidaturas || "";
+  const nativo = esFormSubmit(endpoint) && !endpoint.includes("/ajax/");
   const sinJs = endpoint
-    ? `action="${esc(endpoint)}" method="post" enctype="multipart/form-data"`
+    ? `action="${esc(sinAjax(endpoint))}" method="post" enctype="multipart/form-data" accept-charset="UTF-8"`
     : `action="mailto:${cfg.email}" method="post" enctype="text/plain"`;
   const nombreOferta = (o) => `${o.titulo} (${o.ubicacion})`;
-  return `<form class="cform cvform" data-form="candidatura" data-endpoint="${esc(endpoint)}" ${sinJs} novalidate>
+  return `<form class="cform cvform" data-form="candidatura" data-endpoint="${esc(endpoint)}"${nativo ? " data-nativo" : ""} ${sinJs} novalidate>
+      ${camposFormSubmit(endpoint, { asunto: oferta ? `Candidatura: ${nombreOferta(oferta)}` : "Candidatura desde la web", vuelta })}
       ${oferta ? `<p class="cv-oferta">Oferta: <b>${esc(oferta.titulo)}</b> · ${esc(oferta.ubicacion)}</p><input type="hidden" name="oferta" value="${esc(nombreOferta(oferta))}">` : ""}
       <div class="frow">
         <div class="ffield"><label for="${id}-name">Nombre y apellidos *</label><input id="${id}-name" name="nombre" type="text" required autocomplete="name"><p class="ferr"></p></div>
@@ -124,7 +140,7 @@ function cvForm(root, cfg, { id, oferta = null, ofertas = [] }) {
       <div class="ffield"><label for="${id}-msg">Mensaje (opcional)</label><textarea id="${id}-msg" name="mensaje" rows="3"></textarea></div>
       ${endpoint ? "" : `<p class="cv-note">Al enviar se abrirá tu programa de correo con estos datos: adjunta tu CV antes de enviarlo.</p>`}
       <label class="check"><input type="checkbox" name="privacidad" required> <span>He leído y acepto la <a href="${root}legal/#privacidad">política de privacidad</a>. *</span></label>
-      <div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      ${HONEYPOT}
       <button class="btn btn-primary" type="submit">Enviar mi CV ${icon.arrow}</button>
       <p class="form-status" role="status" aria-live="polite"></p>
     </form>`;
@@ -655,7 +671,7 @@ ${phero(root, {
   <div class="wrap narrow">
     <h2 class="giant-sm" id="t-cv">¿No encuentras tu oferta? Envíanos tu CV</h2>
     <p class="cv-lead">Puedes enviarnos tu candidatura aunque ahora no veas una oferta para tu perfil. También puedes escribirnos a <a href="mailto:${cfg.email}">${cfg.email}</a>.</p>
-    ${cvForm(root, cfg, { id: "cv", ofertas })}
+    ${cvForm(root, cfg, { id: "cv", ofertas, vuelta: `${url}/ofertas-de-trabajo/?enviado=candidatura#envia-tu-cv` })}
   </div>
 </section>`
   });
@@ -728,7 +744,7 @@ ${phero(root, {
   <div class="wrap narrow">
     <h2 class="giant-sm" id="t-cv">Envíanos tu CV</h2>
     <p class="cv-lead">Déjanos tus datos para optar a esta oferta. Si lo prefieres, escríbenos a <a href="mailto:${cfg.email}?subject=${encodeURIComponent("Candidatura: " + o.titulo + " (" + o.ubicacion + ")")}">${cfg.email}</a> con el nombre de la oferta en el asunto.</p>
-    ${cvForm(root, cfg, { id: "cv", oferta: o })}
+    ${cvForm(root, cfg, { id: "cv", oferta: o, vuelta: `${url}/${p}?enviado=candidatura#candidatura` })}
   </div>
 </section>`
     });
@@ -782,6 +798,7 @@ ${phero(root, { kicker: "Blog", title: esc(a.titulo), crumbs: crumb({ name: "Blo
   });
 
   /* CONTACTO: destino de «Cuéntanos qué perfil buscas» */
+  const contacto = cfg.formularios.contacto || "";
   pages.push({
     path: "contacto/",
     nav: "contacto/",
@@ -802,7 +819,8 @@ ${phero(root, { kicker: "Contacto", title: "Cuéntanos qué perfil buscas", sub:
       </ul>
       <a class="btn btn-ghost" href="${root}ofertas-de-trabajo/">Ver ofertas de trabajo ${icon.arrow}</a>
     </aside>
-    <form class="cform" data-form="contacto" data-endpoint="${esc(cfg.formularios.contacto)}" ${cfg.formularios.contacto ? `action="${esc(cfg.formularios.contacto)}" method="post"` : `action="mailto:${cfg.email}" method="post" enctype="text/plain"`} novalidate>
+    <form class="cform" data-form="contacto" data-endpoint="${esc(contacto)}" ${contacto ? `action="${esc(sinAjax(contacto))}" method="post" accept-charset="UTF-8"` : `action="mailto:${cfg.email}" method="post" enctype="text/plain"`} novalidate>
+      ${camposFormSubmit(contacto, { asunto: "Contacto web", vuelta: `${url}/contacto/?enviado=contacto` })}
       <fieldset class="who">
         <legend>Te escribo como</legend>
         <label><input type="radio" name="perfil" value="empresa" checked> Empresa</label>
@@ -819,7 +837,7 @@ ${phero(root, { kicker: "Contacto", title: "Cuéntanos qué perfil buscas", sub:
       </div>
       <div class="ffield"><label for="f-msg">Mensaje *</label><textarea id="f-msg" name="mensaje" required rows="6" placeholder="Por ejemplo: técnico de mantenimiento electromecánico, a turnos, para una planta en Asturias…"></textarea><p class="ferr"></p></div>
       <label class="check"><input type="checkbox" name="privacidad" required> <span>He leído y acepto la <a href="${root}legal/#privacidad">política de privacidad</a>. *</span></label>
-      <div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      ${HONEYPOT}
       <button class="btn btn-primary" type="submit">Enviar mensaje ${icon.arrow}</button>
       <p class="form-status" role="status" aria-live="polite"></p>
     </form>
@@ -858,6 +876,7 @@ ${phero(root, { kicker: "Legal", title: "Aviso legal y privacidad", crumbs: crum
       <li>Legitimación: consentimiento del interesado.</li>
       <li>Conservación: el tiempo necesario para la finalidad o el exigido legalmente.</li>
       <li>Destinatarios: no se ceden datos a terceros salvo obligación legal.</li>
+      ${[cfg.formularios.contacto, cfg.formularios.candidaturas].some(esFormSubmit) ? `<li>Encargado del tratamiento: los formularios de esta web se envían a través de FormSubmit (formsubmit.co), que nos reenvía por correo electrónico tus datos y, si lo adjuntas, tu CV.</li>` : ""}
       <li>Derechos: puedes ejercer acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a <a href="mailto:${cfg.email}">${cfg.email}</a>.</li>
     </ul>
     <p>Si consideras vulnerados tus derechos puedes reclamar ante la Agencia Española de Protección de Datos (www.aepd.es).</p>

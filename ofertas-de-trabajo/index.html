@@ -109,7 +109,8 @@
   <div class="wrap narrow">
     <h2 class="giant-sm" id="t-cv">¿No encuentras tu oferta? Envíanos tu CV</h2>
     <p class="cv-lead">Puedes enviarnos tu candidatura aunque ahora no veas una oferta para tu perfil. También puedes escribirnos a <a href="mailto:hola@sibberia.com">hola@sibberia.com</a>.</p>
-    <form class="cform cvform" data-form="candidatura" data-endpoint="" action="mailto:hola@sibberia.com" method="post" enctype="text/plain" novalidate>
+    <form class="cform cvform" data-form="candidatura" data-endpoint="https://formsubmit.co/hola@sibberia.com" data-nativo action="https://formsubmit.co/hola@sibberia.com" method="post" enctype="multipart/form-data" accept-charset="UTF-8" novalidate>
+      <input type="hidden" name="_subject" value="Candidatura desde la web"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="https://atilavg.github.io/Web-Sibberia-/ofertas-de-trabajo/?enviado=candidatura#envia-tu-cv">
       
       <div class="frow">
         <div class="ffield"><label for="cv-name">Nombre y apellidos *</label><input id="cv-name" name="nombre" type="text" required autocomplete="name"><p class="ferr"></p></div>
@@ -122,11 +123,11 @@
           <option value="Técnico/a de climatización / Frigorista (Asturias)">Técnico/a de climatización / Frigorista · Asturias</option><option value="Técnico/a laboral (Madrid)">Técnico/a laboral · Madrid</option><option value="Ontólogo/a senior (España)">Ontólogo/a senior · España</option><option value="Técnico/a de estudios (Pozuelo de Alarcón)">Técnico/a de estudios · Pozuelo de Alarcón</option><option value="Ingeniero/a RFQ / Ofertas técnicas (Leganés)">Ingeniero/a RFQ / Ofertas técnicas · Leganés</option>
         </select></div>
       </div>
-      
+      <div class="ffield ffile"><label for="cv-cv">Adjunta tu CV *</label><input id="cv-cv" name="cv" type="file" required accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" aria-describedby="cv-cv-hint"><p class="fhint" id="cv-cv-hint">PDF o Word, máximo 5&nbsp;MB.</p><p class="ferr"></p></div>
       <div class="ffield"><label for="cv-msg">Mensaje (opcional)</label><textarea id="cv-msg" name="mensaje" rows="3"></textarea></div>
-      <p class="cv-note">Al enviar se abrirá tu programa de correo con estos datos: adjunta tu CV antes de enviarlo.</p>
+      
       <label class="check"><input type="checkbox" name="privacidad" required> <span>He leído y acepto la <a href="../legal/#privacidad">política de privacidad</a>. *</span></label>
-      <div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn btn-primary" type="submit">Enviar mi CV <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
       <p class="form-status" role="status" aria-live="polite"></p>
     </form>
@@ -151,7 +152,7 @@
     </div>
   </div>
 </footer>
-<script src="../assets/js/core.js?v=9" defer></script>
+<script src="../assets/js/core.js?v=10" defer></script>
 <script src="../assets/js/ofertas.js?v=3" defer></script>
 </body>
 </html>
