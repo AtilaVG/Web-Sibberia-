@@ -67,8 +67,12 @@
 
   if (filtros) {
     var params = new URLSearchParams(location.search);
-    state.area = params.get("familia") || "";
-    state.zona = params.get("zona") || "";
+    // solo valores que existen como filtro (un enlace antiguo no deja la lista vacía)
+    var valid = function (f, v) {
+      return [].some.call(filtros.querySelectorAll('button[data-f="' + f + '"]'), function (b) { return b.getAttribute("data-v") === v; }) ? v : "";
+    };
+    state.area = valid("area", params.get("familia") || "");
+    state.zona = valid("zona", params.get("zona") || "");
     filtros.hidden = false;
     filtros.addEventListener("click", function (e) {
       var b = e.target.closest("button[data-f]");

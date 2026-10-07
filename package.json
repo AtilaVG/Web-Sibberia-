@@ -5,7 +5,8 @@
   "scripts": {
     "build": "npm run build:hero && npm run build:site",
     "build:hero": "esbuild assets/js/src/hero3d.js --bundle --minify --format=iife --target=es2018 --legal-comments=eof --global-name=SibHero3D --outfile=assets/js/hero3d.js",
-    "build:site": "node site/build.mjs"
+    "build:site": "node site/build.mjs",
+    "images": "node scripts/render-images.mjs"
   },
   "devDependencies": {
     "@fontsource/mulish": "^5.3.0",

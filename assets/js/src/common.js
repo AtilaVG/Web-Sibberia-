@@ -2,7 +2,7 @@
    Piezas compartidas por las escenas 3D: renderer, cielo opaco (lo que
    refracta el hielo) y entorno de luz de estudio. */
 import {
-  Mesh, SphereGeometry, ShaderMaterial, BackSide, Color, PMREMGenerator,
+  Mesh, SphereGeometry, ShaderMaterial, BackSide, Color, PMREMGenerator, CanvasTexture,
   ACESFilmicToneMapping, SRGBColorSpace, WebGLRenderer, UniformsLib, UniformsUtils
 } from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
@@ -89,3 +89,19 @@ export function makeSky() {
   );
 }
 
+/* Figura de persona grabada (como en los bloques de la foto del cliente) */
+export function personTexture(color) {
+  const c = document.createElement("canvas");
+  c.width = c.height = 256;
+  const ctx = c.getContext("2d");
+  ctx.strokeStyle = color; ctx.fillStyle = color;
+  ctx.lineWidth = 9; ctx.lineCap = "round"; ctx.lineJoin = "round";
+  ctx.beginPath(); ctx.arc(128, 70, 34, 0, Math.PI * 2); ctx.stroke();            // cabeza
+  ctx.beginPath(); ctx.moveTo(70, 196); ctx.lineTo(70, 140); ctx.quadraticCurveTo(70, 118, 96, 116); ctx.stroke();   // hombro izq.
+  ctx.beginPath(); ctx.moveTo(186, 196); ctx.lineTo(186, 140); ctx.quadraticCurveTo(186, 118, 160, 116); ctx.stroke(); // hombro der.
+  ctx.beginPath(); ctx.moveTo(116, 122); ctx.lineTo(140, 122); ctx.lineTo(136, 136); ctx.lineTo(146, 190); ctx.lineTo(128, 206); ctx.lineTo(110, 190); ctx.lineTo(120, 136); ctx.closePath(); ctx.fill(); // corbata
+  ctx.beginPath(); ctx.moveTo(84, 226); ctx.lineTo(172, 226); ctx.stroke();      // base
+  const t = new CanvasTexture(c);
+  t.colorSpace = SRGBColorSpace;
+  return t;
+}
