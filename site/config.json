@@ -1,7 +1,7 @@
 {
   "_nota": "siteUrl se puede sobrescribir con la variable de entorno SITE_URL (p. ej. https://sibberia.com en producción).",
   "siteUrl": "https://atilavg.github.io/Web-Sibberia-",
-  "nombre": "Sibberia",
+  "nombre": "SIBBERIA",
   "email": "hola@sibberia.com",
   "telefonos": [
     { "texto": "91 931 97 38", "tel": "+34919319738" },

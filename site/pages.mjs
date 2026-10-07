@@ -4,50 +4,69 @@
    docs/textos-para-validar.md. */
 import { esc, icon, picture, organization, NAV, telTxt } from "./layout.mjs";
 
+/* Selección es el servicio principal; Estrategia y Formación, secundarios
+   (PDF de cambios del cliente, 7-oct-2026). 'chips' resume cada servicio en
+   el bloque «¿Qué más hacemos en SIBBERIA?»; los de Selección son las familias. */
 const SERVICIOS = [
   {
     path: "seleccion-personas/",
     nombre: "Selección de personas",
     corto: "Selección",
+    principal: true,
     foto: { name: "bloques-personas", widths: [960, 1600], alt: "Una mano elige un bloque de madera con la figura de una persona entre varios bloques iguales." },
     cabecera: { name: "foto-seleccion", widths: [640, 960, 1600], alt: "Una consultora de selección entrevista a un candidato con ropa de trabajo en una sala acristalada junto a la planta.", cls: "foco-dcha" },
-    resumen: "Especialistas en perfiles técnicos e industriales: buscamos y evaluamos a los profesionales que tu empresa necesita, para su puesto y para su equipo.",
-    intro: "Especialistas en selección de perfiles técnicos e industriales: mantenimiento, producción, calidad, logística, ingeniería, automatización y programación. Trabajamos a éxito y diseñamos cada proceso a medida."
+    resumen: "Seleccionamos perfiles técnicos e industriales con búsqueda directa y un modelo a éxito.",
+    intro: "Especialistas en selección de perfiles técnicos e industriales en España. Buscamos activamente a los profesionales que más cuesta encontrar y trabajamos a éxito."
   },
   {
     path: "estrategia-y-gestion-del-capital-humano/",
     nombre: "Estrategia y gestión del capital humano",
     corto: "Estrategia",
     foto: { name: "equipo-colaborando", widths: [640, 960], alt: "Equipo de seis personas revisa en un portátil un proyecto común alrededor de una mesa." },
-    resumen: "Te ayudamos a definir y gestionar la estrategia de personas de tu organización.",
-    intro: "Acompañamos a la dirección y al área de personas en la estrategia y la gestión del capital humano, con proyectos diseñados a medida de cada organización."
+    resumen: "Apoyo a la dirección y al área de RRHH: externalización, interim y proyectos de personas a medida.",
+    intro: "Acompañamos a la dirección y al área de personas en la estrategia y la gestión del capital humano, con proyectos diseñados a medida de cada organización.",
+    seoDescripcion: "Interim HR, RPO, BPO de Recursos Humanos, apoyo temporal a departamentos de RRHH, evaluación y desarrollo y proyectos de Recursos Humanos a medida.",
+    items: [
+      { t: "Interim HR", d: "Un responsable de RRHH temporal para cubrir una ausencia, una transición o un proyecto." },
+      { t: "RPO", d: "Externalización de tus procesos de selección: los llevamos como parte de tu equipo." },
+      { t: "BPO de Recursos Humanos", d: "Externalización de la gestión de Recursos Humanos y de la administración de personal." },
+      { t: "Apoyo temporal a departamentos de RRHH", d: "Refuerzo para tu equipo de RRHH en picos de trabajo o proyectos concretos." },
+      { t: "Evaluación y desarrollo", d: "Evaluación del desempeño y del potencial, y planes de desarrollo para tus equipos." },
+      { t: "Organización", d: "Estructura, puestos y funciones: una organización clara para que cada persona sepa qué se espera de ella." },
+      { t: "Proyectos de Recursos Humanos a medida", d: "Diseñamos contigo el proyecto de personas que necesita tu organización." }
+    ]
   },
   {
     path: "formacion-y-desarrollo-de-personas/",
     nombre: "Formación y desarrollo de personas",
     corto: "Formación",
     foto: { name: "formacion-sesion", widths: [640, 960], alt: "Formador sentado en una mesa habla con un grupo de profesionales en una sala luminosa." },
-    resumen: "Diseñamos formación para que las personas de tu equipo desarrollen todo su potencial.",
-    intro: "Diseñamos e impartimos programas de formación y desarrollo a la medida de las necesidades de cada equipo."
+    resumen: "Formación a medida para tus equipos, presencial y online.",
+    intro: "Diseñamos e impartimos programas de formación y desarrollo a la medida de las necesidades de cada equipo, en formato presencial y online.",
+    seoDescripcion: "Formación a medida para empresas: gestión de equipos, liderazgo, inteligencia artificial, Power BI, ventas, atención al cliente y formación técnica.",
+    temas: ["Gestión de equipos", "Inteligencia artificial", "Liderazgo", "Power BI", "Ventas", "Atención al cliente", "Formación técnica"],
+    formato: ["Programas a medida", "Presencial y online", "Formación bonificada (FUNDAE)"]
   }
 ];
+SERVICIOS[1].chips = SERVICIOS[1].items.map((i) => i.t);
+SERVICIOS[2].chips = [...SERVICIOS[2].temas, ...SERVICIOS[2].formato];
 
-const CIFRAS = [
-  { valor: "+15", texto: "años de experiencia" },
-  { valor: "+20", texto: "consultores especializados" },
-  { valor: "100%", texto: "proyectos a medida" }
+/* «¿Por qué trabajar con SIBBERIA?»: textos del cliente */
+const POR_QUE = [
+  { t: "Trabajamos a éxito", d: "Nuestro modelo está vinculado a conseguir la incorporación del profesional.", i: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>' },
+  { t: "Buscamos, no esperamos", d: "No nos limitamos a publicar ofertas. Hacemos búsqueda directa (headhunting) y salimos activamente al mercado a localizar profesionales.", i: '<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>' },
+  { t: "Especialización industrial real", d: "Trabajamos perfiles de mantenimiento, producción, ingeniería, automatización, calidad, operaciones, logística y posiciones técnicas especializadas.", i: '<path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1M12 18h1M7 18h1"/>' },
+  { t: "Consultores senior implicados directamente", d: "Los procesos están dirigidos por profesionales con experiencia real en selección y Recursos Humanos.", i: '<circle cx="9" cy="7" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1"/><path d="m16 11 2 2 4-4"/>' },
+  { t: "Acompañamiento hasta la incorporación", d: "Estamos presentes desde la definición del perfil hasta entrevistas, negociación e incorporación.", i: '<path d="M4 22V4"/><path d="M4 4h13l-2.5 4.5L17 13H4"/>' },
+  { t: "Garantía", d: "Nuestros procesos incluyen garantía de sustitución según las condiciones acordadas con cada cliente.", i: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>' }
 ];
 
-const VALORES = [
-  { nombre: "Humildad", texto: "Escuchamos antes de proponer y aprendemos de cada empresa y de cada persona." },
-  { nombre: "Integridad", texto: "Decimos lo que hacemos y hacemos lo que decimos, con transparencia en cada proceso." },
-  { nombre: "Excelencia", texto: "Cuidamos cada detalle del proceso para que el resultado sea el que necesitas." }
-];
+/* Iconos de línea (24×24, trazo) */
+const svg = (paths, cls) => `<svg class="${cls}" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
+const ICO_OK = '<path d="M20 6 9 17l-5-5"/>';
+const ICO_DIF = '<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>';
 
-const cifrasHTML = (cls = "") => `<dl class="cifras ${cls}">${CIFRAS.map((c) =>
-  `<div><dt>${c.texto}</dt><dd>${c.valor}</dd></div>`).join("")}</dl>`;
-
-/* Iconos de línea por familia de perfiles (24×24, trazo) */
+/* Iconos por familia de perfiles */
 const AREA_ICON = {
   "mantenimiento-y-sat": '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
   "produccion": '<path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1M12 18h1M7 18h1"/>',
@@ -57,7 +76,7 @@ const AREA_ICON = {
   "automatizacion-y-robotica": '<rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16h.01M16 16h.01"/>',
   "programadores": '<path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/>'
 };
-const areaIcon = (slug) => `<svg class="area-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${AREA_ICON[slug] || AREA_ICON.produccion}</svg>`;
+const areaIcon = (slug) => svg(AREA_ICON[slug] || AREA_ICON.produccion, "area-ico");
 
 let AREA_NAMES = {};
 
@@ -68,34 +87,41 @@ const fotoArea = (a) => (a && a.foto ? fotoCabecera(a.foto.archivo, a.foto.alt) 
 const FOTO_OFERTAS = fotoCabecera("foto-ofertas", "Una candidata con ropa de trabajo consulta su móvil a la entrada de una nave industrial al amanecer.");
 const FOTO_CONTACTO = fotoCabecera("foto-contacto", "Una consultora y un responsable de planta conversan junto a un portátil en una oficina acristalada con vistas a la planta.");
 
+/* Foto profesional del fundador para Nosotros (pendiente de que la facilite el
+   cliente). Cuando llegue: { name: "samuel-sanchez", widths: [480, 800], ratio: 5 / 4,
+   alt: "Samuel Sánchez, fundador de SIBBERIA" }, con las imágenes en assets/img. */
+const FOTO_FUNDADOR = null;
+
+/* La llamada a la acción que se repite (PDF del cliente, punto 8): arriba,
+   tras las especialidades, tras «cómo trabajamos» y al final de cada página. */
+const btnPerfil = (root, cls = "btn btn-primary") =>
+  `<a class="${cls}" href="${root}contacto/">Cuéntanos qué perfil buscas ${icon.arrow}</a>`;
+
 /* Formulario «Envíanos tu CV». Con destino configurado (formularios.candidaturas)
-   se adjunta el CV; sin él, se prepara un correo y se pide adjuntarlo. */
-function cvForm(root, cfg, { id, oferta = null, ofertas = [], areas = [] }) {
+   el CV se adjunta en el propio formulario; sin él, se prepara un correo y se
+   pide adjuntarlo. */
+const ACEPTA_CV = ".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+function cvForm(root, cfg, { id, oferta = null, ofertas = [] }) {
   const endpoint = cfg.formularios.candidaturas || "";
   const sinJs = endpoint
     ? `action="${esc(endpoint)}" method="post" enctype="multipart/form-data"`
     : `action="mailto:${cfg.email}" method="post" enctype="text/plain"`;
   const nombreOferta = (o) => `${o.titulo} (${o.ubicacion})`;
   return `<form class="cform cvform" data-form="candidatura" data-endpoint="${esc(endpoint)}" ${sinJs} novalidate>
-      ${oferta ? `<input type="hidden" name="oferta" value="${esc(nombreOferta(oferta))}">` : `<div class="frow">
-        <div class="ffield"><label for="${id}-oferta">Oferta</label><select id="${id}-oferta" name="oferta">
-          <option value="">Candidatura espontánea</option>
-          ${ofertas.map((o) => `<option value="${esc(nombreOferta(o))}">${esc(o.titulo)} · ${esc(o.ubicacion)}</option>`).join("")}
-        </select></div>
-        <div class="ffield"><label for="${id}-familia">Familia profesional</label><select id="${id}-familia" name="familia">
-          <option value="">Elige una (opcional)</option>
-          ${areas.map((a) => `<option>${esc(a.nombre)}</option>`).join("")}
-        </select></div>
-      </div>`}
+      ${oferta ? `<p class="cv-oferta">Oferta: <b>${esc(oferta.titulo)}</b> · ${esc(oferta.ubicacion)}</p><input type="hidden" name="oferta" value="${esc(nombreOferta(oferta))}">` : ""}
       <div class="frow">
         <div class="ffield"><label for="${id}-name">Nombre y apellidos *</label><input id="${id}-name" name="nombre" type="text" required autocomplete="name"><p class="ferr"></p></div>
         <div class="ffield"><label for="${id}-email">Email *</label><input id="${id}-email" name="email" type="email" required autocomplete="email" spellcheck="false" inputmode="email"><p class="ferr"></p></div>
       </div>
       <div class="frow">
-        <div class="ffield"><label for="${id}-phone">Teléfono</label><input id="${id}-phone" name="telefono" type="tel" autocomplete="tel" inputmode="tel"></div>
-        ${endpoint ? `<div class="ffield"><label for="${id}-cv">Tu CV (PDF o Word, máx. 5&nbsp;MB) *</label><input id="${id}-cv" name="cv" type="file" required accept=".pdf,.doc,.docx,.odt"><p class="ferr"></p></div>` : ""}
+        <div class="ffield"><label for="${id}-phone">Teléfono *</label><input id="${id}-phone" name="telefono" type="tel" required autocomplete="tel" inputmode="tel"><p class="ferr"></p></div>
+        ${oferta ? "" : `<div class="ffield"><label for="${id}-oferta">Oferta</label><select id="${id}-oferta" name="oferta">
+          <option value="">Candidatura espontánea</option>
+          ${ofertas.map((o) => `<option value="${esc(nombreOferta(o))}">${esc(o.titulo)} · ${esc(o.ubicacion)}</option>`).join("")}
+        </select></div>`}
       </div>
-      <div class="ffield"><label for="${id}-msg">Cuéntanos algo de ti (opcional)</label><textarea id="${id}-msg" name="mensaje" rows="4"></textarea></div>
+      ${endpoint ? `<div class="ffield ffile"><label for="${id}-cv">Adjunta tu CV *</label><input id="${id}-cv" name="cv" type="file" required accept="${ACEPTA_CV}" aria-describedby="${id}-cv-hint"><p class="fhint" id="${id}-cv-hint">PDF o Word, máximo 5&nbsp;MB.</p><p class="ferr"></p></div>` : ""}
+      <div class="ffield"><label for="${id}-msg">Mensaje (opcional)</label><textarea id="${id}-msg" name="mensaje" rows="3"></textarea></div>
       ${endpoint ? "" : `<p class="cv-note">Al enviar se abrirá tu programa de correo con estos datos: adjunta tu CV antes de enviarlo.</p>`}
       <label class="check"><input type="checkbox" name="privacidad" required> <span>He leído y acepto la <a href="${root}legal/#privacidad">política de privacidad</a>. *</span></label>
       <div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
@@ -125,18 +151,59 @@ function areasGrid(root, areas, current) {
   const otro = current ? "" : `<li class="area area-cta">
   <a href="${root}contacto/">
     <h3>¿Buscas otro perfil técnico?</h3>
-    <p>Cuéntanos qué necesitas y lo vemos contigo.</p>
-    <span class="more">Escríbenos ${icon.arrow}</span>
+    <p>También trabajamos otras posiciones técnicas especializadas.</p>
+    <span class="more">Cuéntanos qué perfil buscas ${icon.arrow}</span>
   </a>
 </li>`;
   return `<ul class="areas${current ? " six" : ""}">${areas.filter((a) => a.slug !== current).map((a) => `<li class="area">
   <a href="${root}seleccion-personas/${a.slug}/">
     ${areaIcon(a.slug)}
     <h3>${esc(a.nombre)}</h3>
-    <p>${a.perfiles.map(esc).join(", ")}</p>
+    <p>${esc(a.resumen)}</p>
     <span class="more">Ver perfiles ${icon.arrow}</span>
   </a>
 </li>`).join("")}${otro}</ul>`;
+}
+
+/* «¿Por qué trabajar con SIBBERIA?» (inicio en oscuro; Selección en claro) */
+function porQue(root, { dark = false, acciones = "" } = {}) {
+  return `<section class="sec por-que${dark ? " dark" : " soft"}" id="por-que" aria-labelledby="t-porque">
+  <div class="wrap">
+    <h2 class="giant-sm" id="t-porque"><span class="kicker">¿Por qué trabajar con SIBBERIA?</span> Una forma diferente de trabajar la selección industrial</h2>
+    <ul class="ventajas">${POR_QUE.map((v) => `<li>${svg(v.i, "v-ico")}<h3>${v.t}</h3><p>${v.d}</p></li>`).join("")}</ul>
+    ${acciones}
+  </div>
+</section>`;
+}
+
+/* Base de talento: cifra real del cliente («800 y pico»), sin desglose por
+   familia y sin dar a entender que esas personas están disponibles hoy. */
+const talento = () => `<section class="sec talento" aria-labelledby="t-talento">
+  <div class="wrap talento-grid">
+    <p class="talento-num" aria-hidden="true">+800</p>
+    <div>
+      <h2 id="t-talento">Más de 800 profesionales técnicos e industriales identificados</h2>
+      <p>Nuestra base de talento reúne más de 800 profesionales relacionados con mantenimiento, producción, automatización, ingeniería, calidad, logística y otras especialidades industriales.</p>
+      <p>Cada nueva búsqueda parte de ese conocimiento del mercado y se complementa con una búsqueda directa específica para cada posición.</p>
+    </div>
+  </div>
+</section>`;
+
+/* «¿Qué más hacemos en SIBBERIA?»: tarjetas con lo que incluye cada servicio.
+   La tarjeta entera es el enlace del título (sin enlaces duplicados). */
+function masServicios(root, servicios, { id = "t-mas", titulo = "¿Qué más hacemos en SIBBERIA?", cls = "" } = {}) {
+  return `<section class="sec mas-sec ${cls}" aria-labelledby="${id}">
+  <div class="wrap">
+    <h2 class="giant-sm" id="${id}">${titulo}</h2>
+    <div class="mas-grid">${servicios.map((s) => `<article class="mas${s.principal ? " principal" : ""}">
+      ${s.principal ? `<p class="mas-tag">Nuestro servicio principal</p>` : ""}
+      <h3><a href="${root}${s.path}">${s.principal ? "Selección de perfiles técnicos e industriales" : s.nombre}</a></h3>
+      <p>${s.resumen}</p>
+      <ul class="chips">${s.chips.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>
+      <span class="more" aria-hidden="true">Ver servicio ${icon.arrow}</span>
+    </article>`).join("")}</div>
+  </div>
+</section>`;
 }
 
 function phero(root, { kicker, title, sub, foto, crumbs, actions = "" }) {
@@ -158,20 +225,23 @@ function phero(root, { kicker, title, sub, foto, crumbs, actions = "" }) {
 const fit = (...candidates) => candidates.find((t) => t.length <= 60) || candidates[candidates.length - 1];
 
 const crumb = (...items) => [{ name: "Inicio", path: "" }, ...items];
+const CRUMB_SEL = { name: "Selección de perfiles técnicos", path: "seleccion-personas/" };
 
-function contactoCTA(root, cfg, titulo = "¿Hablamos?") {
+/* Llamada final de cada página: botón principal y contacto directo */
+function contactoCTA(root, cfg, { titulo = "¿Hablamos?", texto = "Cuéntanos qué perfil buscas y te respondemos lo antes posible.", boton = btnPerfil(root) } = {}) {
   return `<section class="sec cta">
   <div class="wrap">
     <h2 class="giant-sm">${titulo}</h2>
-    <p>Cuéntanos qué necesitas y te respondemos.</p>
+    <p>${texto}</p>
     <div class="acts">
-      <a class="btn btn-primary" href="${root}contacto/">Escríbenos ${icon.arrow}</a>
+      ${boton}
       <a class="btn btn-out" href="mailto:${cfg.email}">${cfg.email}</a>
       <a class="btn btn-out" href="tel:${cfg.telefonos[0].tel}">${telTxt(cfg.telefonos[0])}</a>
     </div>
   </div>
 </section>`;
 }
+const TEXTO_CTA_PERFIL = "Cuéntanos el puesto, la ubicación y cuándo lo necesitas. Te respondemos lo antes posible.";
 
 /* ---------- Páginas ---------- */
 
@@ -180,21 +250,23 @@ export function buildPages(cfg, data) {
   const areas = data.areas || [];
   const areaBySlug = Object.fromEntries(areas.map((a) => [a.slug, a]));
   AREA_NAMES = Object.fromEntries(areas.map((a) => [a.slug, a.nombre]));
+  SERVICIOS[0].chips = areas.map((a) => a.nombre);
   const org = organization(cfg, url);
   const ofertas = data.ofertas.filter((o) => o.estado === "abierta");
   const articulos = data.articulos.filter((a) => a.titulo && a.cuerpo);
   const pages = [];
+  const [SELECCION, ...SECUNDARIOS] = SERVICIOS;
 
-  /* HOME */
+  /* HOME: orientada a empresas; las ofertas siguen a la vista para candidatos */
   pages.push({
     path: "",
     nav: "",
-    title: "Sibberia · Selección de perfiles técnicos e industriales",
-    description: "Selección de perfiles técnicos e industriales: mantenimiento y SAT, producción, calidad, logística, ingeniería, automatización y programación.",
+    title: "Selección de perfiles técnicos e industriales | SIBBERIA",
+    description: "Especialistas en selección de perfiles técnicos e industriales en España: búsqueda directa, modelo a éxito y consultores senior para tu empresa.",
     css: ["home.css"],
     bodyClass: "home",
     scripts: ["assets/vendor/gsap.min.js", "assets/vendor/ScrollTrigger.min.js", "assets/js/ofertas.js?v=3", "assets/js/pages/home.js?v=7"],
-    jsonld: [org, { "@type": "WebSite", "@id": `${url}/#web`, url: `${url}/`, name: "Sibberia", inLanguage: "es", publisher: { "@id": `${url}/#organizacion` } }],
+    jsonld: [org, { "@type": "WebSite", "@id": `${url}/#web`, url: `${url}/`, name: "SIBBERIA", inLanguage: "es", publisher: { "@id": `${url}/#organizacion` } }],
     body: (root) => `
 <div class="stage" aria-hidden="true">
   <canvas id="ice3d"></canvas>
@@ -204,18 +276,17 @@ export function buildPages(cfg, data) {
 <section class="hero chapter" id="hero" data-step="0">
   <div class="wrap">
     <h1><span class="kicker">Selección de</span> <span class="giant">Perfiles técnicos<br>e industriales</span></h1>
-    <p class="sub">Mantenimiento y SAT, producción, calidad y PRL, logística, ingeniería, automatización y programación. Encontramos a quien encaja en tu planta, en tu proyecto y en tu equipo.</p>
+    <p class="sub">Encontramos los perfiles técnicos que más cuesta encontrar. Selección especializada para la industria, con un modelo a éxito y una búsqueda activa orientada a encontrar profesionales que realmente encajen.</p>
     <div class="paths">
-      <a class="path" href="${root}seleccion-personas/">
+      <a class="path path-main" href="${root}contacto/">
         <span class="path-kicker">Para empresas</span>
-        <strong>Busco talento</strong>
-        <span class="path-text">Necesito incorporar perfiles técnicos o industriales en mi empresa.</span>
-        ${icon.arrow}
+        <strong>Busco personal</strong>
+        <span class="path-btn">Cuéntanos qué perfil buscas ${icon.arrow}</span>
       </a>
       <a class="path" href="${root}ofertas-de-trabajo/">
         <span class="path-kicker">Para candidatos</span>
         <strong>Busco empleo</strong>
-        <span class="path-text">Quiero ver las ofertas abiertas y presentar mi candidatura.</span>
+        <span class="path-text">Consulta las ofertas abiertas y envíanos tu CV.</span>
         ${icon.arrow}
       </a>
     </div>
@@ -228,18 +299,18 @@ export function buildPages(cfg, data) {
     <ol class="lema-steps">
       <li class="lema-step" id="compartir" data-step="1">
         <h3 class="word">Compartir</h3>
-        <p class="lead">Empezamos escuchando. Compartimos contigo el día a día de tu empresa para entender a quién necesitas de verdad.</p>
-        <p class="stat"><b>+15</b> años de experiencia</p>
+        <p class="lead">Empezamos por entender el puesto: la planta, el equipo, los turnos y lo que de verdad tiene que saber hacer la persona.</p>
+        <p class="stat"><b>+15</b> <span>años de experiencia profesional en Recursos Humanos</span></p>
       </li>
       <li class="lema-step" id="crear" data-step="2">
         <h3 class="word">Crear</h3>
-        <p class="lead">Diseñamos cada proyecto desde cero, a la medida de tu empresa, para que cada persona encaje en su puesto y en su equipo.</p>
-        <p class="stat"><b>100%</b> proyectos a medida</p>
+        <p class="lead">Salimos a buscar al profesional que encaja, con búsqueda directa, y te presentamos solo perfiles validados; habitualmente, los primeros en 5–7&nbsp;días.</p>
+        <p class="stat"><b>+800</b> <span>profesionales técnicos e industriales identificados</span></p>
       </li>
       <li class="lema-step" id="crecer" data-step="3">
         <h3 class="word">Crecer</h3>
-        <p class="lead">Un equipo de consultores especializados acompaña a las personas y a la empresa para que crezcan juntas.</p>
-        <p class="stat"><b>+20</b> consultores especializados</p>
+        <p class="lead">Te acompañamos en las entrevistas, la negociación y la incorporación. Trabajamos a éxito: nuestro objetivo es el mismo que el tuyo.</p>
+        <p class="stat"><b>100%</b> <span>proyectos a medida</span></p>
       </li>
     </ol>
   </div>
@@ -249,8 +320,8 @@ export function buildPages(cfg, data) {
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <h2 class="giant-sm" id="t-perfiles">Perfiles técnicos e industriales</h2>
-        <p class="sec-lead">Somos especialistas en seleccionar los perfiles que hacen funcionar una empresa industrial.</p>
+        <h2 class="giant-sm" id="t-perfiles">Nuestras especialidades</h2>
+        <p class="sec-lead">Especialistas en selección de perfiles técnicos e industriales en España: los que hacen funcionar una planta.</p>
       </div>
       <a class="btn btn-ghost" href="${root}seleccion-personas/">Selección de perfiles técnicos ${icon.arrow}</a>
     </div>
@@ -258,34 +329,14 @@ export function buildPages(cfg, data) {
   </div>
 </section>
 
-<section class="sec servicios" id="servicios" aria-labelledby="t-servicios">
-  <div class="wrap">
-    <h2 class="giant-sm" id="t-servicios">Qué hacemos</h2>
-    <div class="serv-grid">
-      ${SERVICIOS.map((s) => `<article class="serv">
-        <a href="${root}${s.path}">
-          <figure>${picture(root, { ...s.foto, sizes: "(min-width: 900px) 33vw, 100vw" })}</figure>
-          <h3>${s.nombre}</h3>
-          <p>${s.resumen}</p>
-          <span class="more">Ver servicio ${icon.arrow}</span>
-        </a>
-      </article>`).join("")}
-    </div>
-  </div>
-</section>
+${porQue(root, { dark: true, acciones: `<div class="acts">${btnPerfil(root)}<a class="btn btn-out" href="${root}seleccion-personas/#como-trabajamos">Cómo trabajamos la selección</a></div>` })}
 
-<section class="sec valores-sec" aria-labelledby="t-valores">
-  <div class="wrap">
-    <h2 class="giant-sm" id="t-valores">Nuestros valores</h2>
-    <ul class="valores">${VALORES.map((v) => `<li><h3>${v.nombre}</h3><p>${v.texto}</p></li>`).join("")}</ul>
-    <p class="exito"><b>Trabajamos a éxito.</b> Así nuestro objetivo es el mismo que el tuyo.</p>
-  </div>
-</section>
+${masServicios(root, [...SECUNDARIOS].reverse(), { cls: "soft" })}
 
 <section class="sec ofertas-sec" aria-labelledby="t-ofertas">
   <div class="wrap">
     <div class="sec-head">
-      <h2 class="giant-sm" id="t-ofertas">Ofertas de trabajo</h2>
+      <h2 class="giant-sm" id="t-ofertas"><span class="kicker">Para candidatos</span> Ofertas de trabajo</h2>
       <div class="acts">
         <a class="btn btn-ghost" href="${root}ofertas-de-trabajo/">Ver todas las ofertas ${icon.arrow}</a>
         <a class="btn btn-primary" href="${root}ofertas-de-trabajo/#envia-tu-cv">Envíanos tu CV ${icon.arrow}</a>
@@ -302,26 +353,101 @@ ${articulos.length ? `<section class="sec blog-sec" aria-labelledby="t-blog">
   </div>
 </section>` : ""}
 
-${contactoCTA(root, cfg)}`
+${contactoCTA(root, cfg, { titulo: "¿Qué perfil necesitas incorporar?", texto: TEXTO_CTA_PERFIL })}`
   });
 
-  /* SERVICIOS */
-  SERVICIOS.forEach((s, i) => {
-    const hub = i === 0;
-    const faq = hub ? [
-      { q: "¿Qué perfiles técnicos e industriales seleccionáis?", a: "Seleccionamos perfiles de " + areas.map((a) => a.nombre).join(", ").replace(/, ([^,]*)$/, " y $1") + "." },
-      { q: "¿Cómo trabajáis los procesos de selección?", a: "Trabajamos a éxito y diseñamos cada proceso a la medida de tu empresa. Te lo explicamos con detalle antes de empezar." },
-      { q: "¿Los proyectos son a medida?", a: "Sí. Todos nuestros proyectos se diseñan a medida de cada empresa." },
-      { q: "Busco empleo, ¿cómo me presento?", a: "Consulta nuestras ofertas de trabajo abiertas y sigue las instrucciones de cada oferta, o escríbenos a " + cfg.email + "." }
-    ] : null;
-    const otros = SERVICIOS.filter((x) => x !== s);
+  /* SELECCIÓN: la página comercial principal */
+  {
+    const s = SELECCION;
+    const crumbs = crumb(CRUMB_SEL);
+    const faq = [
+      { q: "¿Qué perfiles técnicos e industriales seleccionáis?", a: "Seleccionamos perfiles de mantenimiento y SAT, producción, calidad, PRL y medioambiente, almacén, logística, planificación y compras, ingeniería y proyectos, automatización y robótica, y programación, además de otras posiciones técnicas especializadas." },
+      { q: "¿Cómo funciona vuestro modelo a éxito?", a: "Nuestro modelo está vinculado a conseguir la incorporación del profesional. Te explicamos las condiciones con detalle antes de empezar." },
+      { q: "¿Cuánto tardáis en presentar candidatos?", a: "Habitualmente buscamos presentar los primeros perfiles validados en 5–7 días, aunque cada proceso depende del perfil y del mercado." },
+      { q: "¿Hacéis headhunting o solo publicáis ofertas?", a: "No nos limitamos a publicar ofertas. Hacemos búsqueda directa y salimos activamente al mercado a localizar profesionales, también a quienes no están buscando empleo." },
+      { q: "¿Qué garantía tienen vuestros procesos?", a: "Nuestros procesos incluyen garantía de sustitución según las condiciones acordadas con cada cliente." },
+      { q: "Busco empleo, ¿cómo me presento?", a: "Consulta nuestras ofertas de trabajo y envíanos tu CV desde la propia oferta. Si ahora no ves ninguna para tu perfil, también puedes enviarnos tu candidatura." }
+    ];
     pages.push({
       path: s.path,
       nav: s.path,
-      title: hub ? "Selección de perfiles técnicos e industriales | Sibberia" : fit(`${s.nombre} | Sibberia`, s.nombre),
-      description: hub ? "Especialistas en selección de perfiles técnicos e industriales: mantenimiento, producción, calidad, logística, ingeniería y automatización." : `${s.resumen} Más de 15 años de experiencia y proyectos a medida.`,
+      title: "Consultora de selección de perfiles industriales | SIBBERIA",
+      description: "Consultora de selección industrial en España: técnicos de mantenimiento, electromecánicos, programadores PLC, ingenieros y responsables de producción.",
       css: ["subpage.css"],
-      crumbs: crumb({ name: s.nombre, path: s.path }),
+      crumbs,
+      jsonld: [{
+        "@type": "Service",
+        name: "Selección de perfiles técnicos e industriales",
+        serviceType: "Selección de personal",
+        description: s.intro,
+        url: `${url}/${s.path}`,
+        provider: org,
+        areaServed: { "@type": "Country", name: "España" },
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Perfiles técnicos e industriales",
+          itemListElement: areas.map((a) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: a.titulo, url: `${url}/${s.path}${a.slug}/` } }))
+        }
+      }, {
+        "@type": "FAQPage",
+        mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } }))
+      }],
+      body: (root) => `
+${phero(root, {
+  kicker: "Selección de perfiles técnicos e industriales",
+  title: "Consultora de selección industrial",
+  sub: s.intro,
+  foto: s.cabecera,
+  crumbs,
+  actions: `<div class="acts">${btnPerfil(root)}</div>`
+})}
+${porQue(root)}
+${talento()}
+<section class="sec" id="especialidades" aria-labelledby="t-areas">
+  <div class="wrap">
+    <h2 class="giant-sm" id="t-areas">Perfiles que seleccionamos</h2>
+    ${areasGrid(root, areas)}
+  </div>
+</section>
+<section class="sec soft" id="como-trabajamos" aria-labelledby="t-como">
+  <div class="wrap">
+    <h2 class="giant-sm" id="t-como">Cómo trabajamos</h2>
+    <ol class="steps">
+      <li><h3>Compartir</h3><p>Definimos contigo el perfil: funciones, conocimientos técnicos, turnos, equipo y condiciones.</p></li>
+      <li><h3>Crear</h3><p>Salimos al mercado con búsqueda directa, entrevistamos y validamos. Habitualmente buscamos presentarte los primeros perfiles validados en 5–7&nbsp;días.</p></li>
+      <li><h3>Crecer</h3><p>Te acompañamos en las entrevistas, la negociación y la incorporación del profesional.</p></li>
+    </ol>
+    <div class="acts sec-cta">${btnPerfil(root)}</div>
+  </div>
+</section>
+<section class="sec" aria-labelledby="t-faq">
+  <div class="wrap narrow">
+    <h2 class="giant-sm" id="t-faq">Preguntas frecuentes</h2>
+    <div class="faq">${faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}</div>
+  </div>
+</section>
+${masServicios(root, [...SECUNDARIOS].reverse(), { cls: "soft" })}
+${contactoCTA(root, cfg, { titulo: "¿Qué perfil necesitas incorporar?", texto: TEXTO_CTA_PERFIL })}`
+    });
+  }
+
+  /* ESTRATEGIA Y FORMACIÓN: servicios secundarios, páginas cortas */
+  SECUNDARIOS.forEach((s) => {
+    const crumbs = crumb({ name: s.nombre, path: s.path });
+    const otros = SERVICIOS.filter((x) => x !== s);
+    const contenido = s.items
+      ? `<ul class="items">${s.items.map((i) => `<li><h3>${esc(i.t)}</h3><p>${esc(i.d)}</p></li>`).join("")}</ul>`
+      : `<div class="items-dos">
+        <div><h3>Áreas de formación</h3><ul class="chips big">${s.temas.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></div>
+        <div><h3>Cómo la organizamos</h3><ul class="chips big">${s.formato.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></div>
+      </div>`;
+    pages.push({
+      path: s.path,
+      nav: s.path,
+      title: fit(`${s.nombre} | SIBBERIA`, s.nombre),
+      description: s.seoDescripcion,
+      css: ["subpage.css"],
+      crumbs,
       jsonld: [{
         "@type": "Service",
         name: s.nombre,
@@ -329,66 +455,44 @@ ${contactoCTA(root, cfg)}`
         description: s.intro,
         url: `${url}/${s.path}`,
         provider: org,
-        areaServed: { "@type": "Country", name: "España" }
-      }].concat(faq ? [{
-        "@type": "FAQPage",
-        mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } }))
-      }] : []),
+        areaServed: { "@type": "Country", name: "España" },
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: s.nombre,
+          itemListElement: s.chips.map((c) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: c } }))
+        }
+      }],
       body: (root) => `
 ${phero(root, {
-  kicker: hub ? s.nombre : "Servicio",
-  title: hub ? "Selección de perfiles técnicos e industriales" : s.nombre,
+  kicker: "Servicio",
+  title: s.nombre,
   sub: s.intro,
-  foto: s.cabecera || s.foto,
-  crumbs: crumb({ name: s.nombre, path: s.path }),
-  actions: `<div class="acts"><a class="btn btn-primary" href="${root}contacto/">Cuéntanos tu caso ${icon.arrow}</a></div>`
+  foto: s.foto,
+  crumbs,
+  actions: `<div class="acts"><a class="btn btn-primary" href="${root}contacto/">Cuéntanos qué necesitas ${icon.arrow}</a></div>`
 })}
-${hub ? `<section class="sec" aria-labelledby="t-areas">
+<section class="sec" aria-labelledby="t-que">
   <div class="wrap">
-    <h2 class="giant-sm" id="t-areas">Perfiles que seleccionamos</h2>
-    ${areasGrid(root, areas)}
-  </div>
-</section>` : ""}
-<section class="sec${hub ? " soft" : ""}">
-  <div class="wrap">
-    <h2 class="giant-sm">Cómo trabajamos</h2>
-    <ol class="steps">
-      <li><h3>Compartir</h3><p>Escuchamos tu necesidad y conocemos tu empresa, tu equipo y su cultura.</p></li>
-      <li><h3>Crear</h3><p>Diseñamos un proyecto a medida, con objetivos y plazos acordados contigo.</p></li>
-      <li><h3>Crecer</h3><p>Te acompañamos durante el proyecto para que el resultado se consolide.</p></li>
-    </ol>
-    ${cifrasHTML("light")}
+    <h2 class="giant-sm" id="t-que">Qué podemos hacer por tu empresa</h2>
+    ${contenido}
   </div>
 </section>
-${faq ? `<section class="sec soft" aria-labelledby="t-faq">
-  <div class="wrap narrow">
-    <h2 class="giant-sm" id="t-faq">Preguntas frecuentes</h2>
-    <div class="faq">${faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}</div>
-  </div>
-</section>` : ""}
-<section class="sec">
-  <div class="wrap">
-    <h2 class="giant-sm">Otros servicios</h2>
-    <div class="serv-grid two">${otros.map((o) => `<article class="serv">
-      <a href="${root}${o.path}"><figure>${picture(root, { ...o.foto, sizes: "(min-width: 900px) 50vw, 100vw" })}</figure><h3>${o.nombre}</h3><p>${o.resumen}</p><span class="more">Ver servicio ${icon.arrow}</span></a>
-    </article>`).join("")}</div>
-  </div>
-</section>
-${contactoCTA(root, cfg)}`
+${masServicios(root, otros, { cls: "soft" })}
+${contactoCTA(root, cfg, { texto: "Cuéntanos qué necesita tu empresa y te respondemos lo antes posible.", boton: `<a class="btn btn-primary" href="${root}contacto/">Cuéntanos qué necesitas ${icon.arrow}</a>` })}`
     });
   });
 
   /* SELECCIÓN POR FAMILIA DE PERFILES (páginas de aterrizaje SEO) */
   areas.forEach((a) => {
     const p = `seleccion-personas/${a.slug}/`;
-    const intro = `En Sibberia seleccionamos ${a.descripcion} para empresas industriales y técnicas. Diseñamos cada proceso a la medida del puesto y del equipo, y trabajamos a éxito.`;
     const suyas = ofertas.filter((o) => o.area === a.slug);
-    const crumbs = crumb({ name: "Selección de perfiles técnicos", path: "seleccion-personas/" }, { name: a.nombre, path: p });
+    const crumbs = crumb(CRUMB_SEL, { name: a.nombre, path: p });
+    const enlace = a.notaEnlace && areaBySlug[a.notaEnlace];
     pages.push({
       path: p,
-      nav: "seleccion-personas/",
-      title: a.seoTitulo || fit(`${a.titulo} | Sibberia`, a.titulo),
-      description: a.seoDescripcion || intro,
+      nav: SELECCION.path,
+      title: a.seoTitulo || fit(`${a.titulo} | SIBBERIA`, a.titulo),
+      description: a.seoDescripcion || a.intro,
       css: ["subpage.css"],
       crumbs,
       jsonld: [{
@@ -396,42 +500,45 @@ ${contactoCTA(root, cfg)}`
         name: a.titulo,
         serviceType: "Selección de personal",
         category: a.nombre,
-        description: intro,
+        description: a.intro,
         url: `${url}/${p}`,
         provider: org,
         areaServed: { "@type": "Country", name: "España" },
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: `Perfiles de ${a.nombre}`,
-          itemListElement: a.perfiles.map((perfil) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: `Selección de ${perfil}` } }))
+          itemListElement: a.perfiles.map((perfil) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: perfil } }))
         }
       }],
       body: (root) => `
 ${phero(root, {
   kicker: "Selección de perfiles técnicos",
   title: esc(a.titulo),
-  sub: intro,
+  sub: esc(a.intro),
   foto: fotoArea(a),
   crumbs,
-  actions: `<div class="acts"><a class="btn btn-primary" href="${root}contacto/">Busco este perfil ${icon.arrow}</a><a class="btn btn-out" href="${root}ofertas-de-trabajo/${suyas.length ? `?familia=${a.slug}` : ""}">Busco empleo</a></div>`
+  actions: `<div class="acts">${btnPerfil(root)}<a class="btn btn-out" href="${root}ofertas-de-trabajo/${suyas.length ? `?familia=${a.slug}` : ""}">Busco empleo</a></div>`
 })}
 <section class="sec" aria-labelledby="t-perf">
   <div class="wrap">
-    <h2 class="giant-sm" id="t-perf">Perfiles que seleccionamos</h2>
+    <h2 class="giant-sm" id="t-perf">Perfiles que trabajamos</h2>
     <ul class="perfiles">${a.perfiles.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+    ${a.nota ? `<p class="perf-nota">${esc(a.nota)}${enlace ? ` <a href="${root}seleccion-personas/${enlace.slug}/">Ver ${esc(enlace.nombre)} ${icon.arrow}</a>` : ""}</p>` : ""}
   </div>
 </section>
-<section class="sec soft">
-  <div class="wrap">
-    <h2 class="giant-sm">Cómo trabajamos</h2>
-    <ol class="steps">
-      <li><h3>Compartir</h3><p>Escuchamos tu necesidad y conocemos tu empresa, tu equipo y su cultura.</p></li>
-      <li><h3>Crear</h3><p>Diseñamos un proceso a medida, con objetivos y plazos acordados contigo.</p></li>
-      <li><h3>Crecer</h3><p>Te acompañamos hasta que la incorporación se consolida.</p></li>
-    </ol>
-    ${cifrasHTML("light")}
+<div class="sec soft">
+  <div class="wrap claves">
+    <section class="clave" aria-labelledby="t-val">
+      <h2 id="t-val">Qué solemos valorar</h2>
+      <ul class="lista">${a.valoramos.map((v) => `<li>${svg(ICO_OK, "l-ico ok")}<span>${esc(v)}</span></li>`).join("")}</ul>
+    </section>
+    <section class="clave" aria-labelledby="t-dif">
+      <h2 id="t-dif">Por qué cuesta encontrarlos</h2>
+      <ul class="lista">${a.dificultades.map((v) => `<li>${svg(ICO_DIF, "l-ico dif")}<span>${esc(v)}</span></li>`).join("")}</ul>
+      <p class="clave-nota">Por eso no esperamos a que lleguen candidatos: salimos a buscarlos y solo te presentamos perfiles validados. <a href="${root}seleccion-personas/#como-trabajamos">Cómo trabajamos</a></p>
+    </section>
   </div>
-</section>
+</div>
 ${suyas.length ? `<section class="sec" aria-labelledby="t-of">
   <div class="wrap">
     <div class="sec-head"><h2 class="giant-sm" id="t-of">Ofertas abiertas</h2><a class="btn btn-ghost" href="${root}ofertas-de-trabajo/">Todas las ofertas ${icon.arrow}</a></div>
@@ -444,48 +551,71 @@ ${suyas.length ? `<section class="sec" aria-labelledby="t-of">
     ${areasGrid(root, areas, a.slug)}
   </div>
 </section>
-${contactoCTA(root, cfg, "¿Buscas este perfil?")}`
+${contactoCTA(root, cfg, { titulo: esc(a.ctaTitulo || "¿Buscas este perfil?"), texto: TEXTO_CTA_PERFIL })}`
     });
   });
 
-  /* NOSOTROS */
-  pages.push({
-    path: "nosotros/",
-    nav: "nosotros/",
-    title: "Nosotros | Sibberia",
-    description: "Sibberia: compartir, crear, crecer. Más de 15 años de experiencia, más de 20 consultores especializados y valores de humildad, integridad y excelencia.",
-    css: ["subpage.css"],
-    crumbs: crumb({ name: "Nosotros", path: "nosotros/" }),
-    jsonld: [org],
-    body: (root) => `
+  /* NOSOTROS: la historia de SIBBERIA (textos del cliente). El protagonista es
+     SIBBERIA, no el fundador; la foto de Samuel, discreta, cuando llegue. */
+  {
+    const crumbs = crumb({ name: "Nosotros", path: "nosotros/" });
+    const f = FOTO_FUNDADOR;
+    pages.push({
+      path: "nosotros/",
+      nav: "nosotros/",
+      title: "Nosotros: nuestra historia | SIBBERIA",
+      description: "SIBBERIA nace de haber vivido los Recursos Humanos desde los dos lados de la mesa: selección industrial basada en la cercanía, el esfuerzo y la confianza.",
+      css: ["subpage.css"],
+      crumbs,
+      jsonld: [org],
+      body: (root) => `
 ${phero(root, {
   kicker: "Nosotros",
-  title: `<span translate="no">Compartir. Crear. Crecer.</span>`,
-  sub: "Más de 15 años ayudando a empresas a encontrar, desarrollar y acompañar a las personas que las hacen crecer.",
+  title: "Nuestra historia",
+  sub: "SIBBERIA nace de una forma muy concreta de entender los Recursos Humanos: haberlos vivido desde los dos lados de la mesa.",
   foto: { name: "taller-asistentes", widths: [640, 960], alt: "Grupo de profesionales sonríe mientras escucha a un ponente durante un taller." },
-  crumbs: crumb({ name: "Nosotros", path: "nosotros/" })
+  crumbs
 })}
-<section class="sec">
-  <div class="wrap">
-    ${cifrasHTML("light")}
+<section class="sec" aria-labelledby="t-historia">
+  <div class="wrap historia${f ? " con-foto" : ""}">
+    <div class="prose">
+      <h2 class="sr-only" id="t-historia">De los dos lados de la mesa</h2>
+      <p>Nuestro fundador, Samuel Sánchez, desarrolla su carrera profesional en Recursos Humanos desde 2009, comenzando en selección y consultoría y pasando posteriormente a gestionar personas desde dentro de las organizaciones.</p>
+      <p>A lo largo de su trayectoria ha trabajado en selección, consultoría, formación y gestión de Recursos Humanos, llegando a asumir la responsabilidad del área de RRHH de una compañía industrial de aproximadamente 350 personas, coordinando Selección, Relaciones Laborales, Formación, Administración de Personal y Prevención.</p>
+      <p class="destacado">Esa experiencia permitió conocer de primera mano qué espera realmente una empresa cuando decide confiar una búsqueda a un proveedor externo: no recibir muchos currículums, sino encontrar profesionales que realmente encajen.</p>
+      <p>Después de años trabajando en ambos lados del proceso, esa forma de entender la selección acaba dando forma a SIBBERIA, donde combinamos <a href="${root}seleccion-personas/">selección directa</a>, Interim de RRHH, RPO/BPO, <a href="${root}estrategia-y-gestion-del-capital-humano/">estrategia de personas</a> y <a href="${root}formacion-y-desarrollo-de-personas/">formación a medida</a>.</p>
+    </div>
+    ${f ? `<figure class="fundador">${picture(root, { ...f, sizes: "(min-width: 900px) 280px, 60vw" })}<figcaption>Samuel Sánchez, fundador de SIBBERIA</figcaption></figure>` : ""}
   </div>
 </section>
-<section class="sec soft" id="valores" aria-labelledby="t-val">
+<section class="sec soft" aria-labelledby="t-nombre">
+  <div class="wrap narrow nombre">
+    <h2 class="giant-sm" id="t-nombre">¿Por qué SIBBERIA?</h2>
+    <p class="lead-dark">El nombre también tiene una historia.</p>
+    <p>Samuel procede de <b>Valdecaballeros, Badajoz</b>, municipio situado en La Siberia Extremeña.</p>
+    <p>SIBBERIA nace como un guiño a esas raíces y a una forma de trabajar basada en la cercanía, la humildad, el esfuerzo, la confianza y las relaciones construidas a largo plazo.</p>
+    <p class="lema-cierre" translate="no">Compartir. Crear. Crecer.</p>
+  </div>
+</section>
+<section class="sec" aria-labelledby="t-exp">
   <div class="wrap">
-    <h2 class="giant-sm" id="t-val">Nuestros valores</h2>
-    <ul class="valores light">${VALORES.map((v) => `<li><h3>${v.nombre}</h3><p>${v.texto}</p></li>`).join("")}</ul>
-    <p class="exito"><b>Trabajamos a éxito.</b> Así nuestro objetivo es el mismo que el tuyo.</p>
+    <h2 class="sr-only" id="t-exp">Nuestra experiencia</h2>
+    <ul class="claims">
+      <li>Consultores senior especializados de verdad en perfiles industriales.</li>
+      <li>Consultores con más de 15 años de experiencia profesional en Recursos Humanos.</li>
+    </ul>
   </div>
 </section>
 ${contactoCTA(root, cfg)}`
-  });
+    });
+  }
 
   /* OFERTAS: listado */
   pages.push({
     path: "ofertas-de-trabajo/",
     nav: "ofertas-de-trabajo/",
-    title: "Ofertas de trabajo técnicas e industriales | Sibberia",
-    description: "Ofertas de trabajo para perfiles técnicos e industriales: mantenimiento, ingeniería, producción y más. Consulta las posiciones abiertas.",
+    title: "Ofertas de trabajo técnicas e industriales | SIBBERIA",
+    description: "Ofertas de trabajo para perfiles técnicos e industriales: mantenimiento, ingeniería, producción y más. Consulta las posiciones abiertas y envía tu CV.",
     css: ["subpage.css"],
     scripts: ["assets/js/ofertas.js?v=3"],
     crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }),
@@ -525,7 +655,7 @@ ${phero(root, {
   <div class="wrap narrow">
     <h2 class="giant-sm" id="t-cv">¿No encuentras tu oferta? Envíanos tu CV</h2>
     <p class="cv-lead">Puedes enviarnos tu candidatura aunque ahora no veas una oferta para tu perfil. También puedes escribirnos a <a href="mailto:${cfg.email}">${cfg.email}</a>.</p>
-    ${cvForm(root, cfg, { id: "cv", ofertas, areas })}
+    ${cvForm(root, cfg, { id: "cv", ofertas })}
   </div>
 </section>`
   });
@@ -533,12 +663,12 @@ ${phero(root, {
   /* OFERTAS: fichas */
   ofertas.forEach((o) => {
     const p = `ofertas-de-trabajo/${o.slug}/`;
-    const desc = o.descripcion || `Sibberia selecciona ${o.titulo} en ${o.ubicacion}.`;
+    const desc = o.descripcion || `SIBBERIA selecciona ${o.titulo} en ${o.ubicacion}.`;
     const job = {
       "@type": "JobPosting",
       title: o.titulo,
       description: `<p>${esc(desc)}</p>`,
-      hiringOrganization: { "@type": "Organization", name: "Sibberia", sameAs: `${url}/`, logo: `${url}/assets/img/sibberia-logo-azul.svg` },
+      hiringOrganization: { "@type": "Organization", name: "SIBBERIA", sameAs: `${url}/`, logo: `${url}/assets/img/sibberia-logo-azul.svg` },
       jobLocation: {
         "@type": "Place",
         address: Object.fromEntries(Object.entries({
@@ -549,7 +679,7 @@ ${phero(root, {
         }).filter(([, v]) => v !== undefined))
       },
       directApply: false,
-      identifier: { "@type": "PropertyValue", name: "Sibberia", value: o.slug }
+      identifier: { "@type": "PropertyValue", name: "SIBBERIA", value: o.slug }
     };
     // Google exige fecha y descripción reales: sin ellas el JobPosting daría error
     // en Search Console, así que no se publica hasta tenerlas.
@@ -562,8 +692,8 @@ ${phero(root, {
     pages.push({
       path: p,
       nav: "ofertas-de-trabajo/",
-      title: fit(`${o.titulo} en ${o.ubicacion} | Sibberia`, `${o.titulo} en ${o.ubicacion}`, `${o.titulo} | Sibberia`, o.titulo),
-      description: `Oferta de empleo de ${o.titulo} en ${o.ubicacion}. Envía tu candidatura a Sibberia.`,
+      title: fit(`${o.titulo} en ${o.ubicacion} | SIBBERIA`, `${o.titulo} en ${o.ubicacion}`, `${o.titulo} | SIBBERIA`, o.titulo),
+      description: `Oferta de empleo de ${o.titulo} en ${o.ubicacion}. Envía tu CV a SIBBERIA desde la propia oferta.`,
       css: ["subpage.css"],
       crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }, { name: o.titulo, path: p }),
       jsonld: jobCompleto ? [job] : [],
@@ -608,11 +738,11 @@ ${phero(root, {
   if (articulos.length) pages.push({
     path: "blog/",
     nav: "blog/",
-    title: "Blog | Sibberia",
-    description: "Artículos de Sibberia sobre selección, gestión y desarrollo de personas.",
+    title: "Blog | SIBBERIA",
+    description: "Artículos de SIBBERIA sobre selección, gestión y desarrollo de personas.",
     css: ["subpage.css"],
     crumbs: crumb({ name: "Blog", path: "blog/" }),
-    jsonld: [{ "@type": "Blog", name: "Blog de Sibberia", url: `${url}/blog/`, publisher: { "@id": `${url}/#organizacion` } }],
+    jsonld: [{ "@type": "Blog", name: "Blog de SIBBERIA", url: `${url}/blog/`, publisher: { "@id": `${url}/#organizacion` } }],
     body: (root) => `
 ${phero(root, { kicker: "Blog", title: "Blog", sub: "Ideas sobre selección, gestión y desarrollo de personas.", crumbs: crumb({ name: "Blog", path: "blog/" }) })}
 <section class="sec">
@@ -630,8 +760,8 @@ ${phero(root, { kicker: "Blog", title: "Blog", sub: "Ideas sobre selección, ges
       url: `${url}/${p}`,
       mainEntityOfPage: `${url}/${p}`,
       image: `${url}/assets/img/og-sibberia.jpg`,
-      author: { "@type": "Organization", name: a.autor || "Sibberia", url: `${url}/` },
-      publisher: { "@type": "Organization", name: "Sibberia", logo: { "@type": "ImageObject", url: `${url}/assets/img/sibberia-logo-azul.svg` } },
+      author: { "@type": "Organization", name: a.autor || "SIBBERIA", url: `${url}/` },
+      publisher: { "@type": "Organization", name: "SIBBERIA", logo: { "@type": "ImageObject", url: `${url}/assets/img/sibberia-logo-azul.svg` } },
       inLanguage: "es"
     };
     if (a.fecha) art.datePublished = a.fecha;
@@ -639,7 +769,7 @@ ${phero(root, { kicker: "Blog", title: "Blog", sub: "Ideas sobre selección, ges
       path: p,
       nav: "blog/",
       ogType: "article",
-      title: fit(`${a.titulo} | Blog | Sibberia`, `${a.titulo} | Sibberia`, a.titulo),
+      title: fit(`${a.titulo} | Blog | SIBBERIA`, `${a.titulo} | SIBBERIA`, a.titulo),
       description: a.resumen || a.titulo,
       css: ["subpage.css"],
       crumbs: crumb({ name: "Blog", path: "blog/" }, { name: a.titulo, path: p }),
@@ -651,17 +781,17 @@ ${phero(root, { kicker: "Blog", title: esc(a.titulo), crumbs: crumb({ name: "Blo
     });
   });
 
-  /* CONTACTO */
+  /* CONTACTO: destino de «Cuéntanos qué perfil buscas» */
   pages.push({
     path: "contacto/",
     nav: "contacto/",
-    title: "Contacto | Sibberia",
-    description: `Contacta con Sibberia: ${cfg.email}, ${cfg.telefonos.map((t) => t.texto).join(" y ")}.`,
+    title: "Contacto | SIBBERIA",
+    description: `Cuéntanos qué perfil buscas. Escríbenos a ${cfg.email} o llámanos al ${cfg.telefonos.map((t) => t.texto).join(" o al ")}.`,
     css: ["subpage.css"],
     crumbs: crumb({ name: "Contacto", path: "contacto/" }),
     jsonld: [{ "@type": "ContactPage", url: `${url}/contacto/`, about: org }],
     body: (root) => `
-${phero(root, { kicker: "Contacto", title: "Hablemos", sub: "Cuéntanos qué necesitas. Si buscas empleo, revisa antes nuestras ofertas abiertas.", foto: FOTO_CONTACTO, crumbs: crumb({ name: "Contacto", path: "contacto/" }) })}
+${phero(root, { kicker: "Contacto", title: "Cuéntanos qué perfil buscas", sub: `Te respondemos lo antes posible. ¿Buscas empleo? <a href="${root}ofertas-de-trabajo/#envia-tu-cv">Envíanos tu CV</a>.`, foto: FOTO_CONTACTO, crumbs: crumb({ name: "Contacto", path: "contacto/" }) })}
 <section class="sec">
   <div class="wrap contact-grid">
     <aside class="cinfo">
@@ -687,7 +817,7 @@ ${phero(root, { kicker: "Contacto", title: "Hablemos", sub: "Cuéntanos qué nec
         <div class="ffield"><label for="f-email">Email *</label><input id="f-email" name="email" type="email" required autocomplete="email" spellcheck="false" inputmode="email"><p class="ferr"></p></div>
         <div class="ffield"><label for="f-phone">Teléfono</label><input id="f-phone" name="telefono" type="tel" autocomplete="tel" inputmode="tel"></div>
       </div>
-      <div class="ffield"><label for="f-msg">Mensaje *</label><textarea id="f-msg" name="mensaje" required rows="6"></textarea><p class="ferr"></p></div>
+      <div class="ffield"><label for="f-msg">Mensaje *</label><textarea id="f-msg" name="mensaje" required rows="6" placeholder="Por ejemplo: técnico de mantenimiento electromecánico, a turnos, para una planta en Asturias…"></textarea><p class="ferr"></p></div>
       <label class="check"><input type="checkbox" name="privacidad" required> <span>He leído y acepto la <a href="${root}legal/#privacidad">política de privacidad</a>. *</span></label>
       <div class="hp" aria-hidden="true"><label>No rellenar <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn btn-primary" type="submit">Enviar mensaje ${icon.arrow}</button>
@@ -702,8 +832,8 @@ ${phero(root, { kicker: "Contacto", title: "Hablemos", sub: "Cuéntanos qué nec
   pages.push({
     path: "legal/",
     nav: "",
-    title: "Aviso legal, privacidad y cookies | Sibberia",
-    description: "Aviso legal, política de privacidad y política de cookies de Sibberia.",
+    title: "Aviso legal, privacidad y cookies | SIBBERIA",
+    description: "Aviso legal, política de privacidad y política de cookies de SIBBERIA.",
     css: ["subpage.css"],
     crumbs: crumb({ name: "Aviso legal", path: "legal/" }),
     noindex: !cfg.pendienteDeValidar.cif,
@@ -720,7 +850,7 @@ ${phero(root, { kicker: "Legal", title: "Aviso legal y privacidad", crumbs: crum
       ${dato("direccion", "Domicilio")}
       <li>Email: <a href="mailto:${cfg.email}">${cfg.email}</a> · Teléfonos: ${cfg.telefonos.map((t) => `<a href="tel:${t.tel}">${telTxt(t)}</a>`).join(" y ")}</li>
     </ul>
-    <p>El acceso y uso de este sitio web atribuye la condición de usuario e implica la aceptación de las presentes condiciones. Los contenidos de esta web (textos, imágenes, diseño) son propiedad de Sibberia o de sus legítimos titulares y no podrán ser reproducidos sin autorización expresa.</p>
+    <p>El acceso y uso de este sitio web atribuye la condición de usuario e implica la aceptación de las presentes condiciones. Los contenidos de esta web (textos, imágenes, diseño) son propiedad de SIBBERIA o de sus legítimos titulares y no podrán ser reproducidos sin autorización expresa.</p>
     <h2 id="privacidad">Política de privacidad</h2>
     <p>Los datos personales facilitados a través de los formularios de este sitio son tratados por el titular indicado en el aviso legal como responsable del tratamiento, conforme al Reglamento (UE) 2016/679 (RGPD) y la LO 3/2018 (LOPDGDD).</p>
     <ul>
@@ -742,7 +872,7 @@ ${phero(root, { kicker: "Legal", title: "Aviso legal y privacidad", crumbs: crum
     path: "404.html",
     file: "404.html",
     nav: "",
-    title: "Página no encontrada | Sibberia",
+    title: "Página no encontrada | SIBBERIA",
     description: "La página que buscas no existe.",
     css: ["subpage.css"],
     noindex: true,

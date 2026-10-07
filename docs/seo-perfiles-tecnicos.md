@@ -1,33 +1,58 @@
-# Posicionamiento: Sibberia, referencia en selección de perfiles técnicos e industriales
+# Posicionamiento: SIBBERIA, referencia en selección de perfiles técnicos e industriales
 
-Objetivo del cliente (6-oct-2026): que quien busque en Google la selección de
-perfiles industriales y técnicos encuentre a Sibberia, igual que ilerwork.com con
-«personal de obra».
+Objetivo del cliente: que quien busque en Google la selección de perfiles
+industriales y técnicos encuentre a SIBBERIA (6-oct-2026), posicionada como
+**«Especialistas en selección de perfiles técnicos e industriales en España»**
+(PDF de cambios, 7-oct-2026). El posicionamiento debe salir de contenido bueno,
+específico y útil, sin repetir palabras clave de forma artificial.
 
-## Qué hay ya en la web
+## Una página para cada búsqueda
 
-- **Mensaje principal** en la home: titular «Selección de perfiles técnicos e
-  industriales», bloque con las 7 familias y título de página con esa frase.
-- **Una página de aterrizaje por familia** (`/seleccion-personas/<familia>/`),
-  cada una con título, H1, descripción y JSON-LD `Service` propios, la lista de
-  perfiles, cómo trabajamos, cifras, sus ofertas abiertas y enlaces al resto:
+Cada búsqueda objetivo tiene una página que la responde. Así las páginas no
+compiten entre sí: la home y Selección, por ejemplo, ya no llevan el mismo H1.
 
-| Página | Búsquedas objetivo |
-|---|---|
-| `/seleccion-personas/` | selección de perfiles técnicos, selección de personal industrial |
-| `/seleccion-personas/mantenimiento-y-sat/` | selección técnicos de mantenimiento, técnico de mantenimiento electromecánico, técnico SAT |
-| `/seleccion-personas/produccion/` | selección personal de producción, operario especialista, jefe de turno |
-| `/seleccion-personas/calidad-prl-medioambiente/` | técnico de calidad, técnico PRL, técnico de medioambiente |
-| `/seleccion-personas/almacen-logistica-planificacion-compras/` | selección personal logística/almacén, planificador, técnico de compras |
-| `/seleccion-personas/ingenieria-y-proyectos/` | selección ingenieros, proyectistas, técnico de proyectos, técnico de site |
-| `/seleccion-personas/automatizacion-y-robotica/` | selección ingenieros de automatización, técnico de robótica |
-| `/seleccion-personas/programadores/` | selección programadores |
+| Página | Búsquedas objetivo | H1 |
+|---|---|---|
+| `/` | selección de perfiles técnicos e industriales, selección de perfiles industriales | Selección de perfiles técnicos e industriales |
+| `/seleccion-personas/` | consultora de selección industrial, headhunter industrial, selección de perfiles industriales | Consultora de selección industrial |
+| `/seleccion-personas/mantenimiento-y-sat/` | selección técnicos de mantenimiento, selección electromecánicos, técnicos SAT | Selección de técnicos de mantenimiento, electromecánicos y SAT |
+| `/seleccion-personas/automatizacion-y-robotica/` | selección ingenieros de automatización, selección programadores PLC, SCADA, robótica | Selección de ingenieros de automatización y programadores PLC |
+| `/seleccion-personas/produccion/` | selección responsables de producción, jefes de turno, encargados | Selección de responsables de producción y jefes de turno |
+| `/seleccion-personas/calidad-prl-medioambiente/` | selección técnicos de calidad, calidad de proveedores, técnico PRL | Selección de técnicos de calidad, PRL y medioambiente |
+| `/seleccion-personas/ingenieria-y-proyectos/` | selección ingenieros de proyectos, ingeniero de procesos, mejora continua, oficina técnica | Selección de ingenieros de proyectos, procesos y oficina técnica |
+| `/seleccion-personas/almacen-logistica-planificacion-compras/` | selección personal logística y almacén, planificador, técnico de compras | Selección de personal de almacén, logística, planificación y compras |
+| `/seleccion-personas/programadores/` | selección programadores | Selección de programadores para empresas técnicas e industriales |
 
-- **Enlazado interno**: menú «Perfiles técnicos», columna en el pie de todas las
-  páginas, cada oferta enlaza a su familia y cada familia a sus ofertas.
-- **Datos estructurados**: `Service` con catálogo de perfiles por familia,
-  `FAQPage` en el hub, `JobPosting` con `occupationalCategory`.
-- Las familias y perfiles se editan en `data/areas.json`.
+Las búsquedas de cada familia están en `data/areas.json → busquedas` (no se
+muestran en la web).
+
+## Qué tiene cada página
+
+- **Título y meta description propios** (≤60 y ≤155 caracteres), con la búsqueda
+  principal al principio.
+- **Contenido propio**:
+  - Selección explica por qué trabajar con SIBBERIA, la base de talento, cómo
+    trabajamos y las preguntas frecuentes (headhunting, plazos, modelo a éxito,
+    garantía).
+  - Cada familia tiene sus perfiles, qué solemos valorar (tecnologías, normas,
+    herramientas) y por qué cuesta encontrar esos perfiles.
+- **Enlazado interno**:
+  - El menú «Perfiles técnicos» y la columna de familias en el pie de todas las páginas.
+  - La rejilla de familias en la home y en Selección.
+  - «Otros perfiles técnicos» en cada familia.
+  - Cada oferta enlaza a su familia y cada familia a sus ofertas.
+  - Programadores enlaza a Automatización para PLC.
+  - Las familias enlazan a «Cómo trabajamos» y la historia de Nosotros a los tres servicios.
+- **Datos estructurados**:
+  - `ProfessionalService` con la descripción de posicionamiento.
+  - `Service` con catálogo (Selección con sus siete familias; cada familia con sus perfiles; Estrategia y Formación con su lista).
+  - `FAQPage` en Selección.
+  - `JobPosting` en las ofertas cuando tengan fecha y descripción.
+  - Migas de pan.
+- **ALT de imágenes** descriptivos y sin relleno de palabras clave
+  (`docs/textos-para-validar.md`).
+- **URLs**: se mantienen las de las familias para no perder lo que ya esté
+  indexado.
 
 ## Lo que más va a mover el posicionamiento (siguientes pasos)
 
@@ -36,17 +61,12 @@ perfiles industriales y técnicos encuentre a Sibberia, igual que ilerwork.com c
 2. **Ofertas reales y frescas** con descripción y fecha: son el contenido que más
    búsquedas atrae («técnico de mantenimiento Asturias», etc.) y Google las muestra
    en su buscador de empleo solo con los datos completos.
-3. **Contenido propio por familia**: 2–3 párrafos reales en cada página (qué
-   perfiles habéis cubierto, sectores, zonas) y artículos de blog útiles
-   («Cómo contratar un técnico de mantenimiento electromecánico», «Sueldo de un
-   jefe de turno en…»). Debe escribirlo o validarlo Sibberia: no inventamos casos.
-4. **Google Business Profile** de Sibberia con categoría «Agencia de selección de
+3. **Artículos de blog útiles** escritos o validados por SIBBERIA («Cómo contratar
+   un técnico de mantenimiento electromecánico», «Qué pedir a un programador PLC»…).
+   No inventamos casos ni cifras.
+4. **Google Business Profile** de SIBBERIA con categoría «Agencia de selección de
    personal» y enlace a la web.
 5. **Search Console**: alta del dominio, envío de `sitemap.xml` y seguimiento de
    qué búsquedas traen visitas para reforzar las páginas que funcionen.
 6. **Páginas por zona** cuando haya volumen (p. ej. «Selección de técnicos de
    mantenimiento en Asturias»), solo donde de verdad trabajéis.
-7. **Fotografía industrial propia** (planta, mantenimiento, almacén): hoy todas
-   las fotos son de oficina; las páginas de familia no llevan foto hasta tenerlas.
-
-No he podido revisar ilerwork.com: el entorno de trabajo bloquea ese dominio.

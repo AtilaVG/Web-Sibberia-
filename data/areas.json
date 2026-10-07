@@ -1,25 +1,42 @@
 {
-  "_nota": "Familias de perfiles técnicos e industriales (feedback del cliente, 6-oct-2026). Cada una genera una página en /seleccion-personas/<slug>/. 'busquedas' son las consultas que debe posicionar esa página; 'perfiles' se muestran tal cual. 'descripcion' completa la frase «En Sibberia seleccionamos …». 'seoTitulo' (≤60) y 'seoDescripcion' (≤155) son la etiqueta title y la meta description. «foto» (opcional): imagen de la cabecera (assets/img/<archivo>-640/960/1600.webp, se generan con scripts/foto.mjs) y su texto alternativo.",
+  "_nota": "Familias de perfiles técnicos e industriales. Cada una genera una página en /seleccion-personas/<slug>/. Perfiles y temas: mensaje de Samuel (6-oct-2026) y PDF de cambios del cliente (7-oct-2026). 'titulo' es el H1; 'resumen', el texto de su tarjeta en las rejillas; 'intro', el subtítulo de la cabecera; 'perfiles', las etiquetas de «Perfiles que trabajamos»; 'nota' (opcional), una línea bajo las etiquetas, con enlace a otra familia si lleva 'notaEnlace'; 'valoramos' y 'dificultades', las dos listas de la página; 'ctaTitulo', la pregunta de la llamada final. 'busquedas' son las consultas que debe posicionar la página (no se muestran). 'seoTitulo' (≤60) y 'seoDescripcion' (≤155) son la etiqueta title y la meta description. 'foto': imagen de la cabecera (assets/img/<archivo>-640/960/1600.webp, se generan con scripts/foto.mjs) y su texto alternativo. Todo lo redactado está en docs/textos-para-validar.md.",
   "areas": [
     {
       "slug": "mantenimiento-y-sat",
       "nombre": "Mantenimiento y SAT",
-      "titulo": "Selección de técnicos de mantenimiento y SAT",
+      "titulo": "Selección de técnicos de mantenimiento, electromecánicos y SAT",
+      "resumen": "Electromecánicos, técnicos de mantenimiento y SAT, responsables de mantenimiento y técnicos de campo.",
+      "intro": "Electromecánicos, técnicos de mantenimiento y técnicos SAT para plantas que no pueden permitirse una línea parada: profesionales que resuelven averías con criterio y sostienen el mantenimiento preventivo, también a turnos.",
       "perfiles": [
-        "Técnico/a de mantenimiento eléctrico",
-        "Técnico/a de mantenimiento mecánico",
-        "Técnico/a de mantenimiento electromecánico",
-        "Técnico/a de SAT (servicio de asistencia técnica)"
+        "Electromecánicos",
+        "Técnicos de mantenimiento",
+        "Responsables de mantenimiento",
+        "Técnicos SAT",
+        "Técnicos de campo"
       ],
+      "valoramos": [
+        "Base sólida en electricidad y mecánica, y soltura con neumática e hidráulica.",
+        "Lectura de esquemas eléctricos e interpretación de planos.",
+        "Conocimientos de PLC para localizar averías y, si el puesto lo pide, modificar programas.",
+        "Experiencia en mantenimiento preventivo y correctivo, y en GMAO si la planta la usa.",
+        "Disponibilidad para turnos, retenes o desplazamientos, según el puesto.",
+        "En SAT y técnicos de campo: autonomía, trato con el cliente y carné de conducir."
+      ],
+      "dificultades": [
+        "Hay pocos electromecánicos completos: profesionales que dominen a la vez la parte eléctrica y la mecánica.",
+        "Los buenos técnicos rara vez están buscando empleo: casi siempre hay que ir a buscarlos.",
+        "Los turnos, los retenes y los viajes reducen mucho el número de candidatos.",
+        "Un CV no demuestra que alguien sepa resolver una avería: hay que validarlo antes de presentarlo."
+      ],
+      "ctaTitulo": "¿Necesitas un electromecánico o un técnico de mantenimiento?",
       "busquedas": [
         "selección técnicos de mantenimiento",
-        "empresa selección personal mantenimiento industrial",
-        "técnico de mantenimiento electromecánico",
-        "técnico SAT"
+        "selección electromecánicos",
+        "selección técnicos SAT",
+        "responsable de mantenimiento industrial"
       ],
-      "descripcion": "técnicos/as de mantenimiento eléctrico, mecánico y electromecánico, y técnicos/as de SAT",
-      "seoTitulo": "Selección de técnicos de mantenimiento y SAT | Sibberia",
-      "seoDescripcion": "Seleccionamos técnicos de mantenimiento eléctrico, mecánico y electromecánico y técnicos de SAT. Procesos a medida y a éxito.",
+      "seoTitulo": "Selección de técnicos de mantenimiento y electromecánicos",
+      "seoDescripcion": "Seleccionamos electromecánicos, técnicos de mantenimiento y SAT, responsables de mantenimiento y técnicos de campo para la industria. Modelo a éxito.",
       "foto": {
         "archivo": "foto-mantenimiento-y-sat",
         "alt": "Técnico de mantenimiento con gafas de seguridad comprueba con un multímetro el cableado de un cuadro eléctrico abierto en una planta industrial."
@@ -28,19 +45,39 @@
     {
       "slug": "produccion",
       "nombre": "Producción",
-      "titulo": "Selección de personal de producción",
+      "titulo": "Selección de responsables de producción y jefes de turno",
+      "resumen": "Responsables de producción, jefes de turno, encargados, planificación y perfiles especialistas.",
+      "intro": "Responsables de producción, jefes de turno y encargados capaces de sacar la producción adelante cada día: con su equipo, con seguridad y con los indicadores de la planta.",
       "perfiles": [
-        "Operario/a especialista",
-        "Jefe/a de turno"
+        "Responsables de producción",
+        "Jefes de turno",
+        "Encargados",
+        "Planificación",
+        "Mejora de productividad",
+        "Perfiles especialistas"
       ],
+      "valoramos": [
+        "Experiencia dirigiendo equipos en planta, también a turnos.",
+        "Gestión por indicadores: OEE, productividad, calidad, seguridad y costes.",
+        "Planificación de la producción y coordinación con mantenimiento, calidad y logística.",
+        "Mejora continua y Lean aplicados a la productividad del día a día.",
+        "Conocimiento del proceso o del sector: alimentación, automoción, metal, química, plástico…"
+      ],
+      "dificultades": [
+        "El mando intermedio es de los perfiles más difíciles: conocimiento técnico, liderazgo y capacidad de decisión en la misma persona.",
+        "Los turnos de noche y de fin de semana reducen mucho el número de candidatos.",
+        "Los mejores responsables están trabajando y no miran ofertas: hay que contarles un proyecto que les interese.",
+        "El encaje con la cultura de la planta y con el equipo que van a dirigir pesa tanto como el CV."
+      ],
+      "ctaTitulo": "¿Necesitas un responsable de producción o un jefe de turno?",
       "busquedas": [
-        "selección personal de producción",
-        "operario especialista",
-        "jefe de turno producción"
+        "selección responsables de producción",
+        "selección jefes de turno",
+        "encargado de producción",
+        "selección personal de producción"
       ],
-      "descripcion": "operarios/as especialistas y jefes/as de turno",
-      "seoTitulo": "Selección de personal de producción | Sibberia",
-      "seoDescripcion": "Seleccionamos operarios especialistas y jefes de turno para plantas industriales. Procesos a medida y a éxito.",
+      "seoTitulo": "Selección de responsables de producción y jefes de turno",
+      "seoDescripcion": "Seleccionamos responsables de producción, jefes de turno, encargados y perfiles de planificación y mejora de productividad para plantas industriales.",
       "foto": {
         "archivo": "foto-produccion",
         "alt": "Jefa de turno con gafas de seguridad consulta una tableta mientras recorre una línea de producción; dos operarios trabajan al fondo."
@@ -50,19 +87,39 @@
       "slug": "calidad-prl-medioambiente",
       "nombre": "Calidad, PRL y Medioambiente",
       "titulo": "Selección de técnicos de calidad, PRL y medioambiente",
+      "resumen": "Calidad de planta, de proveedores y de producto, laboratorio, sistemas de gestión, PRL y medioambiente.",
+      "intro": "Técnicos de calidad de planta, de proveedores y de producto, de laboratorio y de sistemas de gestión, y técnicos de PRL y medioambiente: perfiles que conocen la normativa y saben aplicarla en planta.",
       "perfiles": [
-        "Técnico/a de calidad",
-        "Técnico/a de prevención de riesgos laborales (PRL)",
-        "Técnico/a de medioambiente"
+        "Calidad de planta",
+        "Calidad de proveedores",
+        "Calidad de producto",
+        "Laboratorio",
+        "Sistemas de gestión",
+        "Normativa",
+        "Prevención de riesgos laborales (PRL)",
+        "Medioambiente"
       ],
+      "valoramos": [
+        "Conocimiento de la normativa de tu sector: ISO 9001, IATF 16949 en automoción, IFS o BRCGS en alimentación, ISO 14001, ISO 45001…",
+        "Herramientas de calidad: 8D, AMFE, PPAP, control estadístico de procesos y análisis de causa raíz.",
+        "Experiencia en auditorías internas, de cliente y a proveedores.",
+        "Metrología y ensayos de laboratorio, en los puestos de calidad de producto.",
+        "En PRL, la titulación de técnico superior y la especialidad que pide el puesto: seguridad, higiene industrial o ergonomía."
+      ],
+      "dificultades": [
+        "Cada sector tiene su normativa: un técnico de calidad de alimentación no se cambia sin más por uno de automoción.",
+        "Hace falta rigor y, a la vez, mano izquierda con producción y con los proveedores: no siempre van juntos.",
+        "En PRL y medioambiente, la titulación y la especialidad exigidas acotan mucho el mercado."
+      ],
+      "ctaTitulo": "¿Necesitas un técnico de calidad, PRL o medioambiente?",
       "busquedas": [
-        "selección técnico de calidad",
-        "técnico PRL",
+        "selección técnicos de calidad",
+        "técnico de calidad de proveedores",
+        "selección técnico PRL",
         "técnico de medioambiente industria"
       ],
-      "descripcion": "técnicos/as de calidad, de prevención de riesgos laborales (PRL) y de medioambiente",
       "seoTitulo": "Selección de técnicos de calidad, PRL y medioambiente",
-      "seoDescripcion": "Seleccionamos técnicos de calidad, de prevención de riesgos laborales (PRL) y de medioambiente. Procesos a medida y a éxito.",
+      "seoDescripcion": "Seleccionamos técnicos de calidad de planta, de proveedores y de producto, de laboratorio y de sistemas de gestión, y técnicos de PRL y medioambiente.",
       "foto": {
         "archivo": "foto-calidad-prl-medioambiente",
         "alt": "Inspector de calidad con chaleco reflectante mide una pieza mecanizada con un calibre digital en un banco de inspección."
@@ -72,21 +129,35 @@
       "slug": "almacen-logistica-planificacion-compras",
       "nombre": "Almacén, Logística, Planificación y Compras",
       "titulo": "Selección de personal de almacén, logística, planificación y compras",
+      "resumen": "Personal de almacén, técnicos de logística, planificadores y técnicos de compras.",
+      "intro": "Personal de almacén, técnicos de logística, planificadores y compradores: los perfiles que conectan proveedores, producción y clientes para que el material llegue cuando tiene que llegar.",
       "perfiles": [
         "Personal de almacén",
-        "Técnico/a de logística",
-        "Planificador/a",
-        "Técnico/a de compras"
+        "Técnicos de logística",
+        "Planificadores",
+        "Técnicos de compras"
       ],
+      "valoramos": [
+        "Manejo del ERP y del sistema de gestión de almacén de la empresa (SAP, SGA…).",
+        "Planificación de la demanda, de la producción y de los aprovisionamientos.",
+        "Negociación con proveedores y compras técnicas o de materia prima.",
+        "Control de stock, inventarios e indicadores logísticos.",
+        "En almacén, carné de carretillero y experiencia con terminales de radiofrecuencia."
+      ],
+      "dificultades": [
+        "Los planificadores y compradores con experiencia industrial, y no solo comercial, escasean.",
+        "Cada empresa trabaja con su ERP: hay que conocerlo o aprenderlo rápido.",
+        "En almacén, los turnos y la rotación obligan a seleccionar pensando en la estabilidad."
+      ],
+      "ctaTitulo": "¿Necesitas un perfil de logística, almacén, planificación o compras?",
       "busquedas": [
         "selección personal logística",
         "selección personal almacén",
-        "planificador de producción",
-        "técnico de compras"
+        "selección planificador",
+        "selección técnico de compras"
       ],
-      "descripcion": "personal de almacén, logística, planificación y compras",
-      "seoTitulo": "Selección de personal de logística y almacén | Sibberia",
-      "seoDescripcion": "Seleccionamos personal de almacén, logística, planificación y compras para la industria. Procesos a medida y a éxito.",
+      "seoTitulo": "Selección de personal de logística y almacén | SIBBERIA",
+      "seoDescripcion": "Seleccionamos personal de almacén, técnicos de logística, planificadores y técnicos de compras para la industria. Búsqueda directa y modelo a éxito.",
       "foto": {
         "archivo": "foto-almacen-logistica-planificacion-compras",
         "alt": "Técnica de logística con chaleco reflectante escanea el código de barras de una caja en una estantería de almacén; al fondo, una carretilla."
@@ -95,21 +166,41 @@
     {
       "slug": "ingenieria-y-proyectos",
       "nombre": "Ingeniería y Proyectos",
-      "titulo": "Selección de ingenieros/as y técnicos/as de proyectos",
+      "titulo": "Selección de ingenieros de proyectos, procesos y oficina técnica",
+      "resumen": "Ingeniería de proyectos, procesos, industrialización, oficina técnica, mejora continua y diseño.",
+      "intro": "Ingenieros de proyectos, de procesos y de industrialización, oficina técnica, mejora continua y diseño: perfiles que dominan la técnica y entienden cómo funciona una planta.",
       "perfiles": [
-        "Proyectista",
-        "Técnico/a de site",
-        "Técnico/a de proyectos"
+        "Ingeniería de proyectos",
+        "Procesos",
+        "Industrialización",
+        "Oficina técnica",
+        "Mejora continua",
+        "Diseño",
+        "Proyectistas",
+        "Técnicos de site"
       ],
+      "valoramos": [
+        "Experiencia en el sector o en procesos parecidos a los de tu planta.",
+        "Gestión de proyectos: plazos, presupuesto, proveedores y coordinación con planta.",
+        "Herramientas de diseño (AutoCAD, SolidWorks, Inventor, CATIA…) en oficina técnica y diseño.",
+        "Mejora continua: Lean, 5S, SMED, kaizen.",
+        "Industrialización de nuevos productos, del prototipo a la producción en serie.",
+        "Inglés, cuando hay clientes o casa matriz fuera de España."
+      ],
+      "dificultades": [
+        "El título no lo dice todo: hay que valorar la experiencia real en planta y en proyectos.",
+        "Los buenos ingenieros de procesos y de mejora continua suelen estar comprometidos con su empresa y no buscan cambio.",
+        "Se busca a la vez solidez técnica y capacidad para coordinar equipos, proveedores y clientes."
+      ],
+      "ctaTitulo": "¿Necesitas un ingeniero de proyectos, de procesos o de oficina técnica?",
       "busquedas": [
-        "selección ingenieros",
-        "selección proyectistas",
-        "técnico de proyectos",
-        "técnico de site"
+        "selección ingenieros de proyectos",
+        "selección ingeniero de procesos",
+        "selección ingeniero de mejora continua",
+        "selección proyectistas"
       ],
-      "descripcion": "proyectistas, técnicos/as de site y técnicos/as de proyectos",
-      "seoTitulo": "Selección de ingenieros y técnicos de proyectos | Sibberia",
-      "seoDescripcion": "Seleccionamos proyectistas, técnicos de site y técnicos de proyectos. Procesos a medida y a éxito.",
+      "seoTitulo": "Selección de ingenieros de proyectos y procesos | SIBBERIA",
+      "seoDescripcion": "Seleccionamos ingenieros de proyectos, de procesos y de industrialización, oficina técnica, mejora continua y diseño para la industria. Modelo a éxito.",
       "foto": {
         "archivo": "foto-ingenieria-y-proyectos",
         "alt": "Ingeniero de proyectos trabaja con un portátil y planos en una mesa de una planta industrial, con un casco de seguridad al lado."
@@ -118,21 +209,40 @@
     {
       "slug": "automatizacion-y-robotica",
       "nombre": "Automatización y Robótica",
-      "titulo": "Selección de ingenieros/as y técnicos/as de automatización y robótica",
+      "titulo": "Selección de ingenieros de automatización y programadores PLC",
+      "resumen": "Programadores PLC, ingenieros de automatización, SCADA, robótica, visión artificial y puestas en marcha.",
+      "intro": "Programadores PLC, ingenieros de automatización y especialistas en SCADA, robótica y visión artificial: perfiles muy demandados que rara vez están buscando empleo. Por eso salimos a buscarlos.",
       "perfiles": [
-        "Ingeniero/a de automatización",
-        "Técnico/a de automatización",
-        "Ingeniero/a de robótica",
-        "Técnico/a de robótica"
+        "Programadores PLC",
+        "Ingenieros de automatización",
+        "SCADA",
+        "Robótica",
+        "Visión artificial",
+        "Puestas en marcha"
       ],
+      "nota": "Perfiles con experiencia en Siemens, Rockwell, Schneider y otros fabricantes.",
+      "valoramos": [
+        "Programación de PLC en el entorno de tu planta: Siemens (TIA Portal), Rockwell (Studio 5000), Schneider…",
+        "SCADA y HMI, y comunicaciones industriales: Profinet, Ethernet/IP, Modbus…",
+        "Puestas en marcha reales, en planta o en casa del cliente, y temple para resolver con la línea parada.",
+        "Robótica industrial y visión artificial, cuando el proyecto lo pide.",
+        "Disponibilidad para viajar en los puestos de puesta en marcha."
+      ],
+      "dificultades": [
+        "Es de los perfiles más escasos de la industria: hay más proyectos que profesionales.",
+        "Cada fabricante exige experiencia propia: no basta con «saber de PLC».",
+        "Integradores, ingenierías y fabricantes compiten por las mismas personas: hay que saber contarles bien el proyecto.",
+        "Las puestas en marcha implican viajes y picos de trabajo que no encajan con todo el mundo."
+      ],
+      "ctaTitulo": "¿Necesitas un programador PLC o un ingeniero de automatización?",
       "busquedas": [
-        "selección ingenieros automatización",
-        "técnico de automatización",
-        "técnico de robótica industrial"
+        "selección ingenieros de automatización",
+        "selección programadores PLC",
+        "selección técnico SCADA",
+        "selección técnico de robótica industrial"
       ],
-      "descripcion": "ingenieros/as y técnicos/as de automatización y robótica",
-      "seoTitulo": "Selección de técnicos de automatización y robótica",
-      "seoDescripcion": "Seleccionamos ingenieros y técnicos de automatización y robótica industrial. Procesos a medida y a éxito.",
+      "seoTitulo": "Selección de programadores PLC y automatización | SIBBERIA",
+      "seoDescripcion": "Seleccionamos programadores PLC, ingenieros de automatización y especialistas en SCADA, robótica y visión artificial (Siemens, Rockwell, Schneider).",
       "foto": {
         "archivo": "foto-automatizacion-y-robotica",
         "alt": "Técnica con gafas de seguridad programa un brazo robot industrial con la consola de programación, junto a una célula de seguridad."
@@ -141,17 +251,37 @@
     {
       "slug": "programadores",
       "nombre": "Programadores/as",
-      "titulo": "Selección de programadores/as",
+      "titulo": "Selección de programadores para empresas técnicas e industriales",
+      "resumen": "Desarrolladores de software, programadores de aplicaciones e integración de sistemas.",
+      "intro": "Programadores y desarrolladores de software para empresas técnicas e industriales: perfiles que, además de programar bien, entienden el negocio y el proceso para el que trabajan.",
       "perfiles": [
-        "Programador/a"
+        "Desarrolladores de software",
+        "Programadores de aplicaciones",
+        "Software industrial",
+        "Integración de sistemas"
       ],
+      "nota": "¿Buscas un programador PLC? Lo trabajamos dentro de Automatización y Robótica.",
+      "notaEnlace": "automatizacion-y-robotica",
+      "valoramos": [
+        "Dominio de los lenguajes y herramientas de tu equipo: C#/.NET, Java, Python, JavaScript…",
+        "Experiencia en software para la industria: integración con el ERP, el MES o los datos de planta, cuando el puesto lo pide.",
+        "Buenas prácticas: control de versiones, pruebas y documentación.",
+        "Capacidad para entender el proceso y hablar con planta, no solo con otros programadores.",
+        "Inglés técnico."
+      ],
+      "dificultades": [
+        "Las empresas tecnológicas compiten por los mismos perfiles, con teletrabajo y salarios altos.",
+        "Pocos programadores conocen el entorno industrial.",
+        "Un CV lleno de tecnologías no garantiza el nivel: hay que validarlo antes de presentarlo."
+      ],
+      "ctaTitulo": "¿Necesitas un programador?",
       "busquedas": [
         "selección programadores",
-        "empresa selección programadores"
+        "empresa selección programadores",
+        "selección desarrolladores de software industria"
       ],
-      "descripcion": "programadores/as",
-      "seoTitulo": "Selección de programadores | Sibberia",
-      "seoDescripcion": "Seleccionamos programadores para empresas industriales y técnicas. Procesos a medida y a éxito.",
+      "seoTitulo": "Selección de programadores | SIBBERIA",
+      "seoDescripcion": "Seleccionamos programadores y desarrolladores de software para empresas técnicas e industriales. Búsqueda directa y modelo a éxito.",
       "foto": {
         "archivo": "foto-programadores",
         "alt": "Programador con gafas de seguridad trabaja con un portátil y módulos de PLC en un puesto acristalado con vistas a la planta."
