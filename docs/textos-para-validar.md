@@ -108,8 +108,3 @@ de robótica» y «Programador/a» (¿PLC, software industrial, otro?). Se edita
   - Automatización y Robótica: «Selección de técnicos de automatización y robótica» / «Seleccionamos ingenieros y técnicos de automatización y robótica industrial. Procesos a medida y a éxito.»
   - Programadores/as: «Selección de programadores | Sibberia» / «Seleccionamos programadores para empresas industriales y técnicas. Procesos a medida y a éxito.»
 - Textos alternativos de las fotos y de la imagen para redes sociales.
-
-## Imágenes
-
-- Las cabeceras de Selección, de cada familia profesional, de Ofertas (listado y fichas) y de Contacto llevan **ilustraciones de cubos de hielo creadas para la web** con la escena 3D de la home (no son fotos ni imágenes de terceros): en el cubo elegido aparece el icono de la familia en dorado. Son decorativas (`alt=""`). Detalle y cómo regenerarlas en `docs/imagenes.md`.
-- Las fotos del cliente se mantienen en la home (tarjetas de servicios y fondo sin 3D), Estrategia, Formación y Nosotros.

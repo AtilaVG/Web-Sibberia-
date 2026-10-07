@@ -2,9 +2,7 @@
    Regla de contenido: solo datos verificados en sibberia.com o facilitados
    por el cliente. Cualquier texto redactado para esta web está listado en
    docs/textos-para-validar.md. */
-import { existsSync } from "node:fs";
 import { esc, icon, picture, organization, NAV, telTxt } from "./layout.mjs";
-import { AREA_ICON } from "./iconos.mjs";
 
 const SERVICIOS = [
   {
@@ -12,7 +10,6 @@ const SERVICIOS = [
     nombre: "Selección de personas",
     corto: "Selección",
     foto: { name: "bloques-personas", widths: [960, 1600], alt: "Una mano elige un bloque de madera con la figura de una persona entre varios bloques iguales." },
-    cabecera: "seleccion",
     resumen: "Especialistas en perfiles técnicos e industriales: buscamos y evaluamos a los profesionales que tu empresa necesita, para su puesto y para su equipo.",
     intro: "Especialistas en selección de perfiles técnicos e industriales: mantenimiento, producción, calidad, logística, ingeniería, automatización y programación. Trabajamos a éxito y diseñamos cada proceso a medida."
   },
@@ -49,15 +46,19 @@ const VALORES = [
 const cifrasHTML = (cls = "") => `<dl class="cifras ${cls}">${CIFRAS.map((c) =>
   `<div><dt>${c.texto}</dt><dd>${c.valor}</dd></div>`).join("")}</dl>`;
 
+/* Iconos de línea por familia de perfiles (24×24, trazo) */
+const AREA_ICON = {
+  "mantenimiento-y-sat": '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+  "produccion": '<path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1M12 18h1M7 18h1"/>',
+  "calidad-prl-medioambiente": '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+  "almacen-logistica-planificacion-compras": '<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>',
+  "ingenieria-y-proyectos": '<path d="M12 2v4"/><circle cx="12" cy="8" r="2"/><path d="m10.5 9.8-6 11.2M13.5 9.8l6 11.2M6 17h12"/>',
+  "automatizacion-y-robotica": '<rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16h.01M16 16h.01"/>',
+  "programadores": '<path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/>'
+};
 const areaIcon = (slug) => `<svg class="area-ico" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${AREA_ICON[slug] || AREA_ICON.produccion}</svg>`;
 
 let AREA_NAMES = {};
-
-/* Ilustración de cubos de hielo para la cabecera de una página
-   (assets/img/escena-*.webp, generadas con `npm run images`). Decorativa: alt vacío. */
-const escena = (nombre) => existsSync(`assets/img/escena-${nombre}-1600.webp`)
-  ? { name: `escena-${nombre}`, widths: [640, 960, 1600], alt: "", cls: "escena" }
-  : null;
 
 /* Formulario «Envíanos tu CV». Con destino configurado (formularios.candidaturas)
    se adjunta el CV; sin él, se prepara un correo y se pide adjuntarlo. */
@@ -330,7 +331,7 @@ ${phero(root, {
   kicker: hub ? s.nombre : "Servicio",
   title: hub ? "Selección de perfiles técnicos e industriales" : s.nombre,
   sub: s.intro,
-  foto: (s.cabecera && escena(s.cabecera)) || s.foto,
+  foto: s.foto,
   crumbs: crumb({ name: s.nombre, path: s.path }),
   actions: `<div class="acts"><a class="btn btn-primary" href="${root}contacto/">Cuéntanos tu caso ${icon.arrow}</a></div>`
 })}
@@ -402,7 +403,6 @@ ${phero(root, {
   kicker: "Selección de perfiles técnicos",
   title: esc(a.titulo),
   sub: intro,
-  foto: escena(a.slug),
   crumbs,
   actions: `<div class="acts"><a class="btn btn-primary" href="${root}contacto/">Busco este perfil ${icon.arrow}</a><a class="btn btn-out" href="${root}ofertas-de-trabajo/${suyas.length ? `?familia=${a.slug}` : ""}">Busco empleo</a></div>`
 })}
@@ -489,7 +489,6 @@ ${phero(root, {
   kicker: "Para candidatos",
   title: "Ofertas de trabajo",
   sub: "Estas son las posiciones que tenemos abiertas ahora mismo.",
-  foto: escena("ofertas"),
   crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }),
   actions: `<div class="acts"><a class="btn btn-primary" href="#envia-tu-cv">Envíanos tu CV ${icon.arrow}</a></div>`
 })}
@@ -567,7 +566,6 @@ ${phero(root, {
   kicker: "Oferta de trabajo",
   title: esc(o.titulo),
   sub: `${icon.pin} ${esc(o.ubicacion)}`,
-  foto: escena(o.area) || escena("ofertas"),
   crumbs: crumb({ name: "Ofertas de trabajo", path: "ofertas-de-trabajo/" }, { name: o.titulo, path: p }),
   actions: `<div class="acts"><a class="btn btn-primary" href="#candidatura">Envíanos tu CV ${icon.arrow}</a></div>`
 })}
@@ -652,7 +650,7 @@ ${phero(root, { kicker: "Blog", title: esc(a.titulo), crumbs: crumb({ name: "Blo
     crumbs: crumb({ name: "Contacto", path: "contacto/" }),
     jsonld: [{ "@type": "ContactPage", url: `${url}/contacto/`, about: org }],
     body: (root) => `
-${phero(root, { kicker: "Contacto", title: "Hablemos", sub: "Cuéntanos qué necesitas. Si buscas empleo, revisa antes nuestras ofertas abiertas.", foto: escena("contacto"), crumbs: crumb({ name: "Contacto", path: "contacto/" }) })}
+${phero(root, { kicker: "Contacto", title: "Hablemos", sub: "Cuéntanos qué necesitas. Si buscas empleo, revisa antes nuestras ofertas abiertas.", crumbs: crumb({ name: "Contacto", path: "contacto/" }) })}
 <section class="sec">
   <div class="wrap contact-grid">
     <aside class="cinfo">

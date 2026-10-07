@@ -15,14 +15,31 @@
 import {
   Scene, PerspectiveCamera, Group, Mesh, PlaneGeometry,
   MeshPhysicalMaterial, MeshStandardMaterial, MeshBasicMaterial,
-  DirectionalLight, PointLight, Fog,
+  CanvasTexture, SRGBColorSpace, DirectionalLight, PointLight, Fog,
   Color, Vector3, Quaternion, Euler
 } from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { smooth, rng, makeRenderer, studioEnvironment, makeSky, personTexture } from "./common.js";
+import { smooth, rng, makeRenderer, studioEnvironment, makeSky } from "./common.js";
 
 const FLOOR_Y = -1.6;
 const SIZE = 0.9;
+
+/* Figura de persona grabada (como en los bloques de la foto del cliente) */
+function personTexture(color) {
+  const c = document.createElement("canvas");
+  c.width = c.height = 256;
+  const ctx = c.getContext("2d");
+  ctx.strokeStyle = color; ctx.fillStyle = color;
+  ctx.lineWidth = 9; ctx.lineCap = "round"; ctx.lineJoin = "round";
+  ctx.beginPath(); ctx.arc(128, 70, 34, 0, Math.PI * 2); ctx.stroke();            // cabeza
+  ctx.beginPath(); ctx.moveTo(70, 196); ctx.lineTo(70, 140); ctx.quadraticCurveTo(70, 118, 96, 116); ctx.stroke();   // hombro izq.
+  ctx.beginPath(); ctx.moveTo(186, 196); ctx.lineTo(186, 140); ctx.quadraticCurveTo(186, 118, 160, 116); ctx.stroke(); // hombro der.
+  ctx.beginPath(); ctx.moveTo(116, 122); ctx.lineTo(140, 122); ctx.lineTo(136, 136); ctx.lineTo(146, 190); ctx.lineTo(128, 206); ctx.lineTo(110, 190); ctx.lineTo(120, 136); ctx.closePath(); ctx.fill(); // corbata
+  ctx.beginPath(); ctx.moveTo(84, 226); ctx.lineTo(172, 226); ctx.stroke();      // base
+  const t = new CanvasTexture(c);
+  t.colorSpace = SRGBColorSpace;
+  return t;
+}
 
 export function create(canvas, opts = {}) {
   const N = opts.count || 27;

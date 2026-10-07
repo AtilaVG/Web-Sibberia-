@@ -10,5 +10,4 @@
 ## Web
 
 - Sitio estático generado: edita `site/` y `data/`, después `npm run build`. No edites a mano los HTML generados.
-- Ilustraciones de cubos (`assets/img/escena-*`): se generan con `npm run images` desde `scripts/render/escenas.js` (ver `docs/imagenes.md`).
 - Contenido: solo datos verificados en sibberia.com o facilitados por el cliente. Lo redactado para la web va en `docs/textos-para-validar.md`.

@@ -80,7 +80,7 @@
   });
 
   var s = document.createElement("script");
-  s.src = "assets/js/hero3d.js?v=6";
+  s.src = "assets/js/hero3d.js?v=5";
   s.async = true;
   s.onload = function () {
     try {
